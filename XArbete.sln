@@ -7,15 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XArbete.Web", "XArbete.Web\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XArbete.Test", "XArbete.Test\XArbete.Test.csproj", "{0EE68A65-5863-4B16-9467-CC586A47F6CC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XArbete.Domain", "XArbete.Domain\XArbete.Domain.csproj", "{EC0D4B6C-BB72-455F-9488-051D966EC8CB}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XArbete.Models", "XArbete.Models\XArbete.Models.csproj", "{4DF87214-EB0B-421B-B797-4291130C5EF1}"
-	ProjectSection(ProjectDependencies) = postProject
-		{D1C84A78-E6F8-4B6B-938C-EB36806F55A5} = {D1C84A78-E6F8-4B6B-938C-EB36806F55A5}
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XArbete.Data", "XArbete.Data\XArbete.Data.csproj", "{F646EF0A-BF6C-4F12-89A5-3090B66D425D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,18 +21,6 @@ Global
 		{0EE68A65-5863-4B16-9467-CC586A47F6CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EE68A65-5863-4B16-9467-CC586A47F6CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EE68A65-5863-4B16-9467-CC586A47F6CC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC0D4B6C-BB72-455F-9488-051D966EC8CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC0D4B6C-BB72-455F-9488-051D966EC8CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC0D4B6C-BB72-455F-9488-051D966EC8CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC0D4B6C-BB72-455F-9488-051D966EC8CB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4DF87214-EB0B-421B-B797-4291130C5EF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4DF87214-EB0B-421B-B797-4291130C5EF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4DF87214-EB0B-421B-B797-4291130C5EF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4DF87214-EB0B-421B-B797-4291130C5EF1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F646EF0A-BF6C-4F12-89A5-3090B66D425D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F646EF0A-BF6C-4F12-89A5-3090B66D425D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F646EF0A-BF6C-4F12-89A5-3090B66D425D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F646EF0A-BF6C-4F12-89A5-3090B66D425D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
