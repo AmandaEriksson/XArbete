@@ -8,109 +8,123 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Business Frontpage - Start Bootstrap Template</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
-    <!-- Bootstrap core CSS -->
-    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="~/bootstrap-datetimepicker-master/build/js/bootstrap-datetimepicker.min.js"></script>
+    <link href="~/bootstrap-datetimepicker-master/build/css/bootstrap-datetimepicker-standalone.css" rel="stylesheet" />
 
-    <!-- Custom styles for this template -->
-    <link href="~/css/business-frontpage.css" rel="stylesheet">
+    <link href="~/bootstrap-datetimepicker-master/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+
+
+
 
 </head>
 
 <body>
+    <div id="belowbody">
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="background-image:url(/img/footer.jpg); background-size:contain; background-repeat:repeat">
+            <div class="container">
+                <img src="~/img/love-the-dog-paw-print-window-decoration.jpg" style="width:80px;height:80px;" />
+                <a class="navbar-brand" href="#">My Funny Friends</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">
+                                Hem
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" href="#" aria-expanded="false">Kennel</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-controller="Kennel" asp-action="AboutDogs">Om raserna</a>
+                                <a class="dropdown-item" asp-controller="Kennel" asp-action="OurDogs">Våra hundar</a>
+                                <a class="dropdown-item" asp-controller="Kennel" asp-action="EarlierPuppies">Tidigare valpkullar</a>
+                                <a class="dropdown-item" asp-controller="Kennel" asp-action="PlannedPuppies">Planerade valpkullar</a>
+                                <a class="dropdown-item" asp-controller="Kennel" asp-action="BuyPuppy">Att köpa valp</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Hundpensionat</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-controller="DogHotel" asp-action="Index">Om pensionatet</a>
+                                <a class="dropdown-item" asp-controller="DogHotel" asp-action="PriceInfo">Priser och villkor</a>
+                                <a class="dropdown-item" asp-controller="DogHotel" asp-action="Book">Boka</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Träningshall</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-controller="TrainingHall" asp-action="Index">Om hallen</a>
+                                <a class="dropdown-item" asp-controller="TrainingHall" asp-action="PriceInfo">Priser och trivselregler</a>
+                                <a class="dropdown-item" asp-controller="TrainingHall" asp-action="Book">Boka</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Om oss</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-controller="About" asp-action="Index">My funny friends</a>
+                                <a class="dropdown-item" asp-controller="About" asp-action="FindUs">Hitta hit</a>
+                                <a class="dropdown-item" asp-controller="About" asp-action="Contact">Kontakt</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="GuestBook" asp-action="Index">Gästbok</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Customer" asp-action="Index">Mina sidor</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-controller="Admin" asp-action="ManageCustomers">Kunder</a>
+                                <a class="dropdown-item" asp-controller="Admin" asp-action="ManageBookings">Bokningar</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">My Funny Friends</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Home" asp-action="Index">
-                            Hem
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" href="#" aria-expanded="false">Kennel</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" asp-controller="Kennel" asp-action="AboutDogs">Om raserna</a>
-                            <a class="dropdown-item" asp-controller="Kennel" asp-action="OurDogs">Våra hundar</a>
-                            <a class="dropdown-item" asp-controller="Kennel" asp-action="EarlierPuppies">Tidigare valpkullar</a>
-                            <a class="dropdown-item" asp-controller="Kennel" asp-action="PlannedPuppies">Planerade valpkullar</a>
-                            <a class="dropdown-item" asp-controller="Kennel" asp-action="BuyPuppy">Att köpa valp</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Hundpensionat</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" asp-controller="DogHotel" asp-action="Index">Om pensionatet</a>
-                            <a class="dropdown-item" asp-controller="DogHotel" asp-action="PriceInfo">Priser och villkor</a>
-                            <a class="dropdown-item" asp-controller="DogHotel" asp-action="Book">Boka</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Träningshall</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" asp-controller="TrainingHall" asp-action="Index">Om hallen</a>
-                            <a class="dropdown-item" asp-controller="TrainingHall" asp-action="PriceInfo">Priser och trivselregler</a>
-                            <a class="dropdown-item" asp-controller="TrainingHall" asp-action="Book">Boka</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Om oss</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" asp-controller="About" asp-action="Index">My funny friends</a>
-                            <a class="dropdown-item" asp-controller="About" asp-action="FindUs">Hitta hit</a>
-                            <a class="dropdown-item" asp-controller="About" asp-action="Contact">Kontakt</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="GuestBook" asp-action="Index">Gästbok</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Customer" asp-action="Index">Mina sidor</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" asp-controller="Admin" asp-action="ManageCustomers">Kunder</a>
-                            <a class="dropdown-item" asp-controller="Admin" asp-action="ManageBookings">Bokningar</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
+                            <a href="#" data-toggle="modal" data-target="#login" class="list-group-item">Login</a>
 
-                        <a href="#" data-toggle="modal" data-target="#login" class="list-group-item">Login</a>
-
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+
+        @RenderBody()
+
+        @*<div class="row">
+                <div class="col-12">
+                    <img src="~/img/foot.png" />
+                    <img src="~/img/foot.png" />
+                    <img src="~/img/foot.png" />
+                </div>
+            </div>*@
+        <!-- Footer -->
+        <footer class="py-5 bg-dark">
+            <div class="container">
+                <p class="m-0 text-center text-white">Copyright &copy; My Funny Friends</p>
+            </div>
+            <!-- /.container -->
+        </footer>
 
 
-    @RenderBody()
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
-        </div>
-        <!-- /.container -->
-    </footer>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="~/vendor/jquery/jquery.min.js"></script>
-    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+    </div>
 </body>
+
 
 </html>
 
 
-!-- Modal -->
+<!-- Bootstrap core JavaScript -->
+@* Modal *@
 <div id="login" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -119,7 +133,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Login</h4>
             </div>
-            <form >
+            <form>
                 <div class="modal-body">
                     <input class="input-group-text" placeholder="Email" name="email" />
                     <input class="input-group-text" placeholder="Password" name="password" />
@@ -127,7 +141,7 @@
                     <input asp-controller="Customer" asp-action="Register" type="submit" class="btn-info" value="Register" />
 
                 </div>
-               
+
             </form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -135,3 +149,5 @@
         </div>
     </div>
 </div>
+
+

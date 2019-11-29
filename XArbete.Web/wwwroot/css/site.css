@@ -1,10 +1,25 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+/*body {
+   
+}
+#belowbody {
+    background-image: url("../img/paaw.jpg");
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center right;
+    overflow: hidden;
+}*/
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+}
+
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */

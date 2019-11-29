@@ -23,5 +23,10 @@ namespace XArbete.Web.Controllers
         {
             return View();
         }
+
+        public IActionResult NewBooking(string dog, DateTime fromdate)
+        {
+            return View();
+        }
     }
 }

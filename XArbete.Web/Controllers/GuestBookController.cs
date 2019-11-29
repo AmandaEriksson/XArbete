@@ -16,13 +16,15 @@ namespace XArbete.Web.Controllers
         {
             var viewmodel = new GuestBookViewModel()
             {
+                Comments = Repository.GuestBookComments
                 // hämta kommentarer från databasen
             };
             return View(viewmodel);
         }
         public IActionResult NewComment(GuestBookViewModel model)
         {
-            model.Comment.CreatedAt = new DateTime();
+            model.Comment.CreatedAt = DateTime.Now;
+            Repository.GuestBookComments.Add(model.Comment);
             // save comment
             return RedirectToAction("Index");
         }

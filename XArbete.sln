@@ -3,15 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XArbete.Web", "XArbete.Web\XArbete.Web.csproj", "{D1C84A78-E6F8-4B6B-938C-EB36806F55A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XArbete.Web", "XArbete.Web\XArbete.Web.csproj", "{D1C84A78-E6F8-4B6B-938C-EB36806F55A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XArbete.Test", "XArbete.Test\XArbete.Test.csproj", "{0EE68A65-5863-4B16-9467-CC586A47F6CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XArbete.Test", "XArbete.Test\XArbete.Test.csproj", "{0EE68A65-5863-4B16-9467-CC586A47F6CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XArbete.Domain", "XArbete.Domain\XArbete.Domain.csproj", "{EC0D4B6C-BB72-455F-9488-051D966EC8CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XArbete.Domain", "XArbete.Domain\XArbete.Domain.csproj", "{EC0D4B6C-BB72-455F-9488-051D966EC8CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XArbete.Models", "XArbete.Models\XArbete.Models.csproj", "{4DF87214-EB0B-421B-B797-4291130C5EF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XArbete.Models", "XArbete.Models\XArbete.Models.csproj", "{4DF87214-EB0B-421B-B797-4291130C5EF1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D1C84A78-E6F8-4B6B-938C-EB36806F55A5} = {D1C84A78-E6F8-4B6B-938C-EB36806F55A5}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XArbete.Data", "XArbete.Data\XArbete.Data.csproj", "{F646EF0A-BF6C-4F12-89A5-3090B66D425D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XArbete.Data", "XArbete.Data\XArbete.Data.csproj", "{F646EF0A-BF6C-4F12-89A5-3090B66D425D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
