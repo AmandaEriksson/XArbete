@@ -98,8 +98,8 @@ namespace XArbete.Web
                     ID = 1,
                     CustomerID = 1,
                     DogID = 1,
-                    From = new DateTime(2019,11,29,09,00,00),
-                    To = new DateTime(2019,11,30,09,00,00),
+                    From = new DateTime(2019,11,29,09,00,00).ToString(),
+                    To = new DateTime(2019,11,30,09,00,00).ToString(),
                     CanLiveWithOtherDogs = true,
                     CustomerMessage = "Min hund vill ha mat kl 15,19"
                 },
@@ -108,8 +108,8 @@ namespace XArbete.Web
                     ID = 2,
                     CustomerID = 2,
                     DogID = 2,
-                    From = new DateTime(2019,11,30,09,00,00),
-                    To = new DateTime(2019,12,01,09,00,00),
+                    From = new DateTime(2019,11,30,09,00,00).ToString(),
+                    To = new DateTime(2019,12,01,09,00,00).ToString(),
                     CanLiveWithOtherDogs = false,
                     CustomerMessage = "Min hund tycker om att leka och söka"
                 }

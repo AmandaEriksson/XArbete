@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Dog Hotel Booking";
 }
-
+@model XArbete.Web.Models.HotelBooking
 <br />
 <br />
 
@@ -32,33 +32,53 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <form>
+            <form asp-controller="DogHotel" asp-action="NewBooking" method="post">
 
                 <div class="modal-body">
                     <h4 class="modal-title">Boka pensionat</h4>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Välj hund</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
+                        <select asp-for="@Model.DogID" class="form-control" id="exampleFormControlSelect1">
                             @foreach (var dog in Repository.Dogs.Where(a => a.CustomerID == 1))
                             {
-                                <option name="dog">@dog.Name</option>
+                                <option value="@dog.ID">@dog.Name</option>
                             }
                         </select>
                     </div>
 
-                    <input id="datetime" type="text">
-
                     <script>
-                        $("#datetime").datetimepicker({
-                            format: 'YYYY-MM-DD HH:mm'
+                        function initialiseTimePicker(pickerId) {
+                            $(pickerId).datetimepicker({
+                                format: 'YYYY/MM/DD HH:mm',
+                                sideBySide: true,
+                                inline: true,
+                                minDate: new Date()
+
+                            })
+                        };
+
+                        $(function () {
+                            initialiseTimePicker("#start_time_1");
+                            initialiseTimePicker("#start_time_2");
+
                         });
                     </script>
 
+                    <label for="start_time_1">Jag vill lämna</label><br />
+                    <input id="start_time_1" asp-for="@Model.From" />
+                    <input type="hidden" id="start_time_1_sync" />
+                    <br />
+
+                    <label for="start_time_2">Jag vill hämta</label><br />
+                    <input id="start_time_2" asp-for="@Model.To" />
+                    <input type="hidden" id="start_time_2_sync" />
                     <input type="submit" class="btn-info" value="Boka" />
 
                 </div>
-
             </form>
+
+
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
@@ -68,3 +88,17 @@
 
 
 
+<script type="text/javascript">
+    $(function () {
+        $('#start_time_1').datetimepicker();
+        $('#start_time_2').datetimepicker({
+            useCurrent: false //Important! See issue #1075
+        });
+        $("#start_time_1").on("dp.change", function (e) {
+            $('#start_time_2').data("DateTimePicker").minDate(e.date);
+        });
+        $("#start_time_2").on("dp.change", function (e) {
+            $('#start_time_1').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+</script>
