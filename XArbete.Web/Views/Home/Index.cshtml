@@ -14,10 +14,13 @@
             <hr>
             <p>Vi är ett företag som bedriver kennel och uppfödning av Bichon Havanais och norsk gråhund. </p>
             <p>Vi har även ett hundpensionat i hemmamiljö samt en stor träningshall att boka för eget bruk eller gruppträning.</p>
-            <a class="btn btn-primary btn-lg" href="#">Call to Action &raquo;</a>
+
+            <a class="btn btn-primary btn-sm" asp-controller="DogHotel" asp-action="Book">Boka pensionat &raquo;</a>
+            <a class="btn btn-primary btn-sm" asp-controller="TrainingHall" asp-action="Book">Boka hallen &raquo;</a>
+
         </div>
         <div class="col-md-4 mb-5">
-            <h2>Contact Us</h2>
+            <h2>Kontakta oss</h2>
             <hr>
             <address>
                 <strong>My Funny Friends</strong>
@@ -39,13 +42,13 @@
     <div class="row">
         <div class="col-md-4 mb-5">
             <div class="card h-100">
-                <img class="card-img-top" src="~/img/vaplar.jpg" alt="bild på valpar">
+                <img class="card-img-top" src="~/img/vaplar.jpg" alt="bild på valpar" style="max-height:232px;">
                 <div class="card-body">
                     <h4 class="card-title">Kenneln</h4>
                     <p class="card-text">Vi föder upp Bichon Havanais och gråhund. Vi har en kull om året för respektive. Hör av dig för information om kölista.</p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Till kenneln</a>
+                    <a asp-controller="Kennel" asp-action="Index" class="btn btn-primary">Till kenneln</a>
                 </div>
             </div>
         </div>
@@ -57,7 +60,7 @@
                     <p class="card-text">Vi bedriver ett hundpensionat i hemmamiljö. Här bor hundarna tillsammans eller enskilda i en inomhusbyggnad i olika rum med uteplatser. </p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Till hundpensionatet</a>
+                    <a asp-controller="DogHotel" asp-action="Index" class="btn btn-primary">Till hundpensionatet</a>
                 </div>
             </div>
         </div>
@@ -69,7 +72,7 @@
                     <p class="card-text">Vi har en stor träningshall på gården att boka för enskilda eller gruppträningar. Kolla under Boka fliken för att se kalendern</p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Till träningshallen</a>
+                    <a asp-controller="TrainingHall" asp-action="Index" class="btn btn-primary">Till träningshallen</a>
                 </div>
             </div>
         </div>

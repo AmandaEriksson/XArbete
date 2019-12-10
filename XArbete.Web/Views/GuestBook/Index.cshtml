@@ -11,46 +11,64 @@
         <div class="col-md-8 mb-5">
             <h2>Gästbok</h2>
             <hr>
-            <p> Här kan du skriva en kommentar i våran gästbok </p>
+            <p> Här kan du läsa och skriva en kommentar i våran gästbok </p>
+            <hr />
+            <a href="#newComment" data-toggle="modal" class="list-group-item">Lägg till kommentar</a>
+
         </div>
-        <div class="col-md-4 mb-5"></div>
+        <div class="col-md-4 mb-5">
         </div>
     </div>
-        <!-- Page Content -->
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 mb-5">
-                    <form asp-controller="GuestBook" asp-action="NewComment">
-                        <div class="form-group">
-                            <label for="formGroupExampleInput">Namn</label>
-                            <input type="text" class="form-control" asp-for="@Model.Comment.WrittenBy" id="formGroupExampleInput" placeholder="Skriv ditt namn...">
-                        </div>
-                        <div class="form-group">
-                            <label for="formGroupExampleInput2">Kommentar</label>
-                            <input type="text" class="form-control" asp-for="@Model.Comment.Comment" id="formGroupExampleInput2" placeholder="Skriv din kommentar...">
-                        </div>
-                        <input type="submit" value="Skicka" />
-                    </form>
-                </div>
-                <div class="col-md-4 mb-5"></div>
-            </div>
-            <div class="row">
-                <div class="col-md-8 mb-5">
-                    <ul class="list-group list-group-flush">
-                        @foreach (var comment in @Model.Comments.OrderByDescending(a => a.CreatedAt))
-                        {
-                            <li class="list-group-item">
-                                @comment.WrittenBy: <br />
-                                @comment.Comment<br />
-                                <small>@comment.CreatedAt.ToString()</small>
-                            </li>
+</div>
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mb-5">
+            <ul class="list-group list-group-flush">
+                @foreach (var comment in @Model.Comments.OrderByDescending(a => a.CreatedAt))
+                {
+                    <li class="list-group-item">
+                        @comment.WrittenBy: <br />
+                        @comment.Comment<br />
+                        <small>@comment.CreatedAt.ToString()</small>
+                    </li>
 
-                        }
-                    </ul>
-                    <!-- /.row -->
-                </div>
-                <div class="col-md-4 mb-5"></div>
-
-            </div>
+                }
+            </ul>
+            <!-- /.row -->
         </div>
-        <!-- /.container -->
+        <div class="col-md-4 mb-5"></div>
+
+    </div>
+</div>
+<!-- /.container -->
+
+@* NEW COMMENT MODAL *@
+
+<div id="newComment" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Skriv en kommentar</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form asp-controller="GuestBook" asp-action="NewComment" method="post">
+                <div class="modal-body">
+                        <div class="form-group">
+                            <label for="commentName">Namn</label>
+                            <input type="text" class="form-control" asp-for="@Model.Comment.WrittenBy" id="commentName" >
+                        </div>
+                        <div class="form-group">
+                            <label for="commentText">Kommentar</label>
+                            <textarea cols="5" class="form-control" asp-for="@Model.Comment.Comment" id="commentText" ></textarea>
+                        </div>
+                </div>
+
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-success" value="Spara">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

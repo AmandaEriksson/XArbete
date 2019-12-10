@@ -1,26 +1,10 @@
 ﻿@{
     ViewData["Title"] = "Dog Hall Page";
 }
-@model XArbete.Web.Models.TrainingHallBooking
-
-<br />
-<section class="pt-5 pb-5 bg-secondary inner-header" style="background-image: url(/img/REACH-Header-Blue-Background.jpg)">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <br />
-                <h1 class="mt-0 mb-3 text-white">My Funny Friends träningshall</h1>
-                <p class="lead mb-5 text-white-50">Boka </p>
-
-            </div>
-        </div>
-    </div>
-</section>
-<br />
-
+@model string
 <!-- Page Conte
 <!-- Page Content -->
-<div class="container">
+<div class="container" style="margin-top:100px">
 
     <div class="row">
         <div class="col-md-12 mb-5">
@@ -34,6 +18,77 @@
 
     </div>
     <!-- /.row -->
+    <div id='calendar'></div>
 
 </div>
 <!-- /.container -->
+<link href='~/fullcalendar-4.3.1/packages/core/main.css' rel='stylesheet' />
+<link href='~/fullcalendar-4.3.1/packages/daygrid/main.css' rel='stylesheet' />
+<link href="~/fullcalendar-4.3.1/packages/timegrid/main.css" rel="stylesheet" />
+<link href="~/fullcalendar-4.3.1/packages/bootstrap/main.css" rel="stylesheet" />
+
+<script src='~/fullcalendar-4.3.1/packages/core/main.js'></script>
+<script src='~/fullcalendar-4.3.1/packages/daygrid/main.js'></script>
+<script src="~/fullcalendar-4.3.1/packages/bootstrap/main.js"></script>
+
+<script src='~/fullcalendar-4.3.1/packages/interaction/main.js'></script>
+<script src="~/fullcalendar-4.3.1/packages/timegrid/main.js"></script>
+<script src="~/fullcalendar-4.3.1/packages/list/main.js"></script>
+<link href="~/fullcalendar-4.3.1/packages/list/main.css" rel="stylesheet" />
+<script src="~/fullcalendar-4.3.1/packages/core/locales/sv.js"></script>
+
+
+<script>
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            plugins: ['timeGrid', 'interaction', 'bootstrap'],
+              themeSystem: 'bootstrap',
+            defaultView: 'timeGridWeek',
+            selectable: true,
+            selectMirror: true,
+            minTime: "06:00:00",
+            maxTime: "22:00:00",
+            events: '@Url.Action("GetEvents", "TrainingHall")',
+            eventTimeFormat: {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+
+            },
+            slotLabelFormat: { hour: 'numeric', minute: '2-digit', hour12: false },
+            slotMinutes: 60,
+            slotDuration:'01:00:00',
+            firstDay: 1,
+            locale: 'sv',
+            selectOverlap: false,
+            height: 'auto',
+            contentHeight:1000,
+            weekNumbers: true,
+            select: function (selectionInfo) {
+                if (!confirm("Vill du spara denna bokning?")) {
+                    calendar.unselect();
+                    return;
+    }
+                var start = selectionInfo.startStr;
+                var end = selectionInfo.endStr;
+                var allday = selectionInfo.allDay;
+                var y = selectionInfo.start;
+                window.location.href ="NewBooking?start=" + start + "&end=" + end + "&allday=" + allday + "&y=" + y;
+
+
+            }
+        });
+
+                calendar.render();
+
+    });
+
+
+</script>
+
+

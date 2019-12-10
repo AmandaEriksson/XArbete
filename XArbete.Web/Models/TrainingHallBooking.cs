@@ -9,6 +9,8 @@ namespace XArbete.Web.Models
         public int ID { get; set; }
 
         public int CustomerID { get; set; }
+        public Customer Customer { get; set; }
+
 
         public DateTime StartTime { get; set; }
 
@@ -16,6 +18,6 @@ namespace XArbete.Web.Models
 
         public bool Payed { get; set; }
 
-
+        public double Price { get; set; }
     }
 }

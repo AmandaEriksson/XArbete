@@ -7,11 +7,13 @@ namespace XArbete.Web.Models
 {
     public class Customer
     {
-        public int CustomerID { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
 
         public string Number { get; set; }
+
+        public ICollection<Dog> Dogs { get; set; }
 
     }
 }
