@@ -1,38 +1,54 @@
-﻿@await Component.InvokeAsync("NToastNotify")
+﻿@model XArbete.Web.User.ViewModels.BaseViewModel
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<XArbete.Domain.Models.ApplicationUser> SignInManager
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <!DOCTYPE html>
-
-<html lang="en">
+<html lang="sv-se">
 
 <head>
+    @await Component.InvokeAsync("NToastNotify")
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <title>My Funny Friends</title>
+    @* <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">*@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/datetimepicker/jquery.datetimepicker.full.js"></script>
+    <script src="~/js/site.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="~/datetimepicker/jquery.datetimepicker.min.css" />
 
     <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
     <link href="~/css/modal-styles.css" rel="stylesheet" />
+    @*//toggle checkboxes*@
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
+
+    @* footer *@
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/css/mdb.min.css" rel="stylesheet">
 </head>
 
 <body>
     <div id="belowbody">
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="background-image:url(/img/footer.jpg); background-size:contain; background-repeat:repeat">
-            
+
             <div class="container">
-                <img src="~/img/love-the-dog-paw-print-window-decoration.jpg" style="width:80px;height:80px;" />
+                <img src="~/img/love-the-dog-paw-print-window-decoration.jpg" style="width:80px;height:80px;" alt="paw-print" />
                 <a class="navbar-brand" href="#">My Funny Friends</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -49,6 +65,7 @@
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" asp-controller="Kennel" asp-action="AboutDogs">Om raserna</a>
                                 <a class="dropdown-item" asp-controller="Kennel" asp-action="OurDogs">Våra hundar</a>
+                                <a class="dropdown-item" asp-controller="Kennel" asp-action="ActivePuppies">Aktiva valpkullar</a>
                                 <a class="dropdown-item" asp-controller="Kennel" asp-action="EarlierPuppies">Tidigare valpkullar</a>
                                 <a class="dropdown-item" asp-controller="Kennel" asp-action="PlannedPuppies">Planerade valpkullar</a>
                                 <a class="dropdown-item" asp-controller="Kennel" asp-action="BuyPuppy">Att köpa valp</a>
@@ -81,21 +98,39 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="GuestBook" asp-action="Index">Gästbok</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Customer" asp-action="Index">Mina sidor</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="Admin" asp-action="ManageCustomers">Kunder</a>
-                                <a class="dropdown-item" asp-controller="Admin" asp-action="ManageBookings">Bokningar</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
+                        @if (User.IsInRole("Customer"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Customer" asp-action="Index">Mina sidor</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="AdminCustomers" asp-action="ManageCustomers">Användare</a>
+                                    <a class="dropdown-item" asp-controller="AdminBookings" asp-action="ManageBookings">Bokningar</a>
+                                    <a class="dropdown-item" asp-controller="AdminKennel" asp-action="ManageKennel">Kennel</a>
+                                    <a class="dropdown-item" asp-controller="Admin" asp-action="Edit">Ändra lösenord</a>
 
-                            <a href="#" data-toggle="modal" data-target="#login" class="list-group-item">Login</a>
 
-                        </li>
+                                </div>
+                            </li>
+                        }
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item" style="float:right">
+                                <a asp-controller="User" asp-action="LogOut" class="nav-link">Logga ut</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item" style="float:right">
+                                <a href="#" data-toggle="modal" data-target="#login" class="nav-link">Logga in</a>
+                                <a href="#" data-toggle="modal" data-target="#register" class="nav-link">Registrera</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -103,50 +138,218 @@
 
         @RenderBody()
 
-        @*<div class="row">
-                <div class="col-12">
-                    <img src="~/img/foot.png" />
-                    <img src="~/img/foot.png" />
-                    <img src="~/img/foot.png" />
-                </div>
-            </div>*@
+
         <!-- Footer -->
-        <footer class="py-5 bg-dark">
-            <div class="container">
-                <p class="m-0 text-center text-white">Copyright &copy; My Funny Friends</p>
+        <footer class="page-footer font-small mdb-color lighten-3 pt-4">
+
+            <!-- Footer Links -->
+            <div class="container text-center text-md-left">
+
+                <!-- Grid row -->
+                <div class="row">
+
+                    <!-- Grid column -->
+                    <div class="col-md-4 col-lg-3 mr-auto my-md-4 my-0 mt-4 mb-1">
+
+                        <!-- Content -->
+                        <h5 class="font-weight-bold text-uppercase mb-4">My Funny Friends</h5>
+
+                        <ul class="list-unstyled">
+                            <li>
+                                <p>
+                                    <a href="#!">Kenneln</a>
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    <a href="#!">Hundpensionat</a>
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    <a href="#!">Träningshall</a>
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    <a href="#!">Hitta hit</a>
+                                </p>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <!-- Grid column -->
+
+                    <hr class="clearfix w-100 d-md-none">
+
+                    <!-- Grid column -->
+                    <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
+
+
+
+                    </div>
+                    <!-- Grid column -->
+
+                    <hr class="clearfix w-100 d-md-none">
+
+                    <!-- Grid column -->
+                    <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
+
+                        <!-- Contact details -->
+                        <h5 class="font-weight-bold text-uppercase mb-4">Kontakt</h5>
+
+                        <ul class="list-unstyled">
+                            <li>
+                                <p>
+                                    <i class="fas fa-home mr-3"></i> Haga 2, 72465 Söderbärke
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    <i class="fas fa-envelope mr-3"></i> myfunnyfriends@info.com
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    <i class="fas fa-phone mr-3"></i> 076-322 26 01
+                                </p>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <!-- Grid column -->
+
+                    <hr class="clearfix w-100 d-md-none">
+
+                    <!-- Grid column -->
+                    <div class="col-md-2 col-lg-2 text-center mx-auto my-4">
+
+                        <!-- Social buttons -->
+                        <h5 class="font-weight-bold text-uppercase mb-4">Följ oss</h5>
+
+                        <!-- Facebook -->
+                        <a href="#" class="btn-floating btn-fb">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <!-- Twitter -->
+                        <a href="#" class="btn-floating btn-tw">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <!-- Google +-->
+                        <a href="#" class="btn-floating btn-gplus">
+                            <i class="fab fa-google-plus-g"></i>
+                        </a>
+                        <!-- Dribbble -->
+                        <a href="#" class="btn-floating btn-dribbble">
+                            <i class="fab fa-dribbble"></i>
+                        </a>
+
+                    </div>
+                    <!-- Grid column -->
+
+                </div>
+                <!-- Grid row -->
+
             </div>
-            <!-- /.container -->
+            <!-- Footer Links -->
+            <!-- Copyright -->
+            @*<div class="footer-copyright text-center py-3">
+                    © 2020 Copyright:
+                    <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>
+                </div*@>
+            <!-- Copyright -->
+
         </footer>
-
-
+        <!-- Footer -->
     </div>
-</body>
 
 
-</html>
 
 
-<!-- LOGIN MODAL-->
+    <!-- LOGIN MODAL-->
 
-<div id="login" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Logga in</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <div id="login" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Logga in</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <form asp-controller="User" asp-action="Login" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+
+                            <label asp-for="LoginViewModel.Email"></label>
+                            <input class="form-control" asp-for="LoginViewModel.Email" required />
+                        </div>
+                        <div class="form-group">
+
+                            <label asp-for="LoginViewModel.Password"></label>
+                            <input class="form-control" asp-for="LoginViewModel.Password" />
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" asp-controller="User" asp-action="ForgotPassword" class="btn btn-link">Glömt lösenord</button>
+
+                        <input type="submit" class="btn btn-info" value="Logga in" />
+                    </div>
+                </form>
             </div>
-            <form asp-controller="Customer" asp-action="Login">
-                <div class="modal-body">
-                    <input class="input-group-text" placeholder="Email" name="email" />
-                    <input class="input-group-text" placeholder="Password" name="password" />
-                </div>
-
-                <div class="modal-footer">
-                    <input type="submit" class="btn btn-info" value="Logga in" />
-                </div>
-            </form>
         </div>
     </div>
-</div>
 
 
+    <!-- REGISTER MODAL-->
+
+
+    <div id="register" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form asp-action="Register" asp-controller="User" method="post">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Registrera dig</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label asp-for="RegisterViewModel.Email"></label>
+                                    <input asp-for="RegisterViewModel.Email" class="form-control" />
+                                    <span asp-validation-for="RegisterViewModel.Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="RegisterViewModel.Name"></label>
+                                    <input asp-for="RegisterViewModel.Name" class="form-control" />
+                                    <span asp-validation-for="RegisterViewModel.Name" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="RegisterViewModel.Password"></label>
+                                    <input asp-for="RegisterViewModel.Password" class="form-control" />
+                                    <span asp-validation-for="RegisterViewModel.Password" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="RegisterViewModel.ConfirmPassword"></label>
+                                    <input asp-for="RegisterViewModel.ConfirmPassword" class="form-control" />
+                                    <span asp-validation-for="RegisterViewModel.ConfirmPassword" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        @section Scripts {
+                            @await Html.PartialAsync("_ValidationScriptsPartial")
+                        }
+                    </div>
+
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-info" value="Registrera" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

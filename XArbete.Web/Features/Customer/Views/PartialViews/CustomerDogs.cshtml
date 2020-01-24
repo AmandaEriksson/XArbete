@@ -1,0 +1,33 @@
+﻿@model List<XArbete.Web.Customer.ViewModels.CustomerDogViewModel>
+
+<table class="table table-striped table-hover table-sm">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Namn</th>
+            <th scope="col">Ras</th>
+            <th scope="col">Kön</th>
+            <th scope="col">Kastrerad</th>
+            <th scope="col">Bo med andra</th>
+            <th scope="col">Övrigt</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dog in Model)
+        {
+            <tr>
+                <th scope="row">@dog.ID</th>
+                <td>@dog.Name</td>
+                <td>@dog.Ras</td>
+                <td>@dog.Sex</td>
+                <td>@(dog.Kastrated ? "Ja" : "Nej")</td>
+                <td>@(dog.CanLiveWithOtherDogs ? "Ja" : "Nej")</td>
+                <td>@dog.Other</td>
+                <td><a href="#deleteCustomerDog" data-toggle="modal" data-id="@dog.ID"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+            </tr>
+
+        }
+    </tbody>
+
+</table>

@@ -1,0 +1,78 @@
+﻿@model XArbete.Web.Admin.ViewModels.AdminManageKennelViewModel
+
+<div style="overflow-x:auto;">
+
+    <div class="table-wrapper">
+        <table class="table-add table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Kullnamn</th>
+                    <th>Ras</th>
+                    <th>PappaID</th>
+                    <th>MammaID</th>
+                    <th>Födsel / beräknad</th>
+                    <th>Status</th>
+                    <th>
+                        <a href="#addPuppyGroup" class="btn btn-success" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Ny valpkull">&#xE147;</i> <span></span></a>
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var puppygroup in Model.PuppyGroups)
+                {
+                    // TO DO groupname editable, born editable
+                    var target = "#target" + @puppygroup.ID;
+                <tr style="cursor:pointer">
+                    <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@puppygroup.GroupName</td>
+                    <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@puppygroup.Breed</td>
+                    <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@puppygroup.FatherID</td>
+                    <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@puppygroup.MotherID</td>
+                    <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@DateTime.Parse(puppygroup.DateOfBirth).ToShortDateString()</td>
+                    <td>
+                        <select class="form-control puppygroupstatus" id="@puppygroup.ID">
+                            <option value="0" selected>Planerad</option>
+                            <option value="1">Aktiv</option>
+                            <option value="2">Tidigare</option>
+                        </select>
+
+                        <script>
+                                   $('#@puppygroup.ID').val('@puppygroup.Status');
+                        </script>
+
+                    </td>
+
+                    <td>
+                        <a href="#deletePuppyGroup" class="delete" data-toggle="modal" data-id="@puppygroup.ID">
+                            <i class="material-icons" data-toggle="tooltip" title="Radera">
+                                clear
+                            </i>
+                        </a>
+                    </td>
+                </tr>
+                    <tr>
+                        <td colspan="7" class="hiddenRow">
+                            @{ var targetid = "target" + @puppygroup.ID;
+                            }
+                            <div class="accordian-body collapse" id="@targetid">
+                                @{
+                                    var id = "puppies" + puppygroup.ID;
+                                }
+                                <div id="@id">
+
+                                    @await Html.PartialAsync("_PuppuGroupPuppies.cshtml", Model.Puppies.Where(a => a.PuppyGroupId == puppygroup.ID))
+
+                                </div>
+                                <a href="addPuppy" data-toggle="modal" data-groupid="@puppygroup.ID" class="addPuppyEvent">Lägg till valp</a>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+
+    </div>
+</div>

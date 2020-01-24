@@ -1,0 +1,46 @@
+﻿
+@model XArbete.Web.GuestBook.ViewModels.GuestBookViewModel
+
+<br />
+<br />
+
+<div class="container" style="margin-top:100px">
+
+    <div class="row">
+        <div class="col-md-8 mb-5">
+            <h2>@Model.Title</h2>
+            <hr>
+            <p> @Model.Description</p>
+            <a href="#newComment" data-toggle="modal" class="list-group-item">Lägg till kommentar</a>
+
+        </div>
+        <div class="col-md-4 mb-5">
+        </div>
+    </div>
+    <!-- Page Content -->
+    <div class="row example">
+        <div class="col-md-8 mb-5">
+            <ul class="list-group list-group-flush">
+                @foreach (var comment in @Model.Comments.OrderByDescending(a => a.CreatedAt))
+                {
+                    <li class="list-group-item z-depth-5">
+                        @comment.WrittenBy: <br />
+                        @comment.Comment<br />
+                        <small>@comment.CreatedAt.ToString()</small>
+                    </li>
+
+                }
+            </ul>
+            <!-- /.row -->
+        </div>
+        <div class="col-md-4 mb-5"></div>
+
+    </div>
+</div>
+
+<!-- /.container -->
+@* NEW COMMENT MODAL *@
+
+<div id="newComment" class="modal fade" role="dialog">
+   @await Html.PartialAsync("NewCommentModal", Model)
+</div>

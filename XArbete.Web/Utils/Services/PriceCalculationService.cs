@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using XArbete.Web.Models;
+using XArbete.Web.DogHotel.Models;
 using XArbete.Web.Utils.Constants;
 
 namespace XArbete.Web.Utils.Services

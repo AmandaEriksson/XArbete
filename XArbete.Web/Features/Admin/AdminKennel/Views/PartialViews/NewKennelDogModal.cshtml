@@ -1,0 +1,46 @@
+﻿@model XArbete.Web.Kennel.ViewModels.KennelDogViewModel
+@{ 
+    ViewData["Title"] = "Lägg till hund";
+}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">@ViewData["Title"]</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <form class="newForm" action="NewKennelDog">
+            <div class="modal-body">
+                <label asp-for="Name">Namn</label>
+                <input class="form-control" placeholder="(obligatoriskt)" asp-for="@Model.Name" id="kennelDogName" required />
+                <br />
+                <label asp-for="Breed">Välj ras</label>
+                <select class="form-control breed-dropdown" asp-for="Breed" required>
+                    <option selected disabled label="Välj" value=""> </option>
+                    <option value="Bichon Havanais">Bichon Havanais</option>
+                    <option value="Gråhund">Gråhund</option>
+                </select>
+                <br />
+                <label asp-for="Sex">Kön</label>
+                <select class="form-control" asp-for="@Model.Sex" id="KennelDogBreed" required>
+                    <option selected disabled label="Välj" value=""> </option>
+                    <option value="Hane">Hane</option>
+                    <option value="Tik">Tik</option>
+                </select>
+                <br />
+                <label asp-for="@Model.DateOfBirth">Född</label>
+                <input class="form-control" id="kennelDogdateofbirth" asp-for="@Model.DateOfBirth" required autocomplete="off"/>
+                <br />
+                <label asp-for="About">Om</label>
+                <textarea class="form-control" asp-for="@Model.About"></textarea><br /><br />
+                <label asp-for="@Model.Img">Bild</label>
+                <input type="file" class="form-control" asp-for="@Model.File" id="KennelDogFile" required/>
+            </div>
+
+
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-success" value="Spara">
+            </div>
+        </form>
+    </div>
+</div>

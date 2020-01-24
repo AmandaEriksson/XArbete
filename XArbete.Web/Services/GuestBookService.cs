@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using XArbete.Web.Data;
-using XArbete.Web.Models;
+using XArbete.Web.GuestBook.Models;
 using XArbete.Web.Services.Interfaces;
 
 namespace XArbete.Web.Services

@@ -5,7 +5,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using XArbete.Web.Data;
-using XArbete.Web.Models;
 using XArbete.Web.Services.Interfaces;
 
 namespace XArbete.Web.Services
@@ -25,9 +24,10 @@ namespace XArbete.Web.Services
             throw new NotImplementedException();
         }
 
-        public Task CommitAsync()
+        public async Task CommitAsync()
         {
-            throw new NotImplementedException();
+            await Context.SaveChangesAsync();
+
         }
 
         public int Count()
@@ -38,18 +38,18 @@ namespace XArbete.Web.Services
         public virtual void Create(T entity)
         {
             DbSet.Add(entity);
-            Context.SaveChanges();
         }
 
         public virtual void Delete(T entity)
         {
             DbSet.Remove(entity);
-            Context.SaveChanges();
         }
 
-        public void DeleteById(Guid id)
+        public void DeleteById(int id)
         {
-            throw new NotImplementedException();
+            var entity = DbSet.Find(id);
+            if (entity != null) 
+                DbSet.Remove(entity);
         }
 
         public virtual IEnumerable<T> GetAll()
@@ -62,9 +62,9 @@ namespace XArbete.Web.Services
             return DbSet.Find(id);
         }
 
-        public Task<T> GetByIdAsync(Guid id)
+        public async Task<T> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await DbSet.FindAsync(id);
         }
 
         public virtual IEnumerable<T> GetMany(System.Func<T, bool> where)
@@ -87,16 +87,15 @@ namespace XArbete.Web.Services
             return DbSet.SingleOrDefault(where);
         }
 
-        public Task<T> GetSingleAsync(Expression<Func<T, bool>> where)
+        public async Task<T> GetSingleAsync(Expression<Func<T, bool>> where)
         {
-            throw new NotImplementedException();
+            return await DbSet.SingleOrDefaultAsync(where);
         }
 
         public void Update(T entity)
         {
-            DbSet.Attach(entity);
-            Context.Entry(entity).State = EntityState.Modified;
+            throw new NotImplementedException();
         }
-    
+
     }
 }

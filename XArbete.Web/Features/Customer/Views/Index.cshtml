@@ -1,0 +1,212 @@
+﻿@model XArbete.Web.Customer.ViewModels.CustomersAdminViewModel
+
+<br />
+<br />
+
+<!-- Page Content -->
+<div class="container" style="margin-top:100px">
+
+    <div class="row">
+        <div class="col-md-12 mb-5">
+            <h2>@Model.Title</h2>
+            <hr>
+            <p>@Model.Description</p>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-5">
+
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2>Dina uppgifter</h2>
+                        </div>
+                    </div>
+                </div>
+                <div id="customerEdit">
+                    @await Html.PartialAsync("Edit", Model)
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-8 mb-5">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h2>Dina hundar</h2>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <a href="#addDog" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Lägg till ny</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div id="customerDogs">
+                    @await Html.PartialAsync("CustomerDogs", Model.Dogs.ToList())
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="project-tab">
+        <div class="row">
+            <div class="col-md-12 mb-5">
+
+                <div class="table-wrapper">
+                    <div class="table-title">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h2><b>Dina hundpensionat bokningar</b></h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-activehotel-tab" data-toggle="tab" href="#activeHotel" role="tab" aria-controls="activeHotel" aria-selected="true">Aktuella</a>
+                        <a class="nav-item nav-link" id="nav-oldhotel-tab" data-toggle="tab" href="#oldHotel" role="tab" aria-controls="oldHotel" aria-selected="false">Arkiverade</a>
+                    </div>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="activeHotel" role="tabpanel" aria-labelledby="activeHotel">
+                            @await Html.PartialAsync("CustomerHotelBookings", Model.HotelBookings.Where(a => DateTime.Parse(a.To) >= DateTime.Now).ToList())
+                        </div>
+                        <div class="tab-pane fade" id="oldHotel" role="tabpanel" aria-labelledby="oldHotel" style="opacity:0,5">
+                            @await Html.PartialAsync("CustomerHotelBookings", Model.HotelBookings.Where(a => DateTime.Parse(a.To) < DateTime.Now).ToList())
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12 mb-5">
+
+                <div class="table-wrapper">
+                    <div class="table-title">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h2><b>Dina träningshall bokningar</b></h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-activehall-tab" data-toggle="tab" href="#activeHall" role="tab" aria-controls="activeHall" aria-selected="true">Aktuella</a>
+                        <a class="nav-item nav-link" id="nav-oldhall-tab" data-toggle="tab" href="#oldHall" role="tab" aria-controls="oldHall" aria-selected="false">Arkiverade</a>
+                    </div>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="activeHall" role="tabpanel" aria-labelledby="activeHall">
+                            @* @await Html.PartialAsync("/Views/Shared/PartialViews/Customer/CustomerHotelBookings.cshtml", Model.HotelBookings.Where(a => DateTime.Parse(a.To) >= DateTime.Now).ToList())*@
+                            @await Html.PartialAsync("CustomerHallBookings", Model.TrainingHallBookings.Where(a => DateTime.Parse(a.EndTime) >= DateTime.Now).ToList())
+                        </div>
+                        <div class="tab-pane fade" id="oldHall" role="tabpanel" aria-labelledby="oldHall" style="color:grey">
+                            @*@await Html.PartialAsync("/Views/Shared/PartialViews/Customer/CustomerHotelBookings.cshtml", Model.HotelBookings.Where(a => DateTime.Parse(a.To) < DateTime.Now).ToList())*@
+                            @await Html.PartialAsync("CustomerHallBookings", Model.TrainingHallBookings.Where(a => DateTime.Parse(a.EndTime) < DateTime.Now).ToList())
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*NEW DOG MODAL*@
+<div id="addDog" class="modal fade" role="dialog">
+    @await Html.PartialAsync("NewDogModal", Model.Dog)
+</div>
+
+
+
+@*Delete dog MODAL*@
+<div id="deleteCustomerDog" class="modal fade">
+    @await Html.PartialAsync("Shared/DeleteModal", "Customer/DeleteCustomerDog")
+</div>
+
+
+@*Delete training hall booking MODAL*@
+<div id="deleteHallBooking" class="modal fade">
+    @await Html.PartialAsync("Shared/DeleteModal", "TrainingHall/DeleteHallBooking")
+</div>
+
+
+@*Delete hotel booking MODAL*@
+<div id="deleteHotelBooking" class="modal fade">
+    @await Html.PartialAsync("Shared/DeleteModal", "DogHotel/DeleteHotelBooking")
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        // KOLLA OM FUNKAR
+        let dropdown = $('.breed-dropdown');
+
+        dropdown.empty();
+
+        dropdown.append('<option selected="false" value="Blandras">Blandras</option>');
+        dropdown.prop('selectedIndex', 0);
+
+        const url = 'https://dog.ceo/api/breeds/list/all';
+        var breedsArray = [];
+        // Populate dropdown with list of provinces
+        $.getJSON(url, function (data) {
+            $.each(data["message"], function (key, entry) {
+
+                if (entry.length == 0) {
+                    var capitalizedFirstLetter = key[0].toUpperCase() + key.slice(1);
+                    breedsArray.push(capitalizedFirstLetter);
+                }
+                else {
+                    for (i = 0; i < entry.length; i++) {
+                        var en = entry[i];
+                        var capitalizedEntry = en[0].toUpperCase() + en.slice(1);
+                        var capitalizedKey = key[0].toUpperCase() + key.slice(1);
+                        breedsArray.push(capitalizedEntry + ' ' + capitalizedKey)
+                    }
+                }
+            })
+            var sortedArray = breedsArray.sort()
+            for (var i = 0; i < sortedArray.length; i++) {
+                dropdown.append($('<option></option>').attr('value', sortedArray[i]).text(sortedArray[i]));
+            }
+
+        })
+
+
+
+        $(document).on("submit", "#EditCustomerForm", function (event) {
+            event.preventDefault();
+            var formdata = new FormData($(this).get(0));
+
+            $.ajax({
+                url: '/Customer/Edit',
+                type: 'POST',
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    $('#customerEdit').html(data);
+
+
+                },
+                error: function (data) {
+                    console.log('An error occurred.');
+                    console.log(data);
+                }
+            });
+        });
+
+
+
+    })
+
+
+
+
+
+
+</script>
+<link href="~/css/tableStyles.css" rel="stylesheet" defer />

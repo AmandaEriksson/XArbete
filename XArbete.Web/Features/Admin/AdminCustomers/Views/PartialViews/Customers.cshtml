@@ -1,0 +1,72 @@
+﻿@model XArbete.Web.Admin.ViewModels.AdminManageCustomersViewModel
+<div style="overflow-x:auto;">
+
+    <table class="table table-striped table-hover" style="border-collapse:collapse;">
+        <thead>
+            <tr>
+                <th>KundID</th>
+                <th>Namn</th>
+                <th>Email</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cust in Model.Customers.OrderByDescending(a => a.IsAdmin))
+            {
+
+                var target = "#customer" + cust.ID;
+                var id = "customer" + cust.ID;
+                if (cust.IsAdmin)
+                {
+                    target = "";
+                    id = "";
+
+                    <tr>
+                        <td>@cust.ID</td>
+                        <td>@cust.Name</td>
+                        <td>@cust.Email</td>
+                        <th>Admin</th>
+                        <td>
+                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal" data-id="@cust.ID"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr title="Klicka för kundens hundar" style="cursor:pointer">
+                        <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@cust.ID</td>
+                        <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@cust.Name</td>
+                        <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@cust.Email</td>
+                        <th data-toggle="collapse" data-target="@target" class="accordion-toggle"></th>
+                        <td>
+                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal" data-id="@cust.ID"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="5" class="hiddenRow">
+                        <div class="accordian-body collapse" id="@id">
+                            <table>
+                                <tr>
+                                    <th>HundID</th>
+                                    <th>Namn</th>
+                                </tr>
+                                @foreach (var dog in Model.Dogs.Where(a => a.CustomerID == cust.ID))
+                                {
+                                    <tr>
+                                        <td>@dog.ID</td>
+                                        <td>@dog.Name</td>
+                                    </tr>
+                                }
+                            </table>
+
+                        </div>
+                    </td>
+                </tr>
+
+
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,41 @@
+﻿@model XArbete.Web.DogHotel.ViewModels.HotelBookingViewModel
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<XArbete.Domain.Models.ApplicationUser> _SignInManager;
+
+<link rel="stylesheet" type="text/css" href="~/datetimepicker/jquery.datetimepicker.min.css" />
+<br />
+
+<!-- Page Content -->
+<div class="container" style="margin-top:100px">
+
+    <div class="row">
+        <div class="col-md-12 mb-5">
+            <h2>@Model.Title</h2>
+            <hr>
+            <p>För att boka hundpensionat, registrera dig, logga in och lägg till hund(ar) på mina sidor fliken.</p>
+            <p>Du väljer i formuläret nedan vilken hund du vill boka för. Vill du boka två hundar gör du två bokningar</p>
+            <p>Har du speciella önskemål kan du skriva med dessa i bokningen, eller kontakta oss så löser vi dina önskemål i största möjliga mån.</p>
+            @if (_SignInManager.IsSignedIn(User))
+            {
+                <a class="btn btn-primary btn-lg" href="#" data-toggle="modal" data-target="#bookhotel">Boka &raquo;</a>
+            }
+            else
+            {
+                <p style="color:red">Du måste vara inloggad för att kunna boka. Registrera dig eller logga in.</p>
+            }
+        </div>
+
+    </div>
+
+</div>
+@* Booking Modal *@
+<div id="bookhotel" class="modal fade" role="dialog">
+    @await Html.PartialAsync("BookingModal", Model)
+</div>
+
+
+<link href="~/Themes/calendar_white.css" rel="stylesheet" type="text/css" />
+
+<script src="~/datetimepicker/jquery.js"></script>
+
+<script src="~/datetimepicker/jquery.datetimepicker.full.js"></script>

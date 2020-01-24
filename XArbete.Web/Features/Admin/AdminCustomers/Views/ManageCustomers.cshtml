@@ -1,0 +1,35 @@
+﻿<br />
+<br />
+@model XArbete.Web.Admin.ViewModels.AdminManageCustomersViewModel
+
+
+<div class="container" style="margin-top:100px">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>@Model.Title</h2>
+                </div>
+                <div class="col-sm-6">
+                    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Lägg till admin</span></a>
+                </div>
+            </div>
+        </div>
+        <div id="AllCustomers">
+            @await Html.PartialAsync("Customers", Model)
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Add customer Modal  -->
+<div id="addEmployeeModal" class="modal fade">
+    @await Html.PartialAsync("AddAdminModal", Model.RegisterViewModel)
+</div>
+
+<!-- Delete custmoer Modal  -->
+<div id="deleteEmployeeModal" class="modal fade">
+    @await Html.PartialAsync("Shared/DeleteModal", "/Admin/DeleteCustomer")
+
+</div>

@@ -1,30 +1,142 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Features\Admin\Models\**" />
+    <Compile Remove="Features\Admin\Models\**" />
+    <Compile Remove="Features\Customer\Models\**" />
+    <Compile Remove="Data\**" />
+    <Compile Remove="Features\DogHotel\Models\**" />
+    <Compile Remove="Features\Customer\Models\**" />
+    <Compile Remove="Features\DogHotel\Models\**" />
+    <Compile Remove="Features\GuestBook\Models\**" />
+    <Compile Remove="Features\GuestBook\Models\**" />
+    <Compile Remove="Features\Kennel\Models\**" />
+    <Compile Remove="Features\Kennel\Models\**" />
+    <Compile Remove="Features\TrainingHall\Models\**" />
+    <Compile Remove="Features\User\Models\**" />
+    <Compile Remove="Services\**" />
+    <Compile Remove="Features\TrainingHall\Models\**" />
+    <Compile Remove="Features\User\Models\**" />
+    <Compile Remove="Utils\**" />
+    <Content Remove="Features\Admin\Models\**" />
+    <Content Remove="Features\Admin\Models\**" />
+    <Content Remove="Features\Customer\Models\**" />
+    <Content Remove="Data\**" />
+    <Content Remove="Features\DogHotel\Models\**" />
+    <Content Remove="Features\Customer\Models\**" />
+    <Content Remove="Features\DogHotel\Models\**" />
+    <Content Remove="Features\GuestBook\Models\**" />
+    <Content Remove="Features\GuestBook\Models\**" />
+    <Content Remove="Features\Kennel\Models\**" />
+    <Content Remove="Features\Kennel\Models\**" />
+    <Content Remove="Features\TrainingHall\Models\**" />
+    <Content Remove="Features\User\Models\**" />
+    <Content Remove="Services\**" />
+    <Content Remove="Features\TrainingHall\Models\**" />
+    <Content Remove="Features\User\Models\**" />
+    <Content Remove="Utils\**" />
+    <EmbeddedResource Remove="Features\Admin\Models\**" />
+    <EmbeddedResource Remove="Features\Admin\Models\**" />
+    <EmbeddedResource Remove="Features\Customer\Models\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <EmbeddedResource Remove="Features\DogHotel\Models\**" />
+    <EmbeddedResource Remove="Features\Customer\Models\**" />
+    <EmbeddedResource Remove="Features\DogHotel\Models\**" />
+    <EmbeddedResource Remove="Features\GuestBook\Models\**" />
+    <EmbeddedResource Remove="Features\GuestBook\Models\**" />
+    <EmbeddedResource Remove="Features\Kennel\Models\**" />
+    <EmbeddedResource Remove="Features\Kennel\Models\**" />
+    <EmbeddedResource Remove="Features\TrainingHall\Models\**" />
+    <EmbeddedResource Remove="Features\User\Models\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <EmbeddedResource Remove="Features\TrainingHall\Models\**" />
+    <EmbeddedResource Remove="Features\User\Models\**" />
+    <EmbeddedResource Remove="Utils\**" />
+    <None Remove="Features\Admin\Models\**" />
+    <None Remove="Features\Admin\Models\**" />
+    <None Remove="Features\Customer\Models\**" />
+    <None Remove="Data\**" />
+    <None Remove="Features\DogHotel\Models\**" />
+    <None Remove="Features\Customer\Models\**" />
+    <None Remove="Features\DogHotel\Models\**" />
+    <None Remove="Features\GuestBook\Models\**" />
+    <None Remove="Features\GuestBook\Models\**" />
+    <None Remove="Features\Kennel\Models\**" />
+    <None Remove="Features\Kennel\Models\**" />
+    <None Remove="Features\TrainingHall\Models\**" />
+    <None Remove="Features\User\Models\**" />
+    <None Remove="Services\**" />
+    <None Remove="Features\TrainingHall\Models\**" />
+    <None Remove="Features\User\Models\**" />
+    <None Remove="Utils\**" />
+    <TypeScriptCompile Remove="Features\Admin\Models\**" />
+    <TypeScriptCompile Remove="Features\Admin\Models\**" />
+    <TypeScriptCompile Remove="Features\Customer\Models\**" />
+    <TypeScriptCompile Remove="Data\**" />
+    <TypeScriptCompile Remove="Features\DogHotel\Models\**" />
+    <TypeScriptCompile Remove="Features\Customer\Models\**" />
+    <TypeScriptCompile Remove="Features\DogHotel\Models\**" />
+    <TypeScriptCompile Remove="Features\GuestBook\Models\**" />
+    <TypeScriptCompile Remove="Features\GuestBook\Models\**" />
+    <TypeScriptCompile Remove="Features\Kennel\Models\**" />
+    <TypeScriptCompile Remove="Features\Kennel\Models\**" />
+    <TypeScriptCompile Remove="Features\TrainingHall\Models\**" />
+    <TypeScriptCompile Remove="Features\User\Models\**" />
+    <TypeScriptCompile Remove="Services\**" />
+    <TypeScriptCompile Remove="Features\TrainingHall\Models\**" />
+    <TypeScriptCompile Remove="Features\User\Models\**" />
+    <TypeScriptCompile Remove="Utils\**" />
+  </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Content\Invoices\" />
+    <Compile Include="Utils\AutoMapper\MappingProfile.cs" />
+    <Compile Include="Utils\MyViewLocationExpander.cs" />
   </ItemGroup>
 
 
   <ItemGroup>
-    <PackageReference Include="EASendMail" Version="7.5.0.3" />
+    <Folder Include="Content\Invoices\" />
+    <Folder Include="Views\Shared\PartialViews\" />
+    <Folder Include="wwwroot\img\kenneldogs\" />
+    <Folder Include="wwwroot\img\kennelpuppies\" />
+    <Folder Include="wwwroot\img\breeds\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="EASendMail" Version="7.6.0.2" />
     <PackageReference Include="EntityFramework" Version="6.4.0" />
     <PackageReference Include="iTextSharp" Version="5.5.13.1" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.0" />
+    <PackageReference Include="Microsoft.jQuery.Unobtrusive.Ajax" Version="3.2.6" />
+    <PackageReference Include="Microsoft.jQuery.Unobtrusive.Validation" Version="3.2.11" />
     <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.7.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="NToastNotify" Version="6.0.1" />
     <PackageReference Include="System.Collections.NonGeneric" Version="4.3.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\XArbete.Services\XArbete.Services.csproj" />
   </ItemGroup>
 
 
@@ -40,5 +152,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
+  
+  <ItemGroup>
+    <Reference Include="_ViewImports.cshtml">
+      <HintPath>wwwroot\_ViewImports.cshtml</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="_ViewStart.cshtml">
+      <HintPath>wwwroot\_ViewStart.cshtml</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

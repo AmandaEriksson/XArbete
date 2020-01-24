@@ -1,0 +1,35 @@
+﻿@model XArbete.Web.Kennel.ViewModels.KennelDogsViewModel
+<br />
+<br />
+<!-- Page Content -->
+<div class="container" style="margin-top:100px;">
+
+    <div class="row">
+        <div class="col-md-12 mb-5">
+            <h2>@Model.Title</h2>
+            <hr>
+            <div class="card-columns ourDogs">
+                @foreach (var dog in Model.Dogs)
+                {
+                    <div class="card">
+                        <img class="card-img-top ourDogs" src="~/img/kenneldogs/@dog.Img" alt="Bild på @dog.Name">
+                        <div class="card-body ourDogs">
+                            <h5 class="card-title">@dog.Name</h5>
+                            <p class="card-text">@dog.Sex</p>
+                            <p class="card-text">Född @DateTime.Parse(dog.DateOfBirth).ToShortDateString()</p>
+                            <p class="card-text">@dog.About</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">@dog.Breed</small>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->

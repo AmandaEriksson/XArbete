@@ -4,20 +4,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using XArbete.Web.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using XArbete.Web.User.Models;
+using XArbete.Web.Kennel.Models;
+using XArbete.Web.Customer.Models;
+using XArbete.Web.TrainingHall.Models;
+using XArbete.Web.DogHotel.Models;
+using XArbete.Web.GuestBook.Models;
 
 namespace XArbete.Web.Data
 {
-    public class XArbeteContext : IdentityDbContext<User>
+    public class XArbeteContext : IdentityDbContext<ApplicationUser>
     {
         public XArbeteContext(DbContextOptions<XArbeteContext> options) : base(options)
         {
 
         }
+        public DbSet<KennelDog> KennelDogs { get; set; }
 
+        public DbSet<PuppyGroup> PuppyGroups { get; set; }
 
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<XArbete.Web.Customer.Models.Customer> Customers { get; set; }
 
         public DbSet<Dog> Dogs { get; set; }
 
@@ -26,6 +34,11 @@ namespace XArbete.Web.Data
         public DbSet<HotelBooking> HotelBookings { get; set; }
 
         public DbSet<GuestBookComment> GuestbookComments { get; set; }
+        public DbSet<Puppy> Puppies { get; set; }
+
+        public DbSet<KennelContent> KennelContents { get; set; }
+
+        public DbSet<KennelContentSection> KennelContentSections { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

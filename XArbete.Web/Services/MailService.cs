@@ -3,6 +3,7 @@ using iTextSharp.text;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
 using Microsoft.Extensions.Options;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,22 +12,26 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using XArbete.Web.Models;
+using XArbete.Web.TrainingHall.Models;
+using XArbete.Web.DogHotel.Models;
 using XArbete.Web.Services.Interfaces;
 using XArbete.Web.Utils.Constants;
 using XArbete.Web.Utils.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace XArbete.Web.Services
 {
     public class MailService : IMailService
     {
         private readonly WebOptions _webOptions;
+        private readonly IDogService _dogService;
 
-        public MailService(IOptions<WebOptions> weboptions)
+        public MailService(IOptions<WebOptions> weboptions, IDogService dogservice)
         {
             _webOptions = weboptions.Value;
+            _dogService = dogservice;
         }
-        public async Task CreateHallCodeMail(Customer customer, TrainingHallBooking booking)
+        public async Task CreateHallCodeMail(XArbete.Web.Customer.Models.Customer customer, TrainingHallBooking booking)
         {
             var subject = $"Tack för din betalning!";
             var body = new StringBuilder();
@@ -39,12 +44,13 @@ namespace XArbete.Web.Services
             await Execute(customer.Email, subject, body);
         }
 
-        public async Task SendHallMail(Customer customer, TrainingHallBooking booking)
+        public async Task SendHallMail(XArbete.Web.Customer.Models.Customer customer, TrainingHallBooking booking)
         {
             var subject = $"Bokningsbekräftelse";
             var body = new StringBuilder();
             body.AppendLine($"<h1>Hej {customer.Name}, tack för din bokning av våran träningshall!</h1>");
             body.AppendLine($"<p>Du har bokat träningshallen den {booking.StartTime.ToString("yyyy-MM-dd")} från kl {booking.StartTime.ToString("HH:mm")} till kl {booking.EndTime.ToString("HH:mm")}.</p>");
+            body.AppendLine($"<p> Totala kostnaden för din bokning är: {booking.Price} kr. Se våran <a href='https://localhost:44347/TrainingHall/PriceInfo'> prisinfo</a> för mer detaljer.</p>");
             body.AppendLine($"<p>För att garantera att hinna få koden till dörren måste betalningen inkomma till oss minst 12 timmar innan starttiden.</p>");
             body.AppendLine($"<p>När betalningen är genomförd får du ett nytt mail med dörrkod.</p>");
             body.AppendLine($"<small>({customer.Email})</small>");
@@ -53,7 +59,7 @@ namespace XArbete.Web.Services
 
         }
 
-        public async Task SendHotelMail(Customer customer, HotelBooking booking)
+        public async Task SendHotelMail(XArbete.Web.Customer.Models.Customer customer, HotelBooking booking)
         {
             var subject = $"Bokningsbekräftelse";
             var body = new StringBuilder();
@@ -69,14 +75,14 @@ namespace XArbete.Web.Services
             await Execute(customer.Email, subject, body, $"{booking.ID}.pdf");
         }
 
-        public void CreatePdfContent(HotelBooking booking)
+        public async Task CreatePdfContent(HotelBooking booking)
         {
             var body = new StringBuilder();
             body.AppendLine($"<h1>Bokningsbekräftelse</h1>");
             body.AppendLine($"<p>Du har bokat följande:</p>");
             body.AppendLine($"<p></p>");
 
-            body.AppendLine($"<h3>Hundpensionat för <strong> {Repository.Dogs.SingleOrDefault(a => a.ID == booking.Dog.ID).Name} </strong> </h3>");
+            body.AppendLine($"<h3>Hundpensionat för <strong> {_dogService.GetById(booking.DogID).Name} </strong> </h3>");
             body.AppendLine($"<p></p>");
             body.AppendLine($"<p>Från: {booking.From.ToString("yyyy-MM-dd HH:mm")}");
             body.AppendLine($"<p>Till: {booking.To.ToString("yyyy-MM-dd HH:mm")}");
@@ -163,13 +169,25 @@ namespace XArbete.Web.Services
                 {
                     oResult.AsyncWaitHandle.WaitOne(50, false);
                 }
-                oSmtp.EndSendMail(oResult);
+                 oSmtp.EndSendMail(oResult);
             }
             catch (Exception ep)
             {
                 Console.WriteLine("failed to send email with the following error:");
                 Console.WriteLine(ep.Message);
             }
+        }
+
+        public async Task NewPassword(string email, string newPass)
+        {
+            var subject = $"Glömt lösenord";
+            var body = new StringBuilder();
+            body.AppendLine($"<h1>{email}</h1>");
+            body.AppendLine($"<h3>Du har ansökt om ett nytt lösenord.</h3>");
+            body.AppendLine($"<p>Ditt nya tillfälliga lösenord är {newPass}.</p>");
+            body.AppendLine($"<p>Kopiera det och klistra in vid inloggning och ändra ditt lösenord direkt till något du kommer ihåg.</p>");
+
+            await Execute(email, subject, body);
         }
     }
 }

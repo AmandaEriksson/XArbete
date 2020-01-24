@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using XArbete.Web.Models;
-
-namespace XArbete.Web.Services.Interfaces
+﻿namespace XArbete.Web.Services.Interfaces
 {
-    public interface ICustomerService : IServiceBase<Customer>
+    public interface ICustomerService : IServiceBase<XArbete.Web.Customer.Models.Customer>
     {
+
     }
 }

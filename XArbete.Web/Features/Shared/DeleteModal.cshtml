@@ -1,0 +1,23 @@
+﻿@model string
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <form name="@Model" class="deleteForm">
+            <div class="modal-header">
+                <h4 class="modal-title">Radera</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Är du säker på att du vill radera?</p>
+                <p class="text-warning"><small>Detta kan inte ångras.</small></p>
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                <input type="submit" class="btn btn-danger" value="Delete">
+            </div>
+            <input type="text" hidden class="This" name="id" />
+            <input type="text" hidden class="ThisGroup" />
+
+        </form>
+    </div>
+</div>

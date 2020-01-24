@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using XArbete.Web.Data;
-using XArbete.Web.Models;
 using XArbete.Web.Services.Interfaces;
+using XArbete.Web.TrainingHall.Models;
 
 namespace XArbete.Web.Services
 {
@@ -17,16 +13,23 @@ namespace XArbete.Web.Services
             _context = context;
         }
 
+        public async Task<int> DeleteCustomerBookings(int id)
+        {
+                int bookingsCount = 0;
+                foreach (var booking in GetMany(a => a.CustomerID == id))
+                {
+                    Delete(booking);
+                    bookingsCount++;
+                }
+
+                return bookingsCount;
+            
+        }
+
         public void MarkAsPayed(TrainingHallBooking booking)
         {
             booking.Payed = true;
-            _context.SaveChanges();
         }
 
-
-        //public override TrainingHallBooking GetById(int id)
-        //{
-        //    return Repository.TrainingHallBookings.SingleOrDefault(a => a.Customer.ID == id);
-        //}
     }
 }

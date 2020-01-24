@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using XArbete.Web.Models;
+﻿using System.Threading.Tasks;
+using XArbete.Web.TrainingHall.Models;
 
 namespace XArbete.Web.Services.Interfaces
 {
     public interface ITrainingHallService : IServiceBase<TrainingHallBooking>
     {
         void MarkAsPayed(TrainingHallBooking booking);
+        Task<int> DeleteCustomerBookings(int id);
     }
 }

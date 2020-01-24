@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using XArbete.Web.Models;
+﻿using System.Threading.Tasks;
+using XArbete.Web.DogHotel.Models;
 
 namespace XArbete.Web.Services.Interfaces
 {
     public interface IDogHotelService : IServiceBase<HotelBooking>
     {
-
+        Task<int> DeleteCustomerBookings(int id);
     }
 }

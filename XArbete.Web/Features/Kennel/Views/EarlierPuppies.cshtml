@@ -1,0 +1,65 @@
+﻿@model XArbete.Web.Kennel.ViewModels.PuppyGroupsViewModel
+@{
+    ViewData["Title"] = "Våra tidigare valpkullar";
+
+}
+<br />
+<br />
+
+<!-- Page Content -->
+<div class="container" style="margin-top:100px;">
+
+    <div class="row">
+        <div class="col-md-12 mb-5">
+            <h2>@ViewData["Title"]</h2>
+            <hr>
+            @if (Model.PuppyGroups.Count != 0)
+            {
+                @foreach (var group in Model.PuppyGroups)
+                {
+                    <br />
+                    <div class="card text-center shadow p-3 mb-5 bg-white rounded">
+                        <div class="card-header">
+                            <h3> @group.GroupName</h3>
+                            <p>
+                                @group.Breed
+                            </p>
+                            <p>u: @group.Mother.Name e: @group.Father.Name</p>
+                            <p>Födelsedatum: @DateTime.Parse(group.DateOfBirth).ToShortDateString()</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-deck">
+
+                                @foreach (var puppy in group.Puppies)
+                                {
+
+                                    <div class="card ">
+                                        <img class="card-img-top" src="~/img/kennelpuppies/@puppy.Img" alt="Bild på @puppy.Name">
+                                        <div class="card-body">
+                                            <h5 class="card-title">@puppy.Name</h5>
+                                            <p class="card-text">@puppy.Sex</p>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <h3>Inga valpkullar att visa, kolla in våra <a asp-controller="Kennel" asp-action="PlannedPuppies">planerade kullar </a>.</h3>
+            }
+        </div>
+    </div>
+
+</div>
+<!-- /.row -->
+<!-- /.container -->
+<style>
+    .card-img-top {
+        width: 100%;
+        height: 25vw;
+        object-fit: cover;
+    }
+</style>

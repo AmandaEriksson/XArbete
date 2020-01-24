@@ -1,0 +1,43 @@
+﻿@model IEnumerable<XArbete.Web.Kennel.ViewModels.PuppyViewModel>
+
+
+@if (Model.Count() != 0)
+{
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Namn <i class="material-icons" data-toggle="tooltip" title="Redigeringsbar">edit</i></th>
+            <th>Kön</th>
+            <th>Bild</th>
+            <th>Såld</th>
+            <th></th>
+        </tr>
+
+        @foreach (var dog in Model)
+        {
+            <tr>
+                <td class="thepuppyid">@dog.ID</td>
+                <td contenteditable="true" class="puppyeditor">@dog.Name</td>
+                <td>@dog.Sex</td>
+                <td>@dog.Img</td>
+                <td>
+                    @if (dog.Sold)
+                    {
+                        <input type="checkbox" class="form-control puppySold" checked data-id="@dog.ID" />
+                    }
+                    else
+                    {
+                        <input type="checkbox" class="form-control puppySold" data-id="@dog.ID" />
+                    }
+                </td>
+                <td>
+                    <a href="#deletePuppy" class="delete deletepuppyaction" data-toggle="modal" data-id="@dog.ID" data-groupid="@dog.PuppyGroupId">
+                        <i class="material-icons" data-toggle="tooltip" title="Radera">
+                            clear
+                        </i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+}
