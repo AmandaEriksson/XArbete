@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using XArbete.Web.User.ViewModels;
+using XArbete.Web.Features.User.ViewModels;
 
-namespace XArbete.Web.GuestBook.ViewModels
+namespace XArbete.Web.Features.GuestBook.ViewModels
 {
     public class GuestBookViewModel : BaseViewModel
     {

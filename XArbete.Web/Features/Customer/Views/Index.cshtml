@@ -1,4 +1,4 @@
-﻿@model XArbete.Web.Customer.ViewModels.CustomersAdminViewModel
+﻿@model XArbete.Web.Features.Customer.ViewModels.CustomersAdminViewModel
 
 <br />
 <br />
@@ -69,7 +69,9 @@
                     </div>
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="activeHotel" role="tabpanel" aria-labelledby="activeHotel">
-                            @await Html.PartialAsync("CustomerHotelBookings", Model.HotelBookings.Where(a => DateTime.Parse(a.To) >= DateTime.Now).ToList())
+                            <div id="customerHotelBookings">
+                                @await Html.PartialAsync("CustomerHotelBookings", Model.HotelBookings.Where(a => DateTime.Parse(a.To) >= DateTime.Now).ToList())
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="oldHotel" role="tabpanel" aria-labelledby="oldHotel" style="opacity:0,5">
                             @await Html.PartialAsync("CustomerHotelBookings", Model.HotelBookings.Where(a => DateTime.Parse(a.To) < DateTime.Now).ToList())
@@ -99,8 +101,10 @@
                     </div>
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="activeHall" role="tabpanel" aria-labelledby="activeHall">
-                            @* @await Html.PartialAsync("/Views/Shared/PartialViews/Customer/CustomerHotelBookings.cshtml", Model.HotelBookings.Where(a => DateTime.Parse(a.To) >= DateTime.Now).ToList())*@
-                            @await Html.PartialAsync("CustomerHallBookings", Model.TrainingHallBookings.Where(a => DateTime.Parse(a.EndTime) >= DateTime.Now).ToList())
+                            <div id="customerHallBookings">
+                                @* @await Html.PartialAsync("/Views/Shared/PartialViews/Customer/CustomerHotelBookings.cshtml", Model.HotelBookings.Where(a => DateTime.Parse(a.To) >= DateTime.Now).ToList())*@
+                                @await Html.PartialAsync("CustomerHallBookings", Model.TrainingHallBookings.Where(a => DateTime.Parse(a.EndTime) >= DateTime.Now).ToList())
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="oldHall" role="tabpanel" aria-labelledby="oldHall" style="color:grey">
                             @*@await Html.PartialAsync("/Views/Shared/PartialViews/Customer/CustomerHotelBookings.cshtml", Model.HotelBookings.Where(a => DateTime.Parse(a.To) < DateTime.Now).ToList())*@
@@ -138,75 +142,4 @@
     @await Html.PartialAsync("Shared/DeleteModal", "DogHotel/DeleteHotelBooking")
 </div>
 
-<script>
-
-    $(document).ready(function () {
-        // KOLLA OM FUNKAR
-        let dropdown = $('.breed-dropdown');
-
-        dropdown.empty();
-
-        dropdown.append('<option selected="false" value="Blandras">Blandras</option>');
-        dropdown.prop('selectedIndex', 0);
-
-        const url = 'https://dog.ceo/api/breeds/list/all';
-        var breedsArray = [];
-        // Populate dropdown with list of provinces
-        $.getJSON(url, function (data) {
-            $.each(data["message"], function (key, entry) {
-
-                if (entry.length == 0) {
-                    var capitalizedFirstLetter = key[0].toUpperCase() + key.slice(1);
-                    breedsArray.push(capitalizedFirstLetter);
-                }
-                else {
-                    for (i = 0; i < entry.length; i++) {
-                        var en = entry[i];
-                        var capitalizedEntry = en[0].toUpperCase() + en.slice(1);
-                        var capitalizedKey = key[0].toUpperCase() + key.slice(1);
-                        breedsArray.push(capitalizedEntry + ' ' + capitalizedKey)
-                    }
-                }
-            })
-            var sortedArray = breedsArray.sort()
-            for (var i = 0; i < sortedArray.length; i++) {
-                dropdown.append($('<option></option>').attr('value', sortedArray[i]).text(sortedArray[i]));
-            }
-
-        })
-
-
-
-        $(document).on("submit", "#EditCustomerForm", function (event) {
-            event.preventDefault();
-            var formdata = new FormData($(this).get(0));
-
-            $.ajax({
-                url: '/Customer/Edit',
-                type: 'POST',
-                data: formdata,
-                processData: false,
-                contentType: false,
-                success: function (data) {
-                    $('#customerEdit').html(data);
-
-
-                },
-                error: function (data) {
-                    console.log('An error occurred.');
-                    console.log(data);
-                }
-            });
-        });
-
-
-
-    })
-
-
-
-
-
-
-</script>
 <link href="~/css/tableStyles.css" rel="stylesheet" defer />

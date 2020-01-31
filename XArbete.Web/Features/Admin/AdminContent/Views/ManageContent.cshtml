@@ -1,0 +1,49 @@
+﻿
+@model XArbete.Web.Features.Admin.AdminContent.ViewModels.AdminManageContentViewModel
+@{
+       Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br /><br />
+
+<div class="container">
+    <!-- DOGS -->
+
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>@Model.Title</h2>
+                </div>
+                <div class="col-sm-6">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-kennel-tab" data-toggle="tab" href="#kennelTab" role="tab" aria-controls="kennelTab" aria-selected="true">Kennel</a>
+            <a class="nav-item nav-link" id="nav-hall-tab" data-toggle="tab" href="#hallTab" role="tab" aria-controls="hallTab" aria-selected="false">Träningshall</a>
+            <a class="nav-item nav-link" id="nav-hotel-tab" data-toggle="tab" href="#hotelTab" role="tab" aria-controls="hotelTab" aria-selected="false">Pensionat</a>
+
+        </div>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="kennelTab" role="tabpanel" aria-labelledby="kennelTab">
+                <div id="kennelContentTab">
+                    @await Html.PartialAsync("_ContentsTab", Model.KennelContents.Where(a => XArbete.Services.Utils.Constants.ContentConstants.KennelContents.Contains(a.Type)))
+                </div>
+            </div>
+            <div class="tab-pane fade" id="hallTab" role="tabpanel" aria-labelledby="hallTab" style="opacity:0,5">
+                <div id="hallContentTab">
+                    @await Html.PartialAsync("_ContentsTab", Model.KennelContents.Where(a => XArbete.Services.Utils.Constants.ContentConstants.HallContents.Contains(a.Type)))
+                </div>
+            </div>
+            <div class="tab-pane fade" id="hotelTab" role="tabpanel" aria-labelledby="hotelTab" style="opacity:0,5">
+                @await Html.PartialAsync("_ContentsTab", Model.KennelContents.Where(a => XArbete.Services.Utils.Constants.ContentConstants.HallPriceContent.Contains(a.Type)))
+            </div>
+        </div>
+
+        <!-- Puppy Groups -->
+
+
+    </div>
+</div>

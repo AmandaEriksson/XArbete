@@ -1,0 +1,32 @@
+﻿@model XArbete.Web.Features.User.ViewModels.BaseViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Logga in</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <form asp-controller="User" asp-action="Login" method="post">
+            <div class="modal-body">
+                <div class="form-group">
+
+                    <label asp-for="@Model.LoginViewModel.Email"></label>
+                    <input class="form-control" asp-for="@Model.LoginViewModel.Email" required />
+
+                </div>
+                <div class="form-group">
+
+                    <label  asp-for="@Model.LoginViewModel.Password"></label>
+                    <input class="form-control" asp-for="@Model.LoginViewModel.Password" />
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" asp-controller="User" asp-action="ForgotPassword" class="btn btn-link">Glömt lösenord</button>
+
+                <input type="submit" class="btn btn-info" value="Logga in" />
+            </div>
+        </form>
+    </div>
+</div>

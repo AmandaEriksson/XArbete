@@ -2,8 +2,7 @@
 
 namespace XArbete.Web.Services.Interfaces
 {
-    public interface IKennelContentService : IServiceBase<KennelContent>
+    public interface IContentSectionService : IServiceBase<ContentSection>
     {
-   
     }
 }

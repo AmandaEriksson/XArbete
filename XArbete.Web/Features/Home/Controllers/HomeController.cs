@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-namespace XArbete.Web.Home.Controllers
+namespace XArbete.Web.Features.Home.Controllers
 {
     public class HomeController : Controller
     {

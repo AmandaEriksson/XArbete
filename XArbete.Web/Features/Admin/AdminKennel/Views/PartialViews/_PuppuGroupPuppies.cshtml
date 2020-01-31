@@ -1,12 +1,11 @@
-﻿@model IEnumerable<XArbete.Web.Kennel.ViewModels.PuppyViewModel>
+﻿@model IEnumerable<XArbete.Web.Features.Kennel.ViewModels.PuppyViewModel>
 
 
 @if (Model.Count() != 0)
 {
     <table>
         <tr>
-            <th>ID</th>
-            <th>Namn <i class="material-icons" data-toggle="tooltip" title="Redigeringsbar">edit</i></th>
+            <th style="width:130px">Namn<span> <i class="material-icons" data-toggle="tooltip" title="Redigeringsbar">edit</i></span></th>
             <th>Kön</th>
             <th>Bild</th>
             <th>Såld</th>
@@ -16,8 +15,8 @@
         @foreach (var dog in Model)
         {
             <tr>
-                <td class="thepuppyid">@dog.ID</td>
-                <td contenteditable="true" class="puppyeditor">@dog.Name</td>
+                <td class="thedogid" hidden>@dog.ID</td>
+                <td contenteditable="true" class="puppy editor" spellcheck="false">@dog.Name</td>
                 <td>@dog.Sex</td>
                 <td>@dog.Img</td>
                 <td>

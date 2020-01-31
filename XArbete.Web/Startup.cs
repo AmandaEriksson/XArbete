@@ -83,8 +83,8 @@ namespace XArbete.Web
             services.AddScoped<IKennelDogService, KennelDogService>();
             services.AddScoped<IPuppyGroupService, PuppyGroupService>();
             services.AddScoped<IPuppyService, PuppyService>();
-            services.AddScoped<IKennelContentService, KennelContentService>();
-            services.AddScoped<IKennelContentSectionService, KennelContentSectionService>();
+            services.AddScoped<IContentService, ContentService>();
+            services.AddScoped<IContentSectionService, ContentSectionService>();
 
             //services.AddTransient<IRazorViewEngine, Core.CustomRazorViewEngine>();
 

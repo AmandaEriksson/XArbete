@@ -1,5 +1,6 @@
-﻿@model List<XArbete.Web.DogHotel.ViewModels.HotelBookingViewModel>
-    <div >
+﻿@model List<XArbete.Web.Features.DogHotel.ViewModels.HotelBookingViewModel>
+    <div style="overflow-x:auto;">
+
         <table class="table table-striped table-hover">
             @if (Model.Count == 0)
             {
@@ -14,15 +15,15 @@
             {
                 <thead>
                     <tr>
-                        <th>Bokningsnummer</th>
+                        <th>ID</th>
                         <th>HundID</th>
                         <th>Från</th>
                         <th>Till</th>
                         <th>Meddelande</th>
-                        <th>Träning</th>
-                        <th>Grooming</th>
-                        <th>Extra promenad</th>
+                        <th>Kan bo med andra</th>
+                        <th>Tillägg</th>
                         <th>Summa</th>
+                        <th style="width:200px">Avboka</th>
 
                     </tr>
                 </thead>
@@ -30,20 +31,33 @@
 
                     @foreach (var booking in Model.Where(a => DateTime.Parse(a.To) >= DateTime.Now))
                     {
-                        <tr>
-                            <td>@booking.ID</td>
-                            <td>@booking.DogID</td>
-                            <td>@DateTime.Parse(booking.From).ToString("g")</td>
-                            <td>@DateTime.Parse(booking.To).ToString("g")</td>
-                            <td>@booking.CustomerMessage</td>
-                            <td>@(booking.Training ? "Ja" : "Nej")</td>
-                            <td>@(booking.Grooming ? "Ja" : "Nej")</td>
-                            <td>@(booking.ExtraWalk ? "Ja" : "Nej")</td>
-                            <td>@booking.Price</td>
-                            <td>
-                                <a href="#deleteHotelBooking" data-toggle="modal" data-id="@booking.ID" class="btn btn-warning">Avboka</a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>@booking.ID</td>
+                        <td>@booking.DogID</td>
+                        <td>@DateTime.Parse(booking.From).ToString("g")</td>
+                        <td>@DateTime.Parse(booking.To).ToString("g")</td>
+                        <td>@booking.CustomerMessage</td>
+                        <td>@(booking.CanLiveWithOtherDogs ? "Ja" : "Nej")</td>
+                        <td>@(booking.Training ? "+Träning" : "") @(booking.Grooming ? " +Pälsvård" : "") @(booking.ExtraWalk ? " +Promenad" : "")</td>
+                        <td>@booking.Price</td>
+                        <td>
+                            @if (DateTime.Parse(booking.To) > DateTime.Now)
+                            {
+                                if (DateTime.Parse(booking.To) < DateTime.Now.AddHours(24))
+                                {
+                                    <p style="color:red">
+                                        <b> Bokningen är inom 24 timmar och kan inte avbokas.</b>
+                                    </p>
+                                }
+                                else
+                                {
+                                    <a href="#deleteHotelBooking" data-toggle="modal" data-id="@booking.ID" class="btn btn-warning">Avboka</a>
+                                }
+                            }
+
+
+                        </td>
+                    </tr>
                     }
                 </tbody>
             }

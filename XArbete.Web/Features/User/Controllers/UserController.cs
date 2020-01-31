@@ -5,11 +5,11 @@ using NToastNotify;
 using System;
 using System.Threading.Tasks;
 using XArbete.Web.Services.Interfaces;
-using XArbete.Web.User.ViewModels;
+using XArbete.Web.Features.User.ViewModels;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace XArbete.Web.User.Controllers
+namespace XArbete.Web.Features.User.Controllers
 {
     public class UserController : Controller
     {
@@ -34,7 +34,6 @@ namespace XArbete.Web.User.Controllers
         public async Task<IActionResult> LogOut()
         {
             await _userService.SignOut();
-            _toastNotification.AddInfoToastMessage("Du är utloggad.");
 
             return RedirectToAction("Index", "Home");
         }
@@ -53,10 +52,8 @@ namespace XArbete.Web.User.Controllers
 
                     if (customer.IsAdmin)
                     {
-                        _toastNotification.AddSuccessToastMessage("Välkommen admin!");
                         return RedirectToAction("ManageCustomers", "AdminCustomers");
                     }
-                    _toastNotification.AddSuccessToastMessage("Du är inloggad, välkommen!");
                     return RedirectToAction("Index", "Customer");
                 }
                 catch (Exception e)
@@ -69,8 +66,6 @@ namespace XArbete.Web.User.Controllers
             {
                 return View( model);
             }
-
-
         }
 
         [HttpPost]
@@ -95,8 +90,7 @@ namespace XArbete.Web.User.Controllers
 
                     if (customer.IsAdmin)
                     {
-                        _toastNotification.AddSuccessToastMessage("Ny admin skapad!");
-                        return RedirectToAction("Customers", "AdminCustomers");
+                        return RedirectToAction("ReloadCustomers", "AdminCustomers");
                     }
                     _toastNotification.AddSuccessToastMessage("Du är registrerad och inloggad.");
                     return RedirectToAction("Index", "Customer");

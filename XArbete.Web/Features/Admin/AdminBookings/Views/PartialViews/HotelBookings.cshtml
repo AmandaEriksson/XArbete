@@ -1,7 +1,7 @@
-﻿@model IEnumerable<XArbete.Web.DogHotel.ViewModels.HotelBookingViewModel>
+﻿@model IEnumerable<XArbete.Web.Features.DogHotel.ViewModels.HotelBookingViewModel>
 <div style="overflow-x:auto;">
 
-    <table class="table table-striped table-hover">
+    <table class="table table-hover" style="border-collapse:collapse;">
         @if (Model.Count() == 0)
         {
             <thead>
@@ -14,10 +14,8 @@
         else
         {
             <thead>
-                <tr>
-                    <th>ID</th>
+                <tr >
                     <th>KundID</th>
-                    <th>HundID</th>
                     <th>Från</th>
                     <th>Till</th>
                     <th>Tillägg</th>
@@ -29,17 +27,54 @@
             <tbody>
                 @foreach (var booking in Model)
                 {
-                    <tr>
-                        <td>@booking.ID</td>
-                        <td>@booking.CustomerID</td>
-                        <td>@booking.DogID</td>
-                        <td>@DateTime.Parse(booking.From).ToString("g")</td>
-                        <td>@DateTime.Parse(booking.To).ToString("g")</td>
-                        <td>@(booking.Training ? "+Träning" : "") @(booking.Grooming ? " +Pälsvård" : "") @(booking.ExtraWalk ? " +Promenad" : "")</td>
-                        <td>@booking.Price</td>
-                        <td>@booking.CustomerMessage</td>
+                    
+                        var id = "bookingDog" + booking.ID;
+                        var target = "#bookingDog" + booking.ID;
+                    
+                    <tr data-toggle="tooltip" title="Klicka för bokad hund">
+                        <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@booking.CustomerID</td>
+                        <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@DateTime.Parse(booking.From).ToString("g")</td>
+                        <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@DateTime.Parse(booking.To).ToString("g")</td>
+                        <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@(booking.Training ? "+Träning" : "") @(booking.Grooming ? " +Pälsvård" : "") @(booking.ExtraWalk ? " +Promenad" : "")</td>
+                        <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@booking.Price</td>
+                        <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@booking.CustomerMessage</td>
                         <td>
-                            <a href="#deleteHotelBookingModal" class="delete" data-toggle="modal" data-id="@booking.ID"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            @if (DateTime.Parse(booking.To) >= DateTime.Now)
+                            {
+                                <a href="#deleteHotelBookingModal" class="delete" data-toggle="modal" data-id="@booking.ID">
+                                    <i class="material-icons" data-toggle="tooltip" title="Radera">
+                                        clear
+                                    </i>
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        
+                        <td colspan="5" class="hiddenRow">
+                            <div class="accordian-body collapse" id="@id">
+                                <table>
+                                    <tr>
+                                        <th>HundID</th>
+                                        <th>Namn</th>
+                                        <th>Ras</th>
+                                        <th>Kön</th>
+                                        <th>Född</th>
+                                        <th>Kastrerad</th>
+                                        <th>Kan bo med andra</th>
+                                    </tr>
+                                    <tr>
+                                        <td>@booking.Dog.ID</td>
+                                        <td>@booking.Dog.Name</td>
+                                        <td>@booking.Dog.Breed</td>
+                                        <td>@booking.Dog.Sex</td>
+                                        <td>@booking.Dog.DateOfBirth.ToShortDateString()</td>
+                                        <td>@(booking.Dog.Kastrated ? "Ja" : "Nej")</td>
+                                        <td>@(booking.CanLiveWithOtherDogs ? "Ja" : "Nej")</td>
+                                    </tr>
+                                </table>
+
+                            </div>
                         </td>
                     </tr>
                 }

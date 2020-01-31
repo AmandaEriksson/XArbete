@@ -5,14 +5,14 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using XArbete.Domain.Models;
-using XArbete.Web.Customer.ViewModels;
-using XArbete.Web.DogHotel.ViewModels;
+using XArbete.Web.Features.Customer.ViewModels;
+using XArbete.Web.Features.DogHotel.ViewModels;
 using XArbete.Web.Services.Interfaces;
-using XArbete.Web.TrainingHall.ViewModels;
+using XArbete.Web.Features.TrainingHall.ViewModels;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace XArbete.Web.Customer.Controllers
+namespace XArbete.Web.Features.Customer.Controllers
 {
     public class CustomerController : Controller
     {
@@ -64,7 +64,8 @@ namespace XArbete.Web.Customer.Controllers
         public async Task<IActionResult> NewCustomerDog(CustomerDogViewModel model)
         {
             model.CustomerID = _customerService.GetSingleAsync(a => a.Email == User.Identity.Name).Result.ID;
-            var dog = _mapper.Map<Dog>(model);
+            var dog = _mapper.Map<CustomerDog>(model);
+            dog.DateOfBirth = model.DateOfBirthOffset.DateTime;
              _dogService.Create(dog);
              await _dogService.CommitAsync();
 

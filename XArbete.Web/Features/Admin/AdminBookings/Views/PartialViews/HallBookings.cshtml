@@ -1,4 +1,4 @@
-﻿@model IEnumerable<XArbete.Web.TrainingHall.ViewModels.TrainingHallBookingViewModel>
+﻿@model IEnumerable<XArbete.Web.Features.TrainingHall.ViewModels.TrainingHallBookingViewModel>
 <div style="overflow-x:auto;">
 
     <table class="table table-striped table-hover">
@@ -15,7 +15,6 @@
         {
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>KundID</th>
                     <th>Från</th>
                     <th>Till</th>
@@ -28,11 +27,10 @@
                 @foreach (var booking in Model)
                 {
                     <tr>
-                        <td>@booking.ID</td>
                         <td>@booking.CustomerID</td>
                         <td>@DateTime.Parse(booking.StartTime).ToString("g")</td>
                         <td>@DateTime.Parse(booking.EndTime).ToString("g")</td>
-                        <td>@booking.Price</td>
+                        <td>@booking.Price kr</td>
                         <td>
                             @if (!booking.Payed)
                             {
@@ -49,10 +47,18 @@
                             }
                         </td>
                         <td>
-                            <a href="#deleteHallBookingModal" class="delete" data-toggle="modal" data-id="@booking.ID"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            @if (DateTime.Parse(booking.EndTime) >= DateTime.Now)
+                            {
+                                <a href="#deleteHallBookingModal" class="delete" data-toggle="modal" data-id="@booking.ID">
+                                    <i class="material-icons" data-toggle="tooltip" title="Radera">
+                                        clear
+                                    </i>
+                                </a>
+                            }
 
                         </td>
                     </tr>
+                    
                 }
             </tbody>
         }

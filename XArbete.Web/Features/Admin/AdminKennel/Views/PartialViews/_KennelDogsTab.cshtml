@@ -1,4 +1,4 @@
-﻿@model IEnumerable<XArbete.Web.Kennel.ViewModels.KennelDogViewModel>
+﻿@model IEnumerable<XArbete.Web.Features.Kennel.ViewModels.KennelDogViewModel>
 
 <div style="overflow-x:auto;">
 
@@ -7,8 +7,7 @@
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Namn<span> <i class="material-icons" data-toggle="tooltip" title="Redigeringsbar">edit</i></span></th>
+                    <th style="width:100px">Namn<span> <i class="material-icons" data-toggle="tooltip" title="Redigeringsbar">edit</i></span></th>
                     <th>Ras</th>
                     <th>Född</th>
                     <th>Kön</th>
@@ -25,12 +24,12 @@
                 @foreach (var dog in Model)
                 {
                     <tr class="hide">
-                        <td class="thedogid">@dog.ID</td>
-                        <td contenteditable="true" class="dogname editor">@dog.Name</td>
+                        <td hidden class="thedogid">@dog.ID</td>
+                        <td spellcheck="false" contenteditable="true" class="dogname editor">@dog.Name</td>
                         <td>@dog.Breed</td>
                         <td>@DateTime.Parse(dog.DateOfBirth).ToShortDateString()</td>
                         <td>@dog.Sex</td>
-                        <td contenteditable="true" class="about editor">@dog.About</td>
+                        <td spellcheck="false" contenteditable="true" class="about editor">@dog.About</td>
                         <td>@dog.Img</td>
                         <td>
                             <a href="#deleteKennelDog" class="delete" data-toggle="modal" data-id="@dog.ID">

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using XArbete.Domain.Models;
 
-namespace XArbete.Web.Kennel.ViewModels
+namespace XArbete.Web.Features.Kennel.ViewModels
 {
     public class PuppyGroupViewModel
     {

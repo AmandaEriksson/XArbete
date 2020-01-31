@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using XArbete.Domain.Models;
-using XArbete.Web.Customer.ViewModels;
-using XArbete.Web.DogHotel.ViewModels;
-using XArbete.Web.GuestBook.ViewModels;
-using XArbete.Web.Kennel.ViewModels;
-using XArbete.Web.TrainingHall.ViewModels;
-using XArbete.Web.User.ViewModels;
+using XArbete.Web.Features.Admin.AdminContent.ViewModels;
+using XArbete.Web.Features.Customer.ViewModels;
+using XArbete.Web.Features.DogHotel.ViewModels;
+using XArbete.Web.Features.GuestBook.ViewModels;
+using XArbete.Web.Features.Kennel.ViewModels;
+using XArbete.Web.Features.TrainingHall.ViewModels;
+using XArbete.Web.Features.User.ViewModels;
 
 namespace XArbete.Web.Utils.AutoMapper
 {
@@ -19,8 +20,8 @@ namespace XArbete.Web.Utils.AutoMapper
             CreateMap<TrainingHallBookingViewModel, TrainingHallBooking>();
             CreateMap<TrainingHallBooking, TrainingHallBookingViewModel>();
 
-            CreateMap<CustomerDogViewModel, Dog>();
-            CreateMap<Dog, CustomerDogViewModel>();
+            CreateMap<CustomerDogViewModel, CustomerDog>();
+            CreateMap<CustomerDog, CustomerDogViewModel>();
 
             CreateMap<CustomerViewModel, XArbete.Domain.Models.Customer>();
             CreateMap<XArbete.Domain.Models.Customer, CustomerViewModel>();
@@ -39,11 +40,11 @@ namespace XArbete.Web.Utils.AutoMapper
             CreateMap<GuestBookCommentViewModel, GuestBookComment>();
             CreateMap<GuestBookComment, GuestBookCommentViewModel>();
 
-            CreateMap<KennelContentViewModel, KennelContent>();
-            CreateMap<KennelContent, KennelContentViewModel>(); // kanske inte behövs?? 
+            CreateMap<ContentViewModel, Content>();
+            CreateMap<Content, ContentViewModel>();
 
-            CreateMap<KennelContentSectionViewModel, KennelContentSection>();
-            CreateMap<KennelContentSection, KennelContentSectionViewModel>();
+            CreateMap<ContentSectionViewModel, ContentSection>();
+            CreateMap<ContentSection, ContentSectionViewModel>();
 
         }
     }

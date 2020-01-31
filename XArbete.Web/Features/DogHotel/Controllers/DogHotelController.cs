@@ -6,13 +6,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using XArbete.Domain.Models;
 using XArbete.Services.Utils.Services;
-using XArbete.Web.Customer.ViewModels;
-using XArbete.Web.DogHotel.ViewModels;
+using XArbete.Web.Features.Customer.ViewModels;
+using XArbete.Web.Features.DogHotel.ViewModels;
 using XArbete.Web.Services.Interfaces;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace XArbete.Web.DogHotel.Controllers
+namespace XArbete.Web.Features.DogHotel.Controllers
 {
     public class DogHotelController : Controller
     {
@@ -51,7 +51,6 @@ namespace XArbete.Web.DogHotel.Controllers
             if (await _userService.IsSignedIn(User))
             {
                 var cust = await _customerService.GetSingleAsync(a => a.Email == User.Identity.Name);
-                //var dogs = _dogService.GetMany(a => a.CustomerID == cust.ID);
                 model.Dogs = _dogService.GetMany(a => a.CustomerID == cust.ID).Select(a => _mapper.Map<CustomerDogViewModel>(a));
             }
 
@@ -96,9 +95,9 @@ namespace XArbete.Web.DogHotel.Controllers
                 _toastNotification.AddSuccessToastMessage($"Din bokning är avbokad.");
             }
             
-            var bookings = _bookingService.GetMany(a => a.CustomerID == customerId);
+            var bookings = _bookingService.GetMany(a => a.CustomerID == customerId && a.To >= DateTime.Now);
             var vm = bookings.Select(b => _mapper.Map<HotelBookingViewModel>(b));
-            return PartialView("/Customer/Views/PartialViews/CustomerHotelBookings", vm.ToList());
+            return PartialView("Customer/Views/PartialViews/CustomerHotelBookings", vm.ToList());
         }
     }
 }

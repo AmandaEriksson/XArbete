@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace XArbete.Web.Customer.ViewModels
+namespace XArbete.Web.Features.Customer.ViewModels
 {
     public class CustomerViewModel
     {
@@ -21,6 +21,8 @@ namespace XArbete.Web.Customer.ViewModels
         public string Number { get; set; }
 
         public bool IsAdmin { get; set; }
+
+        public IEnumerable<CustomerDogViewModel> Dogs { get; set; }
 
     }
 }

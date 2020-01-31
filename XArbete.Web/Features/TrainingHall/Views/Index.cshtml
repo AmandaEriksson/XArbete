@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Träningsplan";
-
 }
+@model XArbete.Web.Features.Admin.AdminContent.ViewModels.ContentViewModel
 
 <br />
 <br />
@@ -11,22 +11,22 @@
 
     <div class="row">
         <div class="col-md-12 mb-5">
-            <h2>Träningsplan</h2>
+            <h2>@ViewData["Title"]</h2>
 
             <hr>
+            
             <ul>
-                <li>22 x 10 meter träningsyta.</li>
-                <li>matta med sviktpad.</li>
-                <li>träningsmaterial för lydnad med koner, rutan och hinder.</li>
-                <li>träningsmaterial för rallylydnad med b.la rallylydnadsskyltar, skylthållare, koner m.m.</li>
-                <li> träningsmaterial för nosework med urvalsbana och doftbehållare.</li>
-                <li> träningsmaterial för freestyle med musikanläggning med AUX och Bluetooth.</li>
-                <li> Under hösten 2018 utökar vi även med tränngsmaterial för Agility med 6 hophinder, slalom och 2 tunnlar.</li>
-            </ul>
+                @foreach (var sec in Model.Section)
+                {
+                    if (sec.Title != null)
+                    {
+                        <li>@sec.Title</li>
+                    }
+                    <li>@sec.Section</li>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deserunt neque tempore recusandae animi soluta quasi? Asperiores rem dolore eaque vel, porro, soluta unde debitis aliquam laboriosam. Repellat explicabo, maiores!</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis optio neque consectetur consequatur magni in nisi, natus beatae quidem quam odit commodi ducimus totam eum, alias, adipisci nesciunt voluptate. Voluptatum.</p>
-            <a class="btn btn-primary btn-lg" asp-controller="TrainingHall" asp-action="Book">Boka hallen &raquo;</a>
+                }
+              </ul>
+             <a class="btn btn-primary btn-lg" asp-controller="TrainingHall" asp-action="Book">Boka hallen &raquo;</a>
         </div>
 
     </div>

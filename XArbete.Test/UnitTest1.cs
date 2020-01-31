@@ -6,8 +6,20 @@ namespace XArbete.Test
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void RemoveBookingWithin24HoursAhead()
+        {
+
+        }
+
+        [TestMethod]
+        public void DeletePuppyGroup()
         {
         }
+
+        [TestMethod]
+        public void CheckTrainingHallBookingSuccess()
+        {
+        }
+
     }
 }

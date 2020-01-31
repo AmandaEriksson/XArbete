@@ -1,11 +1,11 @@
-﻿@model XArbete.Web.Admin.ViewModels.AdminManageKennelViewModel
+﻿@model XArbete.Web.Features.Admin.AdminKennel.ViewModels.AdminManageKennelViewModel
 
 <div style="overflow-x:auto;">
 
     <div class="table-wrapper">
         <table class="table-add table table-striped table-hover">
             <thead>
-                <tr>
+                <tr title="Klicka för kullens valpar">
                     <th>Kullnamn</th>
                     <th>Ras</th>
                     <th>PappaID</th>
@@ -21,7 +21,6 @@
             <tbody>
                 @foreach (var puppygroup in Model.PuppyGroups)
                 {
-                    // TO DO groupname editable, born editable
                     var target = "#target" + @puppygroup.ID;
                 <tr style="cursor:pointer">
                     <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@puppygroup.GroupName</td>

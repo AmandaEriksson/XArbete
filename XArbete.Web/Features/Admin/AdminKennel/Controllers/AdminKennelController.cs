@@ -8,13 +8,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using XArbete.Domain.Models;
 using XArbete.Services.Utils.Constants;
-using XArbete.Web.Admin.ViewModels;
-using XArbete.Web.Kennel.ViewModels;
+using XArbete.Web.Features.Admin.AdminKennel.ViewModels;
+using XArbete.Web.Features.Kennel.ViewModels;
 using XArbete.Web.Services.Interfaces;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace XArbete.Web.Admin.Controllers
+namespace XArbete.Web.Features.Admin.AdminKennel.Controllers
 {
     public class AdminKennelController : Controller
     {
@@ -22,24 +22,18 @@ namespace XArbete.Web.Admin.Controllers
         IKennelDogService _kennelDogService;
         IPuppyGroupService _puppyGroupService;
         IPuppyService _puppyService;
-        IKennelContentService _kennelContentService;
-        IKennelContentSectionService _kennelContentSectionService;
         IMapper _mapper;
 
 
         public AdminKennelController(IToastNotification toastNotification, 
             IKennelDogService kennelDogService,
             IPuppyGroupService puppyGroupService,
-            IPuppyService puppyservice,
-            IKennelContentService kennelservice,
-            IKennelContentSectionService kennelsectionservice, IMapper mapper)
+            IPuppyService puppyservice,IMapper mapper)
         {
             _toastNotification = toastNotification;
             _kennelDogService = kennelDogService;
             _puppyGroupService = puppyGroupService;
             _puppyService = puppyservice;
-            _kennelContentService = kennelservice;
-            _kennelContentSectionService = kennelsectionservice;
             _mapper = mapper;
         }
         // GET: /<controller>/
@@ -59,9 +53,9 @@ namespace XArbete.Web.Admin.Controllers
             vm.PuppyGroup = new PuppyGroupViewModel();
             vm.Puppies = _puppyService.GetAll().Select(p => _mapper.Map<PuppyViewModel>(p));
             vm.Puppy = new PuppyViewModel();
-            vm.KennelContents = _kennelContentService.GetAll().Select(b => _mapper.Map<KennelContentViewModel>(b));
-            vm.KennelContentSections = _kennelContentSectionService.GetAll().Select(bs => _mapper.Map<KennelContentSectionViewModel>(bs));
-            vm.KennelContentSection = new KennelContentSectionViewModel();
+            //vm.KennelContents = _kennelContentService.GetAll().Select(b => _mapper.Map<KennelContentViewModel>(b));
+            //vm.KennelContentSections = _kennelContentSectionService.GetAll().Select(bs => _mapper.Map<KennelContentSectionViewModel>(bs));
+            //vm.KennelContentSection = new KennelContentSectionViewModel();
             return vm;
         }
         #endregion
@@ -148,13 +142,13 @@ namespace XArbete.Web.Admin.Controllers
 
         }
 
-        public async Task<IActionResult> ChangePuppyStatus(int id, bool status)
-        {
-            _puppyService.ChangeStatus(id, status);
-            await _puppyService.CommitAsync();
-            _toastNotification.AddSuccessToastMessage($"Valp med id {id} ändrad status");
-            return Json(new { success = true });
-        }
+        //public async Task<IActionResult> ChangePuppyStatus(int id, bool status)
+        //{
+        //    _puppyService.ChangeStatus(id, status);
+        //    await _puppyService.CommitAsync();
+        //    _toastNotification.AddSuccessToastMessage($"Valp med id {id} ändrad status");
+        //    return Json(new { success = true });
+        //}
 
         #endregion
         #region PuppyGroups related
@@ -190,7 +184,7 @@ namespace XArbete.Web.Admin.Controllers
         }
 
         // default fix, if value isn't in the request it's because status is changed to Active (value 1) 
-        public async Task<IActionResult> ChangePuppyGroupStatus(int id, int value = 1, string newBornDate = null)
+        public async Task<IActionResult> ChangePuppyGroupStatus(int id, int status = 1, string newBornDate = null)
         {
             var puppyGroup = _puppyGroupService.GetSingle(a => a.ID == id);
             if (newBornDate != null)
@@ -198,75 +192,23 @@ namespace XArbete.Web.Admin.Controllers
                 puppyGroup.DateOfBirth = DateTimeOffset.Parse(newBornDate);
                 await _puppyGroupService.CommitAsync();
             }
-            _puppyGroupService.ChangeStatus(puppyGroup, value);
+            _puppyGroupService.ChangeStatus(puppyGroup, status);
             await _puppyGroupService.CommitAsync();
             _toastNotification.AddSuccessToastMessage($"Status ändrad för valpkull med id {id}");
 
             return RedirectToAction("PuppyGroups");
         }
+        public async Task<IActionResult> ChangePuppyStatus(int id, bool status)
+        {
+            _puppyService.ChangeStatus(id, status);
+            await _puppyService.CommitAsync();
+            _toastNotification.AddSuccessToastMessage($"Valp med id {id} ändrad status");
+            return Json(new { success = true });
+        }
 
         #endregion
         #region Breeds related
 
-        public async Task<IActionResult> NewKennelContentSection(int id, string title, string text)
-        {
-            var vm = new KennelContentSectionViewModel()
-            {
-                Title = title,
-                Section = text,
-                KennelContentId = id
-
-            };
-            _kennelContentSectionService.Create(_mapper.Map<KennelContentSection>(vm));
-            await _kennelContentSectionService.CommitAsync();
-
-            var model = _kennelContentSectionService.GetMany(a => a.KennelContentId == id).Select(bs => _mapper.Map<KennelContentSectionViewModel>(bs));
-            return PartialView("_KennelContentSections", model);
-        }
-        public async Task<IActionResult> DeleteKennelContentSection(int id)
-        {
-            var section = await _kennelContentSectionService.GetSingleAsync(a => a.Id == id);
-            var model = _kennelContentSectionService.GetMany(a => a.KennelContentId == section.KennelContentId).Select(bs => _mapper.Map<KennelContentSectionViewModel>(bs));
-
-            _kennelContentSectionService.DeleteById(id);
-            await _kennelContentSectionService.CommitAsync();
-
-            return PartialView("_KennelContentSections", model);
-
-        }
-
-        public async Task<IActionResult> EditKennelContent(int id, string description, string link, string linktext, IFormFile file)
-        {
-            var breed = _kennelContentService.GetById(id);
-            if (description != null)
-            {
-                breed.Description = description;
-            }
-            if (link != null)
-            {
-                breed.Link = link;
-            }
-            if (linktext != null)
-            {
-                breed.LinkDescription = linktext;
-            }
-            if (file != null)
-            {
-                var path = Path.Combine(Directory.GetCurrentDirectory(), AppConstants.BreedsImagePath, file.FileName);
-
-                using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
-                breed.Img = file.FileName;
-                await _kennelContentService.CommitAsync();
-
-                return Json(new { data = file.FileName });
-            }
-            await _kennelContentService.CommitAsync();
-            return Json(new { success = true });
-
-        }
         #endregion
     }
 }

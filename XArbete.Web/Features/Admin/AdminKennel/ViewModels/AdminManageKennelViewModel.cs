@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using XArbete.Web.User.ViewModels;
-using XArbete.Web.Kennel.ViewModels;
+using XArbete.Web.Features.User.ViewModels;
+using XArbete.Web.Features.Kennel.ViewModels;
+using XArbete.Web.Features.Admin.ViewModels;
+using XArbete.Web.Features.Admin.AdminContent.ViewModels;
 
-namespace XArbete.Web.Admin.ViewModels
+namespace XArbete.Web.Features.Admin.AdminKennel.ViewModels
 {
     public class AdminManageKennelViewModel : BaseViewModel
     {
@@ -24,10 +26,11 @@ namespace XArbete.Web.Admin.ViewModels
 
         public IEnumerable<PuppyGroupViewModel> PuppyGroups { get; set; }
 
-        public IEnumerable<KennelContentViewModel> KennelContents { get; set; }
+        public ContentViewModel ContentModel { get; set; }
+        //public IEnumerable<KennelContentViewModel> KennelContents { get; set; }
 
-        public IEnumerable<KennelContentSectionViewModel> KennelContentSections { get; set; }
+        //public IEnumerable<KennelContentSectionViewModel> KennelContentSections { get; set; }
 
-        public KennelContentSectionViewModel KennelContentSection { get; set; }
+        //public KennelContentSectionViewModel KennelContentSection { get; set; }
     }
 }

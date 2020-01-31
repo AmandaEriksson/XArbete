@@ -16,7 +16,7 @@ namespace XArbete.Domain.Models
         public string ApplicationUserID { get; set; }
 
         public bool IsAdmin { get; set; }
-        public ICollection<Dog> Dogs { get; set; }
+        public ICollection<CustomerDog> Dogs { get; set; }
 
     }
 }

@@ -1,55 +1,56 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 using XArbete.Service.Utils.Constants;
-using XArbete.Web.Kennel.ViewModels;
+using XArbete.Services.Utils.Constants;
+using XArbete.Web.Features.Admin.AdminContent.ViewModels;
+using XArbete.Web.Features.Kennel.ViewModels;
 using XArbete.Web.Services.Interfaces;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace XArbete.Web.Kennel.Controllers
+namespace XArbete.Web.Features.Kennel.Controllers
 {
     public class KennelController : Controller
     {
         private IKennelDogService _kennelDogService;
         private IPuppyGroupService _puppyGroupService;
         private IPuppyService _puppyService;
-        private IKennelContentService _breedService;
-        IKennelContentSectionService _breedSectionService;
+        private IContentService _contentService;
         IMapper _mapper;
         public KennelController(IKennelDogService kennelDogService,
             IMapper mapper,
             IPuppyGroupService puppygroupservice,
             IPuppyService puppyservice,
-            IKennelContentService breedservice,
-            IKennelContentSectionService breedsection)
+            IContentService contentservice)
         {
             _kennelDogService = kennelDogService;
             _puppyGroupService = puppygroupservice;
             _puppyService = puppyservice;
             _mapper = mapper;
-            _breedService = breedservice;
-            _breedSectionService = breedsection;
+            _contentService = contentservice;
         }
         // GET: /<controller>/
         public IActionResult AboutDogs()
         {
-            var vm = new KennelContentListViewModel();
-            vm.KennelContents = _breedService.GetMany(a => a.IsBreed).Select(a => _mapper.Map<KennelContentViewModel>(a)).ToList();
-            foreach (var breed in vm.KennelContents)
+            var vm = new ContentListViewModel();
+            // FIX HERE
+            vm.KennelContents = _mapper.Map<List<ContentViewModel>>(_contentService.GetMany(a => a.Type == ContentConstants.BreedContent));
+            foreach (var tab in vm.KennelContents)
             {
-                breed.Section = _breedSectionService.GetMany(a => a.KennelContentId == breed.Id).Select(a => _mapper.Map<KennelContentSectionViewModel>(a)).ToList();
+                tab.Section = _contentService.GetSections(tab.Id).Select(a => _mapper.Map<ContentSectionViewModel>(a)).ToList();
             }
 
             return View(vm);
         }
         public IActionResult BuyPuppy()
         {
-            var vm = new KennelContentListViewModel();
-            vm.KennelContents = _breedService.GetMany(a => !a.IsBreed).Select(a => _mapper.Map<KennelContentViewModel>(a)).ToList();
+            var vm = new ContentListViewModel();
+            vm.KennelContents = _mapper.Map<List<ContentViewModel>>(_contentService.GetMany(a => ContentConstants.BuyPuppy.Contains(a.Type)));
             foreach (var tab in vm.KennelContents)
             {
-                tab.Section = _breedSectionService.GetMany(a => a.KennelContentId == tab.Id).Select(a => _mapper.Map<KennelContentSectionViewModel>(a)).ToList();
+                tab.Section = _contentService.GetSections(tab.Id).Select(a => _mapper.Map<ContentSectionViewModel>(a)).ToList();
             }
             return View(vm);
         }

@@ -1,27 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace XArbete.Domain.Models
 {
-    public class Dog
+    public class CustomerDog
     {
         public int ID { get; set; }
 
+        [ForeignKey("Customer")]
         public int CustomerID { get; set; }
-        public Customer Owner { get; set; }
 
-        public string Ras { get; set; }
+        public string Breed { get; set; }
         public string Name { get; set; }
 
         public string Sex { get; set; }
 
-        public string Other { get; set; }
-
         public bool Kastrated { get; set; }
 
-        public bool CanLiveWithOtherDogs { get; set; }
-
+        public DateTime DateOfBirth { get; set; }
 
     }
 }

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using XArbete.Web.DogHotel.ViewModels;
-using XArbete.Web.TrainingHall.ViewModels;
-using XArbete.Web.User.ViewModels;
+using XArbete.Web.Features.DogHotel.ViewModels;
+using XArbete.Web.Features.TrainingHall.ViewModels;
+using XArbete.Web.Features.User.ViewModels;
 
-namespace XArbete.Web.Customer.ViewModels
+namespace XArbete.Web.Features.Customer.ViewModels
 {
     public class CustomersAdminViewModel : BaseViewModel
     {

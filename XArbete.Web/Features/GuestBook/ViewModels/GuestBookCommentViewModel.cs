@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace XArbete.Web.GuestBook.ViewModels
+namespace XArbete.Web.Features.GuestBook.ViewModels
 {
     public class GuestBookCommentViewModel
     {

@@ -4,9 +4,9 @@ using XArbete.Web.Services.Interfaces;
 
 namespace XArbete.Services.Services
 {
-    public class KennelContentService : ServiceBase<KennelContent>, IKennelContentService
+    public class ContentSectionService : ServiceBase<ContentSection>, IContentSectionService
     {
-        public KennelContentService(XArbeteContext context) : base(context)
+        public ContentSectionService(XArbeteContext context) : base(context)
         {
         }
     }

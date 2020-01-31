@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace XArbete.Web.Kennel.ViewModels
+namespace XArbete.Web.Features.Kennel.ViewModels
 {
     public class KennelDogViewModel
     {

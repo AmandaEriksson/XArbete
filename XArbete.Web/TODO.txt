@@ -3,11 +3,6 @@
     @*  TODO 
         move down script tags right before </body>*@
 
-		doghotel booking
-		* disable passed day pick
-		
-		training hall booking
-		* disable passed day pick
 
 		static booking info
 		* enable editing price info etc
@@ -15,24 +10,27 @@
 		puppygroup puppies
 		* enable img editing
 
-		* name fix for partial views (_partialview)
 
 		guestbook
 		* enable img upload
 
-		NEWS
-		* news function, text + video + img
-
-		
-		move all js code to js files
 
 		* comprimate
 
 		* WHEN LOADING THINGS (AJAX CALLS ETC), add this class: fas fa-spinner fa-spin
 
 		RESPONSIVE
-		* OUR DOGS fucked up images
 
 
 		only customers should be able to write comment in guestbook 
 		admin - redigera priser & hundpensionat tillägg
+
+		doghotel rules & prices
+
+
+		fix SAME MAPS STRUCTURE 
+
+
+		cancel hall booking automatically if it isn't payed 
+
+	breed tabs on kennel content like our dogs, puppygroups etc

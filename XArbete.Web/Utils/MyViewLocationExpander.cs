@@ -14,6 +14,7 @@ public class MyViewLocationExpander : IViewLocationExpander
         viewLocations = viewLocations.Append("/Features/Admin/{1}/Views/{0}.cshtml");
         viewLocations = viewLocations.Append("/Features/Admin/{1}/Views/PartialViews/{0}.cshtml");
 
+     
         return viewLocations;
     }
    

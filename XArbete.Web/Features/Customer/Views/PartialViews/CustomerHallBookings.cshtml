@@ -1,5 +1,7 @@
-﻿@model List<XArbete.Web.TrainingHall.ViewModels.TrainingHallBookingViewModel>
+﻿@model List<XArbete.Web.Features.TrainingHall.ViewModels.TrainingHallBookingViewModel>
 <!--HUND HALL BOKNINGAR -->
+<div style="overflow-x:auto;">
+
     <table class="table table-striped table-hover">
         @if (Model.Count == 0)
         {
@@ -14,12 +16,12 @@
         {
             <thead>
                 <tr>
-                    <th>Bokningsnummer</th>
+                    <th>ID</th>
                     <th>Starttid</th>
                     <th>Sluttid</th>
                     <th>Summa</th>
                     <th>Betalad</th>
-
+                    <th style="width:200px">Avboka</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,15 +34,23 @@
                     <td>@DateTime.Parse(booking.EndTime).ToString("g")</td>
                     <td>@booking.Price</td>
                     <td>@(booking.Payed ? "Betalad" : "Inte betalad")</td>
-                    @if (DateTime.Parse(booking.StartTime) > DateTime.Now)
-                    {
-                        <td><a href="#deleteHallBooking" data-toggle="modal" data-id="@booking.ID" class="btn btn-warning">Avboka</a></td>
-
-                    }
-
-                </tr>
+                    <td>
+                        @if (DateTime.Parse(booking.StartTime) > DateTime.Now)
+                        {
+                            if (DateTime.Parse(booking.StartTime) < DateTime.Now.AddHours(24))
+                            {
+                                <p style="color:red"><b>Bokningen är inom 24 timmar och kan inte avbokas.</b></p>
+                            }
+                            else
+                            {
+                                <a href="#deleteHallBooking" data-toggle="modal" data-id="@booking.ID" class="btn btn-warning">Avboka</a>
+                            }
+                        }
+                    </td>
+                    </tr>
                 }
             </tbody>
 
         }
     </table>
+</div>

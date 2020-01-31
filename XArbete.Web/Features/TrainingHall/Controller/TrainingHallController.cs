@@ -6,13 +6,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using XArbete.Domain.Models;
+using XArbete.Services.Utils.Constants;
 using XArbete.Services.Utils.Services;
+using XArbete.Web.Features.Admin.AdminContent.ViewModels;
+using XArbete.Web.Features.TrainingHall.ViewModels;
 using XArbete.Web.Services.Interfaces;
-using XArbete.Web.TrainingHall.ViewModels;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace XArbete.Web.TrainingHall.Controllers
+namespace XArbete.Web.Features.TrainingHall.Controllers
 {
     public class TrainingHallController : Controller
     {
@@ -22,6 +24,7 @@ namespace XArbete.Web.TrainingHall.Controllers
         readonly ICustomerService _customerService;
         readonly IUserService _userService;
         readonly IMapper _mapper;
+        readonly IContentService _contentService;
 
 
         public TrainingHallController(IToastNotification toastNotification,
@@ -29,7 +32,9 @@ namespace XArbete.Web.TrainingHall.Controllers
             ITrainingHallService traininghallService,
             ICustomerService customerService,
             IUserService userservice,
-            IMapper mapper)
+            IMapper mapper,
+            IContentService contentservice
+            )
         {
             _toastNotification = toastNotification;
             _mailService = mailservice;
@@ -37,16 +42,25 @@ namespace XArbete.Web.TrainingHall.Controllers
             _customerService = customerService;
             _userService = userservice;
             _mapper = mapper;
+            _contentService = contentservice;
         }
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return View();
+            var model = _mapper.Map<ContentViewModel>(_contentService.GetSingle(a => a.Type == ContentConstants.HallAbout));
+            model.Section = _mapper.Map<List<ContentSectionViewModel>>(_contentService.GetSections(model.Id));
+            return View(model);
         }
 
         public IActionResult PriceInfo()
         {
-            return View();
+            var model = new TrainingHallContentViewModel();
+            model.PriceInfo = _mapper.Map<ContentViewModel>(_contentService.GetSingle(a => a.Type == ContentConstants.HallPriceContent));
+            model.PriceInfo.Section = _mapper.Map<List<ContentSectionViewModel>>(_contentService.GetSections(model.PriceInfo.Id));
+            model.ComfortRules = _mapper.Map<ContentViewModel>(_contentService.GetSingle(a => a.Type == ContentConstants.HallRulesContent));
+            model.ComfortRules.Section = _mapper.Map<List<ContentSectionViewModel>>(_contentService.GetSections(model.ComfortRules.Id));
+
+            return View(model);
         }
 
 
@@ -137,9 +151,9 @@ namespace XArbete.Web.TrainingHall.Controllers
                 await _trainingHallService.CommitAsync();
                 _toastNotification.AddSuccessToastMessage($"Din bokning är avbokad.");
             }
-            var bookings = _trainingHallService.GetMany(a => a.CustomerID == customerId);
+            var bookings = _trainingHallService.GetMany(a => a.CustomerID == customerId && a.EndTime >= DateTime.Now);
             var vm = bookings.Select(b => _mapper.Map<TrainingHallBookingViewModel>(b));
-            return PartialView("/Customer/Views/PartialViews/CustomerHallBookings.cshtml", vm.ToList());
+            return PartialView("Customer/Views/PartialViews/CustomerHallBookings", vm.ToList());
         }
     }
 }

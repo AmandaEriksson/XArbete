@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using XArbete.Web.User.ViewModels;
+using XArbete.Web.Features.User.ViewModels;
 
-namespace XArbete.Web.TrainingHall.ViewModels
+namespace XArbete.Web.Features.TrainingHall.ViewModels
 {
     public class TrainingHallBookingViewModel : BaseViewModel
     {

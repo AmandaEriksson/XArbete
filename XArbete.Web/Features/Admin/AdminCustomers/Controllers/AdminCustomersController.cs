@@ -1,21 +1,21 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using XArbete.Web.Admin.ViewModels;
-using XArbete.Web.Customer.ViewModels;
+using XArbete.Web.Features.Admin.AdminCustomers.ViewModels;
+using XArbete.Web.Features.Customer.ViewModels;
 using XArbete.Web.Services.Interfaces;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace XArbete.Web.Admin.Controllers
+namespace XArbete.Web.Features.Admin.AdminCustomers.Controllers
 {
     public class AdminCustomersController : Controller
     {
         // GET: /<controller>/
         ICustomerService _customerService;
-        IDogService _dogService;
         ITrainingHallService _traininghallService;
         IDogHotelService _dogHotelService;
         IUserService _userService;
@@ -25,7 +25,6 @@ namespace XArbete.Web.Admin.Controllers
 
 
         public AdminCustomersController(ICustomerService customerservice,
-            IDogService dogService,
             ITrainingHallService traininghallService,
             IDogHotelService doghotelService,
             IMapper mapper,
@@ -35,7 +34,6 @@ namespace XArbete.Web.Admin.Controllers
         )
         {
             _customerService = customerservice;
-            _dogService = dogService;
             _traininghallService = traininghallService;
             _dogHotelService = doghotelService;
             _userService = userService;
@@ -58,7 +56,10 @@ namespace XArbete.Web.Admin.Controllers
         {
             var vm = new AdminManageCustomersViewModel();
             vm.Customers = _customerService.GetAll().Select(c => _mapper.Map<CustomerViewModel>(c));
-            vm.Dogs = _dogService.GetAll().Select(d => _mapper.Map<CustomerDogViewModel>(d));
+            foreach (var cust in vm.Customers)
+            {
+                cust.Dogs = _mapper.Map<List<CustomerDogViewModel>>(_customerService.GetCustomerDogs(cust.ID));
+            }
             return vm;
         }
         public async Task<IActionResult> DeleteCustomer(int id)
@@ -71,14 +72,16 @@ namespace XArbete.Web.Admin.Controllers
             bookingsCount += await _dogHotelService.DeleteCustomerBookings(id);
             await _dogHotelService.CommitAsync();
 
-            var dogsCount = await _dogService.DeleteCustomerDogs(id);
-            await _dogService.CommitAsync();
+            var dogsCount = await _customerService.DeleteCustomerDogs(id);
+            //await _customerService.CommitAsync();
+
+            _customerService.DeleteById(id);
+            await _customerService.CommitAsync();
 
             _userService.DeleteByUserId(user.ApplicationUserID);
             await _userService.CommitAsync();
 
-            _customerService.DeleteById(id);
-            await _customerService.CommitAsync();
+           
 
 
             _toastNotification.AddInfoToastMessage($"Raderat kund med id {id} tillsammans med {bookingsCount} bokning(ar) och {dogsCount} hund(ar)");
@@ -101,6 +104,32 @@ namespace XArbete.Web.Admin.Controllers
             return Json(new { success = true });
         }
 
+        public async Task<IActionResult> Search(string searchValue)
+        {
+            var vm = new AdminManageCustomersViewModel();
+            if (searchValue == null)
+            {
+                vm.Customers = _mapper.Map<List<CustomerViewModel>>(_customerService.GetAll());
+            }
+            else
+            {
+                var searchValueToLower = searchValue.ToLower();
+                if ("admin".Contains(searchValueToLower))
+                {
+                    vm.Customers = _mapper.Map<List<CustomerViewModel>>(_customerService.GetMany(a => a.IsAdmin));
+                }
+                else
+                {
+                    vm.Customers = _mapper.Map<List<CustomerViewModel>>(
+                                                _customerService.GetMany(a => a.Name.ToLower().Contains(searchValueToLower)
+                                                    || a.Email.ToLower().Contains(searchValueToLower)
+                                                    || (a.Number != null && a.Number.Contains(searchValueToLower))));
+                }
+               
+
+            }
+            return PartialView("Customers", vm);
+        }
         #endregion
 
     }

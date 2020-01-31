@@ -1,45 +1,43 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using XArbete.Web.Admin.ViewModels;
+using XArbete.Web.Features.Admin.ViewModels;
 using XArbete.Web.Services.Interfaces;
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace XArbete.Web.Admin.Controllers
+namespace XArbete.Web.Features.Admin.Controllers
 {
     public class AdminController : Controller
     {
-        #region Controller Initialization 
         IToastNotification _toastNotification;
         IUserService _userService;
+        IContentService _contentService;
         IMapper _mapper;
 
-
         public AdminController(IToastNotification toastNotification,
-            IUserService userService
+            IUserService userService, IContentService contentservice, IMapper mapper
             )
         {
             _toastNotification = toastNotification;
             _userService = userService;
+            _contentService = contentservice;
+            _mapper = mapper;
+
         }
-        #endregion
 
-
-
-
-        #region Admin Related
         public IActionResult Edit()
         {
             var model = new AdminEditViewModel();
-            return View("Edit", model);
+            return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> Edit(AdminEditViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View("Edit", model);
+                return View(model);
             }
             var user = await _userService.GetSingleAsync(a => a.Email == User.Identity.Name);
 
@@ -55,7 +53,7 @@ namespace XArbete.Web.Admin.Controllers
             }
             return RedirectToAction("Edit");
         }
+       
 
-        #endregion
     }
 }

@@ -5,7 +5,7 @@ using XArbete.Web.Services.Interfaces;
 
 namespace XArbete.Services.Services
 {
-    public class DogService : ServiceBase<Dog>, IDogService
+    public class DogService : ServiceBase<CustomerDog>, IDogService
     {
         public DogService(XArbeteContext context) : base(context)
         {

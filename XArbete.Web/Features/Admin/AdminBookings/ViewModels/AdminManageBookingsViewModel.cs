@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
-using XArbete.Web.DogHotel.ViewModels;
-using XArbete.Web.TrainingHall.ViewModels;
-using XArbete.Web.User.ViewModels;
+using XArbete.Web.Features.Customer.ViewModels;
+using XArbete.Web.Features.DogHotel.ViewModels;
+using XArbete.Web.Features.TrainingHall.ViewModels;
+using XArbete.Web.Features.User.ViewModels;
 
-namespace XArbete.Web.Admin.ViewModels
+namespace XArbete.Web.Features.Admin.AdminBookings.ViewModels
 {
     public class AdminManageBookingsViewModel : BaseViewModel
     {

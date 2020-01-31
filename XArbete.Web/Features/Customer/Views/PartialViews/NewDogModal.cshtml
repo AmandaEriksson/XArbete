@@ -1,4 +1,4 @@
-﻿@model XArbete.Web.Customer.ViewModels.CustomerDogViewModel
+﻿@model XArbete.Web.Features.Customer.ViewModels.CustomerDogViewModel
 @{ 
     ViewData["Title"] = "Lägg till hund";
 }
@@ -14,17 +14,11 @@
                 <label asp-for="Name"></label>
                 <input class="form-control" id="name" placeholder="(obligatoriskt)" asp-for="Name" required />
                 <br />
-                <label asp-for="Ras"></label>
-                <select class="form-control breed-dropdown" asp-for="Ras" required>Välj</select>
+                <label asp-for="Breed"></label>
+                <select class="form-control breed-dropdown" asp-for="Breed" required>Välj</select>
                 <br />
-                <label asp-for="Other"></label>
-                <textarea class="form-control" rows="3" asp-for="Other" placeholder="(valfritt)"></textarea>
-
-                <br />
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" style="transform:scale(1.5)" type="checkbox" asp-for="CanLiveWithOtherDogs">
-                    <label class="form-check-label" asp-for="CanLiveWithOtherDogs"></label>
-                </div><br /><br />
+                <label asp-for="DateOfBirthOffset"></label>
+                <input class="form-control" placeholder="(obligatoriskt)" id="customerDogDateOfBirth" asp-for="DateOfBirthOffset" autocomplete="off" required />
 
                 <div class="form-check form-check-inline">
                     <input required class="form-check-input" style="transform:scale(1.5)" type="radio" id="male" asp-for="Sex" value="Hane">
@@ -33,7 +27,7 @@
                 <div class="form-check form-check-inline">
                     <input required style="transform:scale(1.5)" class="form-check-input" type="radio" id="female" asp-for="Sex" value="Tik">
                     <label class="form-check-label" for="female">Tik</label>
-                </div><br />
+                </div><br /><br />
                 <div class="form-check form-check-inline">
                     <input required class="form-check-input" style="transform:scale(1.5)" type="radio" id="castrated" asp-for="Kastrated" value="true">
                     <label class="form-check-label" for="castrated">Kastrerad</label>
@@ -51,3 +45,11 @@
         </form>
     </div>
 </div>
+<script>
+        $("#customerDogDateOfBirth").datetimepicker({
+        numberOfMonths: 1,
+        format: "Y-m-d",
+        timepicker: false
+    });
+
+</script>

@@ -1,5 +1,5 @@
 ﻿
-namespace XArbete.Web.User.ViewModels
+namespace XArbete.Web.Features.User.ViewModels
 {
     public class BaseViewModel
     {

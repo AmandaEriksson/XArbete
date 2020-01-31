@@ -1,4 +1,4 @@
-﻿@model XArbete.Web.DogHotel.ViewModels.HotelBookingViewModel
+﻿@model XArbete.Web.Features.DogHotel.ViewModels.HotelBookingViewModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
@@ -11,7 +11,7 @@
             <h4 class="modal-title">@ViewData["Title"]</h4>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        <form asp-controller="DogHotel" asp-action="NewBooking" method="post">
+        <form id="hotelBookingModal" asp-controller="DogHotel" asp-action="NewBooking" method="post">
             @if (Model.Dogs != null)
             {
                 <div class="modal-body">
@@ -64,6 +64,7 @@
             }
 
             <div class="modal-footer">
+                <i id="loadingIcon"></i>
                 <input type="submit" class="btn btn-outline-info" value="Boka" />
             </div>
         </form>

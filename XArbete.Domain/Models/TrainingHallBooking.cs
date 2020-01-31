@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace XArbete.Domain.Models
@@ -8,8 +9,8 @@ namespace XArbete.Domain.Models
     {
         public int ID { get; set; }
 
+        [ForeignKey("Customer")]
         public int CustomerID { get; set; }
-        public Customer Customer { get; set; }
 
 
         public DateTime StartTime { get; set; }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
-namespace XArbete.Web.Kennel.ViewModels
+namespace XArbete.Web.Features.Kennel.ViewModels
 {
     public class PuppyViewModel
     {

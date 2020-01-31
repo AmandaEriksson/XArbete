@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace XArbete.Domain.Models
 {
-    public class KennelContent
+    public class Content
     {
         public int ID { get; set; }
 
-        public bool IsBreed { get; set; }
+        public string Type { get; set; }
 
         public string Name { get; set; }
 

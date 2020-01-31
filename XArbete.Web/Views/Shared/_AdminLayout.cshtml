@@ -1,0 +1,182 @@
+﻿@model XArbete.Web.Features.User.ViewModels.BaseViewModel
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<XArbete.Domain.Models.ApplicationUser> SignInManager
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="sv-se">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>My Funny Friends</title>
+    @* <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">*@
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/datetimepicker/jquery.datetimepicker.full.js"></script>
+    <script src="~/js/site.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="~/datetimepicker/jquery.datetimepicker.min.css" />
+
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/modal-styles.css" rel="stylesheet" />
+    @*//toggle checkboxes*@
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+
+    @* footer *@
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/css/mdb.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="belowbody">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+
+            <div class="container">
+                <h3 style="color:white">Välkommen Admin</h3>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class=" nav-link" asp-controller="AdminCustomers" asp-action="ManageCustomers">
+                                Användare
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class=" nav-link" asp-controller="AdminBookings" asp-action="ManageBookings">
+                                Bokningar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class=" nav-link" asp-controller="AdminKennel" asp-action="ManageKennel">
+                                Kenneln
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="AdminContent" asp-action="ManageContent">
+                                Innehåll
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Admin" asp-action="Edit">
+                                Ändra lösenord
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="User" asp-action="LogOut" class="nav-item"><b>Logga ut    </b></a>
+
+                        </li>
+                        <li class="nav-item"><a>hej </a></li>
+                        <li class="nav-item">
+                            <a class="nav-item" asp-controller="Home" asp-action="Index">
+                                <b> Till hemsidan</b>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+
+
+
+                @*<ul class="navbar-nav ml-auto">
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-controller="AdminCustomers" asp-action="ManageCustomers">Användare</a>
+                                <a class="dropdown-item" asp-controller="AdminBookings" asp-action="ManageBookings">Bokningar</a>
+                                <a class="dropdown-item" asp-controller="AdminKennel" asp-action="ManageKennel">Kennel</a>
+                                <a class="dropdown-item" asp-controller="AdminContent" asp-action="ManageContent">Innehåll</a>
+
+                                <a class="dropdown-item" asp-controller="Admin" asp-action="Edit">Ändra lösenord</a>
+
+
+                            </div>
+                        </li>
+                    </ul>*@
+            </div>
+        </nav>
+        @RenderBody()
+
+
+    </div>
+
+
+
+
+    <!-- LOGIN MODAL-->
+
+    <div id="login" class="modal fade" role="dialog">
+        @await Html.PartialAsync("LoginModal", Model)
+    </div>
+
+
+    <!-- REGISTER MODAL-->
+
+
+    <div id="register" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form asp-action="Register" asp-controller="User" method="post">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Registrera dig</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label asp-for="RegisterViewModel.Email"></label>
+                                    <input asp-for="RegisterViewModel.Email" class="form-control" />
+                                    <span asp-validation-for="RegisterViewModel.Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="RegisterViewModel.Name"></label>
+                                    <input asp-for="RegisterViewModel.Name" class="form-control" />
+                                    <span asp-validation-for="RegisterViewModel.Name" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="RegisterViewModel.Password"></label>
+                                    <input asp-for="RegisterViewModel.Password" class="form-control" />
+                                    <span asp-validation-for="RegisterViewModel.Password" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="RegisterViewModel.ConfirmPassword"></label>
+                                    <input asp-for="RegisterViewModel.ConfirmPassword" class="form-control" />
+                                    <span asp-validation-for="RegisterViewModel.ConfirmPassword" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        @section Scripts {
+                            @await Html.PartialAsync("_ValidationScriptsPartial")
+                        }
+                    </div>
+
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-info" value="Registrera" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

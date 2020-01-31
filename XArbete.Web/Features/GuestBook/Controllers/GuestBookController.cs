@@ -4,12 +4,12 @@ using NToastNotify;
 using System.Linq;
 using System.Threading.Tasks;
 using XArbete.Domain.Models;
-using XArbete.Web.GuestBook.ViewModels;
+using XArbete.Web.Features.GuestBook.ViewModels;
 using XArbete.Web.Services.Interfaces;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace XArbete.Web.GuestBook.Controllers
+namespace XArbete.Web.Features.GuestBook.Controllers
 {
     public class GuestBookController : Controller
     {

@@ -1,0 +1,107 @@
+﻿@model IEnumerable<XArbete.Web.Features.Admin.AdminContent.ViewModels.ContentViewModel>
+
+<div style="overflow-x:auto;">
+    <div class="table-wrapper">
+        <table class="table-add table table-striped table-hover">
+            <tbody>
+                @foreach (var content in Model)
+                {
+                    var target = "#breed" + content.Id;
+                    var id = "breed" + content.Id;
+
+                    <tr style="cursor:pointer">
+                        <td data-toggle="collapse" data-target="@target" class="accordion-toggle">
+                            <b>@content.Name</b>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="hiddenRow">
+
+                            <div class="accordian-body collapse" id="@id">
+                                <input class="breedId" style="display:none" value="@content.Id" />
+                                @if (!XArbete.Services.Utils.Constants.ContentConstants.OnlyContentSections.Contains(content.Type))
+                                {
+                                    <label asp-for="@content.Description">Beskrivning</label>
+                                    <input contenteditable="true" type="text" id="@($"breedDescription{content.Id}")" class="form-control breedEditing" name="description" asp-for="@content.Description" value="@content.Description" />
+                                    <br />
+                                    <label asp-for="@content.Link">Länk</label>
+                                    <input contenteditable="true" type="text" id="@($"breedLink{content.Id}")" class="form-control breedEditing" name="link" asp-for="@content.Link" value="@content.Link" />
+                                    <br />
+                                    <label asp-for="@content.LinkDescription">Länkbeskrivning</label>
+                                    <input contenteditable="true" type="text" id="@($"breedLinkDescription{content.Id}")" class="form-control breedEditing" name="linktext" asp-for="@content.LinkDescription" value="@content.LinkDescription" />
+                                    <br />
+                                }
+
+                                <div class="container">
+                                    <div class="row">
+                                        @if (!XArbete.Services.Utils.Constants.ContentConstants.NoContentImg.Contains(content.Type))
+                                        {
+                                            <div class="col md-3">
+
+                                                <form>
+                                                    <input class="breedId" hidden value="@content.Id" name="id" />
+                                                    @{
+                                                        var style = "";
+                                                    }
+                                                    @if (content.Img == null)
+                                                    {
+                                                        style = "display:none";
+                                                    }
+                                                    else
+                                                    {
+                                                        <label>Bild</label><br />
+                                                        <img class="breedImage" style="max-width:400px;@style" src="~/img/breeds/@content.Img" alt="Bild på @content.Name" id="@($"breedImg{content.Id}")" />
+                                                        <br />
+                                                    }
+                                                    <input type="file" class="form-control breedFileEditingForm" name="file" @*id="formfile"*@ style="width:80%" />
+
+                                                </form>
+                                                <br />
+                                            </div>
+
+
+                                        }
+
+                                        <div class="col md-9">
+
+                                            @{
+                                                var breedsection = "breedSections" + content.Id;
+                                            }
+                                            <label>Info sektioner</label>
+                                            <div id="@breedsection">
+                                                @await Html.PartialAsync("_ContentSections", content.Section)
+                                            </div>
+                                            <form asp-controller="AdminContent" asp-action="NewContentSection" method="get" class="newKennelContentSectionForm">
+                                                <input type="hidden" value="@content.Id" class="newSectionBreedId" />
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <label>Titel</label>
+                                                        <input class="form-control newBreedSectionTitle" title="(visas i fet text)" name="Title" id="@($"breedSectionTitle{content.Id}")" />
+                                                    </div>
+                                                    <div class="col">
+                                                        <label>Text</label>
+                                                        <input class="form-control newBreedSectionText" title="(visas i vanlig text under titel)" name="Section" id="@($"breedSectionSection{content.Id}")" />
+                                                    </div>
+                                                    <div class="col">
+                                                        <br />
+                                                        <input type="submit" class="btn btn-info btn-sm" value="Lägg till sektion" />
+
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+
+    </div>
+</div>

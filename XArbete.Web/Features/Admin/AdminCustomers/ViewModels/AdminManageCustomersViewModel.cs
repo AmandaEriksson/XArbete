@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using XArbete.Web.Customer.ViewModels;
-using XArbete.Web.User.ViewModels;
+using XArbete.Web.Features.Customer.ViewModels;
+using XArbete.Web.Features.User.ViewModels;
 
-namespace XArbete.Web.Admin.ViewModels
+namespace XArbete.Web.Features.Admin.AdminCustomers.ViewModels
 {
     public class AdminManageCustomersViewModel : BaseViewModel
     {

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace XArbete.Web.User.ViewModels
+namespace XArbete.Web.Features.User.ViewModels
 {
 
     public class RegisterViewModel : BaseViewModel

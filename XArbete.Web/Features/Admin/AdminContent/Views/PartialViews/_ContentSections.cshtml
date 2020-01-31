@@ -1,0 +1,20 @@
+﻿@model IEnumerable<XArbete.Web.Features.Admin.AdminContent.ViewModels.ContentSectionViewModel>
+
+        @if (Model != null)
+        {
+                <ul>
+                    @foreach (var row in Model)
+                    {
+                    <li>
+                        <b>@row.Title</b><br />@row.Section
+
+                        <a style="float:right" class="deleteKennelSection delete" asp-action="DeleteContentSection" data-breedid="@row.KennelContentId" data-id="@row.Id">
+                            <i class="material-icons" data-toggle="tooltip" title="Radera">
+                                clear
+                            </i>
+                        </a>
+                       
+                    </li>
+                    }
+                </ul>
+        }

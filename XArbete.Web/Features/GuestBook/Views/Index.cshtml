@@ -1,5 +1,5 @@
 ﻿
-@model XArbete.Web.GuestBook.ViewModels.GuestBookViewModel
+@model XArbete.Web.Features.GuestBook.ViewModels.GuestBookViewModel
 
 <br />
 <br />
@@ -23,7 +23,7 @@
             <ul class="list-group list-group-flush">
                 @foreach (var comment in @Model.Comments.OrderByDescending(a => a.CreatedAt))
                 {
-                    <li class="list-group-item z-depth-5">
+                    <li class="list-group-item">
                         @comment.WrittenBy: <br />
                         @comment.Comment<br />
                         <small>@comment.CreatedAt.ToString()</small>

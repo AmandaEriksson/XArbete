@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace XArbete.Domain.Models
@@ -23,12 +24,11 @@ namespace XArbete.Domain.Models
 
         public bool ExtraWalk { get; set; }
 
+        public bool CanLiveWithOtherDogs { get;set; }
         public int DogID { get; set; }
-        public Dog Dog { get; set; }
 
-
+        [ForeignKey("Customer")]
         public int CustomerID { get; set; }
-        public Customer Customer { get; set; }
 
 
 

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace XArbete.Web.Customer.ViewModels
+namespace XArbete.Web.Features.Customer.ViewModels
 {
     public class CustomerDogViewModel
     {
@@ -13,23 +13,23 @@ namespace XArbete.Web.Customer.ViewModels
         public int CustomerID { get; set; }
 
         //public Customer Owner { get; set; }
-        [Display(Name = "Hundens ras")]
-        public string Ras { get; set; }
+        [Display(Name = "Ras")]
+        public string Breed { get; set; }
 
-        [Display(Name = "Hundens namn")]
+        [Display(Name = "Namn")]
         public string Name { get; set; }
 
-        [Display(Name = "Hundens födelsedatum")]
-        public string DateOfBirth { get; set; }
+        [Display(Name = "Födelsedatum")]
+        public DateTimeOffset DateOfBirthOffset { get; set; }
+
+        public DateTime DateOfBirth { get; set; }
+
+        [Display(Name = "Kön")]
         public string Sex { get; set; }
 
-        [Display(Name = "Annat/allergier")]
-        public string Other { get; set; }
 
         [Display(Name = "Kastrerad")]
         public bool Kastrated { get; set; }
 
-        [Display(Name = "Kan bo med andra")]
-        public bool CanLiveWithOtherDogs { get; set; }
     }
 }

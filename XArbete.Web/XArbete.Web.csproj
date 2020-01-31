@@ -100,7 +100,6 @@
 
   <ItemGroup>
     <Folder Include="Content\Invoices\" />
-    <Folder Include="Views\Shared\PartialViews\" />
     <Folder Include="wwwroot\img\kenneldogs\" />
     <Folder Include="wwwroot\img\kennelpuppies\" />
     <Folder Include="wwwroot\img\breeds\" />
