@@ -71,17 +71,17 @@ namespace XArbete.Web.Features.User.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(BaseViewModel model)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var user = await _userService.CreateUser(model.Email,
-                        model.Password, model.Name,
-                        _userService.Role(model.IsAdmin));
+                    var user = await _userService.CreateUser(model.RegisterViewModel.Email,
+                        model.RegisterViewModel.Password, model.RegisterViewModel.Name,
+                        _userService.Role(model.RegisterViewModel.IsAdmin));
 
-                    var customer = _mapper.Map<XArbete.Domain.Models.Customer>(model);
+                    var customer = _mapper.Map<XArbete.Domain.Models.Customer>(model.RegisterViewModel);
                     customer.ApplicationUserID = user.Id;
 
                     _customerService.Create(customer);

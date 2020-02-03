@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using XArbete.Domain.Models;
@@ -28,7 +29,7 @@ namespace XArbete.Web.Features.GuestBook.Controllers
         {
             var viewmodel = new GuestBookViewModel()
             {
-                Comments = _guestBookService.GetAll().Select(a => _mapper.Map<GuestBookCommentViewModel>(a))
+                Comments = _mapper.Map<List<GuestBookCommentViewModel>>(_guestBookService.GetAll())
             };
             return View(viewmodel);
         }

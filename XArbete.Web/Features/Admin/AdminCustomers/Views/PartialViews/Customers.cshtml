@@ -56,17 +56,21 @@
                                         <th>Född</th>
                                         <th>Kastrerad</th>
                                     </tr>
-                                    @foreach (var dog in cust.Dogs)
+                                    @if (cust.Dogs != null)
                                     {
-                                        <tr>
-                                            <td>@dog.ID</td>
-                                            <td>@dog.Name</td>
-                                            <td>@dog.Breed</td>
-                                            <td>@dog.Sex</td>
-                                            <td>@dog.DateOfBirth.ToShortDateString()</td>
-                                            <td>@(dog.Kastrated ? "Ja" : "Nej")</td>
-                                        </tr>
+                                        @foreach (var dog in cust.Dogs)
+                                        {
+                                            <tr>
+                                                <td>@dog.ID</td>
+                                                <td>@dog.Name</td>
+                                                <td>@dog.Breed</td>
+                                                <td>@dog.Sex</td>
+                                                <td>@dog.DateOfBirth.ToShortDateString()</td>
+                                                <td>@(dog.Kastrated ? "Ja" : "Nej")</td>
+                                            </tr>
+                                        }
                                     }
+
                                 </table>
 
                             </div>

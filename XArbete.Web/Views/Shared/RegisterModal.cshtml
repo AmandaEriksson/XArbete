@@ -1,0 +1,46 @@
+﻿@model XArbete.Web.Features.User.ViewModels.BaseViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<div class="modal-dialog">
+    <div class="modal-content">
+        <form asp-action="Register" asp-controller="User" method="post">
+            <div class="modal-header">
+                <h4 class="modal-title">Registrera dig</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="RegisterViewModel.Email"></label>
+                            <input asp-for="RegisterViewModel.Email" class="form-control" />
+                            <span asp-validation-for="RegisterViewModel.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="RegisterViewModel.Name"></label>
+                            <input asp-for="RegisterViewModel.Name" class="form-control" />
+                            <span asp-validation-for="RegisterViewModel.Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="RegisterViewModel.Password"></label>
+                            <input asp-for="RegisterViewModel.Password" class="form-control" />
+                            <span asp-validation-for="RegisterViewModel.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="RegisterViewModel.ConfirmPassword"></label>
+                            <input asp-for="RegisterViewModel.ConfirmPassword" class="form-control" />
+                            <span asp-validation-for="RegisterViewModel.ConfirmPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                @section Scripts {
+                    @await Html.PartialAsync("_ValidationScriptsPartial")
+                }
+            </div>
+
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-info" value="Registrera" />
+            </div>
+        </form>
+    </div>
+</div>

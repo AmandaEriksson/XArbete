@@ -17,9 +17,9 @@ namespace XArbete.Services.Services
     public class MailService : IMailService
     {
         private readonly WebOptions _webOptions;
-        private readonly IDogService _dogService;
+        private readonly ICustomerDogService _dogService;
 
-        public MailService(IOptions<WebOptions> weboptions, IDogService dogservice)
+        public MailService(IOptions<WebOptions> weboptions, ICustomerDogService dogservice)
         {
             _webOptions = weboptions.Value;
             _dogService = dogservice;

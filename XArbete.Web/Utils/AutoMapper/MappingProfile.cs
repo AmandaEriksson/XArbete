@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using XArbete.Domain.Models;
 using XArbete.Web.Features.Admin.AdminContent.ViewModels;
+using XArbete.Web.Features.Course.ViewModels;
 using XArbete.Web.Features.Customer.ViewModels;
 using XArbete.Web.Features.DogHotel.ViewModels;
 using XArbete.Web.Features.GuestBook.ViewModels;
@@ -45,6 +46,9 @@ namespace XArbete.Web.Utils.AutoMapper
 
             CreateMap<ContentSectionViewModel, ContentSection>();
             CreateMap<ContentSection, ContentSectionViewModel>();
+
+            CreateMap<Course, CourseViewModel>();
+            CreateMap<CourseViewModel, Course>();
 
         }
     }

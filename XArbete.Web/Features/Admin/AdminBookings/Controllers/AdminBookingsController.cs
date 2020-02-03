@@ -19,10 +19,10 @@ namespace XArbete.Web.Features.Admin.AdminBookings.Controllers
         ITrainingHallService _traininghallService;
         IDogHotelService _dogHotelService;
         IMapper _mapper;
-        IDogService _customerDogService;
+        ICustomerDogService _customerDogService;
 
         public AdminBookingsController(ITrainingHallService traininghallService,
-            IDogHotelService doghotelService, IMapper mapper, IDogService customerdogservice)
+            IDogHotelService doghotelService, IMapper mapper, ICustomerDogService customerdogservice)
         {
             _traininghallService = traininghallService;
             _dogHotelService = doghotelService;

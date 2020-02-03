@@ -18,6 +18,7 @@
     <Compile Remove="Features\Kennel\Models\**" />
     <Compile Remove="Features\TrainingHall\Models\**" />
     <Compile Remove="Features\User\Models\**" />
+    <Compile Remove="NewFolder\**" />
     <Compile Remove="Services\**" />
     <Compile Remove="Features\TrainingHall\Models\**" />
     <Compile Remove="Features\User\Models\**" />
@@ -35,6 +36,7 @@
     <Content Remove="Features\Kennel\Models\**" />
     <Content Remove="Features\TrainingHall\Models\**" />
     <Content Remove="Features\User\Models\**" />
+    <Content Remove="NewFolder\**" />
     <Content Remove="Services\**" />
     <Content Remove="Features\TrainingHall\Models\**" />
     <Content Remove="Features\User\Models\**" />
@@ -52,6 +54,7 @@
     <EmbeddedResource Remove="Features\Kennel\Models\**" />
     <EmbeddedResource Remove="Features\TrainingHall\Models\**" />
     <EmbeddedResource Remove="Features\User\Models\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
     <EmbeddedResource Remove="Services\**" />
     <EmbeddedResource Remove="Features\TrainingHall\Models\**" />
     <EmbeddedResource Remove="Features\User\Models\**" />
@@ -69,6 +72,7 @@
     <None Remove="Features\Kennel\Models\**" />
     <None Remove="Features\TrainingHall\Models\**" />
     <None Remove="Features\User\Models\**" />
+    <None Remove="NewFolder\**" />
     <None Remove="Services\**" />
     <None Remove="Features\TrainingHall\Models\**" />
     <None Remove="Features\User\Models\**" />
@@ -86,6 +90,7 @@
     <TypeScriptCompile Remove="Features\Kennel\Models\**" />
     <TypeScriptCompile Remove="Features\TrainingHall\Models\**" />
     <TypeScriptCompile Remove="Features\User\Models\**" />
+    <TypeScriptCompile Remove="NewFolder\**" />
     <TypeScriptCompile Remove="Services\**" />
     <TypeScriptCompile Remove="Features\TrainingHall\Models\**" />
     <TypeScriptCompile Remove="Features\User\Models\**" />
@@ -100,6 +105,7 @@
 
   <ItemGroup>
     <Folder Include="Content\Invoices\" />
+    <Folder Include="Features\Admin\AdminCourse\ViewModels\" />
     <Folder Include="wwwroot\img\kenneldogs\" />
     <Folder Include="wwwroot\img\kennelpuppies\" />
     <Folder Include="wwwroot\img\breeds\" />

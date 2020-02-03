@@ -1,0 +1,41 @@
+﻿@model XArbete.Web.Features.Course.ViewModels.CourseViewModel
+@{
+    ViewData["Title"] = "Skapa ny kurs";
+}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">@ViewData["Title"]</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <form class="newForm" asp-action="NewCourse">
+            <div class="modal-body">
+                <label asp-for="Name"></label>
+                <input class="form-control" placeholder="(obligatoriskt)" asp-for="Name" required />
+                <br />
+                <label asp-for="Description"></label>
+                <textarea class="form-control" asp-for="Description"></textarea><br /><br />
+                <label asp-for="DatePicker"></label>
+                <input class="form-control" asp-for="DatePicker" id="newCourseDate" required autocomplete="off" />
+                <br />
+                <label asp-for="DurationPerTime"></label>
+                <input class="form-control" type="number" asp-for="DurationPerTime" required autocomplete="off" />
+                <br />
+                <label asp-for="RepeatingForWeeks"></label>
+                <input class="form-control" type="number" step="2" asp-for="RepeatingForWeeks" required autocomplete="off" />
+                <br />
+                <label asp-for="Price"></label>
+                <input class="form-control" type="number" step="500" asp-for="Price" required autocomplete="off" />
+                <br />
+                <label asp-for="MaximumParticipants"></label>
+                <input type="text" class="form-control" step="5" asp-for="MaximumParticipants" required />
+            </div>
+
+
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-success" value="Spara">
+            </div>
+        </form>
+    </div>
+</div>

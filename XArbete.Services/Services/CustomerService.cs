@@ -8,9 +8,9 @@ namespace XArbete.Services.Services
 {
     public class CustomerService : ServiceBase<Customer>, ICustomerService
     {
-        readonly IDogService _customerDogs;
+        readonly ICustomerDogService _customerDogs;
         public CustomerService(XArbeteContext context,
-            IDogService customerdogs) : base(context)
+            ICustomerDogService customerdogs) : base(context)
         {
             _customerDogs = customerdogs;
         }
@@ -29,7 +29,8 @@ namespace XArbete.Services.Services
 
         public IEnumerable<CustomerDog> GetCustomerDogs(int id)
         {
-            return _customerDogs.GetMany(a => a.CustomerID == id);
+            var a = _customerDogs.GetMany(a => a.CustomerID == id);
+            return a;
         }
     }
 }

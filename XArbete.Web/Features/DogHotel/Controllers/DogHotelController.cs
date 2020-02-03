@@ -19,7 +19,7 @@ namespace XArbete.Web.Features.DogHotel.Controllers
         private readonly IToastNotification _toastNotification;
         private readonly IMailService _mailService;
         private readonly IDogHotelService _bookingService;
-        private readonly IDogService _dogService;
+        private readonly ICustomerDogService _dogService;
         private readonly ICustomerService _customerService;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
@@ -28,7 +28,7 @@ namespace XArbete.Web.Features.DogHotel.Controllers
         public DogHotelController(IToastNotification toastNotification,
             IMailService mailService, 
             IDogHotelService bookingService,
-            IDogService dogService,
+            ICustomerDogService dogService,
             ICustomerService customerService,
             IUserService userservice,
             IMapper mapper)
@@ -48,6 +48,7 @@ namespace XArbete.Web.Features.DogHotel.Controllers
         public async Task<IActionResult> Book()
         {
             var model = new HotelBookingViewModel();
+           
             if (await _userService.IsSignedIn(User))
             {
                 var cust = await _customerService.GetSingleAsync(a => a.Email == User.Identity.Name);

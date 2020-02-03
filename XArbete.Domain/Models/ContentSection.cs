@@ -9,9 +9,8 @@ namespace XArbete.Domain.Models
     public class ContentSection
     {
         public int Id { get; set; }
-
-        [ForeignKey("KennelContent")]
-        public int KennelContentId { get; set; }
+        [ForeignKey("Contents")]
+        public int ContentId { get; set; }
 
         public string Title { get; set; }
 

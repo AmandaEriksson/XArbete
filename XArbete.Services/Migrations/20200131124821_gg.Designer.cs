@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using XArbete.Services.Data;
 
 namespace XArbete.Services.Migrations
 {
     [DbContext(typeof(XArbeteContext))]
-    partial class XArbeteContextModelSnapshot : ModelSnapshot
+    [Migration("20200131124821_gg")]
+    partial class gg
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -279,9 +281,6 @@ namespace XArbete.Services.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DurationPerTime")
-                        .HasColumnType("int");
-
                     b.Property<int>("MaximumParticipants")
                         .HasColumnType("int");
 
@@ -289,12 +288,6 @@ namespace XArbete.Services.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NumberAvailable")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RepeatingForWeeks")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -377,7 +370,9 @@ namespace XArbete.Services.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("CustomerDogs");
+                    b.HasIndex("CustomerID");
+
+                    b.ToTable("Dogs");
                 });
 
             modelBuilder.Entity("XArbete.Domain.Models.GuestBookComment", b =>
@@ -604,6 +599,15 @@ namespace XArbete.Services.Migrations
                     b.HasOne("XArbete.Domain.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("XArbete.Domain.Models.CustomerDog", b =>
+                {
+                    b.HasOne("XArbete.Domain.Models.Customer", null)
+                        .WithMany("Dogs")
+                        .HasForeignKey("CustomerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

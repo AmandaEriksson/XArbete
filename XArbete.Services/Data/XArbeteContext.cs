@@ -16,7 +16,7 @@ namespace XArbete.Services.Data
 
         public DbSet<Customer> Customers { get; set; }
 
-        public DbSet<CustomerDog> Dogs { get; set; }
+        public DbSet<CustomerDog> CustomerDogs { get; set; }
 
         public DbSet<TrainingHallBooking> TrainingHallBookings { get; set; }
 
@@ -25,9 +25,13 @@ namespace XArbete.Services.Data
         public DbSet<GuestBookComment> GuestbookComments { get; set; }
         public DbSet<Puppy> Puppies { get; set; }
 
-        public DbSet<Content> KennelContents { get; set; }
+        public DbSet<Content> Contents { get; set; }
 
-        public DbSet<ContentSection> KennelContentSections { get; set; }
+        public DbSet<ContentSection> ContentSections { get; set; }
+
+        public DbSet<Course> Courses { get; set; }
+
+        public DbSet<CustomerCourse> CustomerCourses { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

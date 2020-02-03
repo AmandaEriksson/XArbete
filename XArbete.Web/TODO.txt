@@ -27,10 +27,6 @@
 
 		doghotel rules & prices
 
-
-		fix SAME MAPS STRUCTURE 
-
-
 		cancel hall booking automatically if it isn't payed 
 
 	breed tabs on kennel content like our dogs, puppygroups etc

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using NToastNotify;
 using XArbete.Domain.Models;
 using XArbete.Services.Data;
+using XArbete.Services.Interfaces;
 using XArbete.Services.Services;
 using XArbete.Services.Utils.Services;
 using XArbete.Web.Services.Interfaces;
@@ -76,7 +77,7 @@ namespace XArbete.Web
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IMailService, MailService>();
             services.AddScoped<ICustomerService, CustomerService>();
-            services.AddScoped<IDogService, DogService>();
+            services.AddScoped<ICustomerDogService, CustomerDogService>();
             services.AddScoped<IDogHotelService, DogHotelService>();
             services.AddScoped<ITrainingHallService, TrainingHallService>();
             services.AddScoped<IGuestBookService, GuestBookService>();
@@ -85,6 +86,10 @@ namespace XArbete.Web
             services.AddScoped<IPuppyService, PuppyService>();
             services.AddScoped<IContentService, ContentService>();
             services.AddScoped<IContentSectionService, ContentSectionService>();
+            services.AddScoped<ICustomerCourseService, CustomerCourseService>();
+
+            services.AddScoped<ICourseService, CourseService>();
+
 
             //services.AddTransient<IRazorViewEngine, Core.CustomRazorViewEngine>();
 

@@ -1,0 +1,93 @@
+﻿@model List<XArbete.Web.Features.Course.ViewModels.CourseViewModel>
+
+<div style="overflow-x:auto;">
+
+    <table class="table table-hover" style="border-collapse:collapse;">
+        @if (Model.Count() == 0)
+        {
+            <thead>
+                <tr></tr>
+                <tr>
+                    <th><h5>Inga kurser att visa</h5></th>
+                </tr>
+            </thead>
+        }
+        else
+        {
+            <thead>
+                <tr>
+                    <th>Kursnamn</th>
+                    <th>Beskrivning</th>
+                    <th>Datum</th>
+                    <th>Timmar per tillfälle</th>
+                    <th>Upprepas i veckor</th>
+                    <th>Anmälda</th>
+                    <th>Max antal deltagare</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var course in Model)
+                {
+
+                    var id = "course" + course.Id;
+                    var target = "#course" + course.Id;
+
+                <tr data-toggle="tooltip" title="Klicka för anmälda kunder">
+                    <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@course.Name</td>
+                    <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@course.Description</td>
+                    <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@course.Date.ToString("g")</td>
+                    <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@course.DurationPerTime</td>
+                    <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@course.RepeatingForWeeks</td>
+                    <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@course.Participants.Count()</td>
+
+                    <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@course.MaximumParticipants</td>
+                    <td>
+                        @if (course.Date >= DateTime.Now || course.Date.AddDays(7 * course.RepeatingForWeeks) >= DateTime.Now)
+                        {
+                            <a href="#deleteCourseModal" class="delete" data-toggle="modal" data-id="@course.Id">
+                                <i class="material-icons" data-toggle="tooltip" title="Radera">
+                                    clear
+                                </i>
+                            </a>
+                        }
+
+                    </td>
+                </tr>
+                    <tr>
+
+                        <td colspan="5" class="hiddenRow">
+                            <div class="accordian-body collapse" id="@id">
+                                <table>
+                                    @if (course.Participants.Count != 0)
+                                    {
+                                        <tr>
+                                            <th>Anmälda</th>
+                                        </tr>
+                                        <tr>
+                                            @foreach (var participant in course.Participants)
+                                            {
+
+                                                <td>@participant.Name - @participant.Email</td>
+                                            }
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <th>Inga anmälda</th>
+                                        </tr>
+                                    }
+
+                                </table>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        }
+    </table>
+</div>
+

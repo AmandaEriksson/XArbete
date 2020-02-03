@@ -44,13 +44,13 @@ namespace XArbete.Web.Features.Admin.AdminContent.Controllers
             _contentSectionService.Create(_mapper.Map<ContentSection>(vm));
             await _contentSectionService.CommitAsync();
 
-            var model = _contentSectionService.GetMany(a => a.KennelContentId == id).Select(bs => _mapper.Map<ContentSectionViewModel>(bs));
+            var model = _contentSectionService.GetMany(a => a.ContentId == id).Select(bs => _mapper.Map<ContentSectionViewModel>(bs));
             return PartialView("_ContentSections", model);
         }
         public async Task<IActionResult> DeleteContentSection(int id)
         {
             var section = await _contentSectionService.GetSingleAsync(a => a.Id == id);
-            var model = _contentSectionService.GetMany(a => a.KennelContentId == section.KennelContentId).Select(bs => _mapper.Map<ContentSectionViewModel>(bs));
+            var model = _contentSectionService.GetMany(a => a.ContentId == section.ContentId).Select(bs => _mapper.Map<ContentSectionViewModel>(bs));
 
             _contentSectionService.DeleteById(id);
             await _contentSectionService.CommitAsync();

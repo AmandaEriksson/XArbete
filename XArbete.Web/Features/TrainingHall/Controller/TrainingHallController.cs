@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using XArbete.Domain.Models;
+using XArbete.Services.Interfaces;
 using XArbete.Services.Utils.Constants;
 using XArbete.Services.Utils.Services;
 using XArbete.Web.Features.Admin.AdminContent.ViewModels;
@@ -25,6 +26,7 @@ namespace XArbete.Web.Features.TrainingHall.Controllers
         readonly IUserService _userService;
         readonly IMapper _mapper;
         readonly IContentService _contentService;
+        readonly ICourseService _courseService;
 
 
         public TrainingHallController(IToastNotification toastNotification,
@@ -33,7 +35,8 @@ namespace XArbete.Web.Features.TrainingHall.Controllers
             ICustomerService customerService,
             IUserService userservice,
             IMapper mapper,
-            IContentService contentservice
+            IContentService contentservice,
+            ICourseService courseservice
             )
         {
             _toastNotification = toastNotification;
@@ -43,6 +46,7 @@ namespace XArbete.Web.Features.TrainingHall.Controllers
             _userService = userservice;
             _mapper = mapper;
             _contentService = contentservice;
+            _courseService = courseservice;
         }
         // GET: /<controller>/
         public IActionResult Index()
@@ -84,6 +88,22 @@ namespace XArbete.Web.Features.TrainingHall.Controllers
                     End = booking.EndTime.ToString()
                 };
                 events.Add(calEvent);
+            }
+
+            var courses = _courseService.GetAll();
+            foreach (var course in courses)
+            {
+                for (int i = 0; i < course.RepeatingForWeeks; i++)
+                {
+                    var calEvent = new Event
+                    {
+                        ID = course.Id.ToString(),
+                        Title = course.Name,
+                        Start = course.Date.AddDays(i * 7).ToString(),
+                        End = course.Date.AddDays(i * 7).AddHours(course.DurationPerTime).ToString()
+                    };
+                    events.Add(calEvent);
+                }
             }
 
             var rows = events.ToArray();

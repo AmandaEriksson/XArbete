@@ -5,9 +5,9 @@ using XArbete.Web.Services.Interfaces;
 
 namespace XArbete.Services.Services
 {
-    public class DogService : ServiceBase<CustomerDog>, IDogService
+    public class CustomerDogService : ServiceBase<CustomerDog>, ICustomerDogService
     {
-        public DogService(XArbeteContext context) : base(context)
+        public CustomerDogService(XArbeteContext context) : base(context)
         {
         }
         public async Task<int> DeleteCustomerDogs(int id)

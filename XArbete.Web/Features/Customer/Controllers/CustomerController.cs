@@ -18,7 +18,7 @@ namespace XArbete.Web.Features.Customer.Controllers
     {
         // GET: /<controller>/
         private readonly IToastNotification _toastNotification;
-        private readonly IDogService _dogService;
+        private readonly ICustomerDogService _dogService;
         private readonly IDogHotelService _hotelService;
         private readonly ICustomerService _customerService;
         private readonly ITrainingHallService _trainingHallService;
@@ -27,7 +27,7 @@ namespace XArbete.Web.Features.Customer.Controllers
 
 
         public CustomerController(IToastNotification toastNotification,
-            IDogService dogservice,
+            ICustomerDogService dogservice,
             IDogHotelService hotelservice,
             ICustomerService customerservice,
             ITrainingHallService traininghallservice,

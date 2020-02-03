@@ -38,7 +38,9 @@ $(document).ready(function () {
             update += "AllCustomers";
             action = "/User/Register";
         }
-
+        if (action.includes("NewCourse")) {
+            update += "AdminCourses";
+        }
         $.ajax({
             url: action,
             type: 'POST',
@@ -52,7 +54,9 @@ $(document).ready(function () {
                     $(thisform)[0].reset();
                 }
                 else {
-
+                    CloseModal();
+                    $(update).html(data);
+                    $(thisform)[0].reset();
                 }
 
             },
@@ -95,49 +99,50 @@ $(document).ready(function () {
         var action = $(this)[0].name;
         var idToDelete = $(this).children('input[name=id]').val();
         var url = action + "?id=" + idToDelete;
+        var update = "#";
+
+        if (action.includes("DeletePuppyGroup")) {
+            update += "puppyGroups";
+        }
+        else if (action.includes("DeletePuppy")) {
+            update += "puppies" + groupid;
+
+        }
+        else if (action.includes("DeleteKennelDog")) {
+            update += "kennelDogs";
+        }
+        else if (action.includes("DeleteCustomerDog")) {
+            update += "customerDogs"
+        }
+       
+        else if (action.includes("DeleteCustomer")) {
+            update += "AllCustomers";
+        }
+        else if (action.includes("DeleteCourse")) {
+            update += "AdminCourses";
+        }
+
         $.ajax({
             type: "GET",
             url: url,
             success: function (data) {
-                if (action.includes("DeletePuppyGroup")) {
-                    CloseModal();
-                    $("#puppyGroups").html(data);
-                }
-                else if (action.includes("DeletePuppy")) {
-                    var groupid = $('.ThisGroup').val();
-                    var updateId = "#puppies" + groupid;
-                    var element = $(updateId);
-                    // hittar inte div elementet här
+
+                if (action.includes("DeleteHallBooking")) {
                     CloseModal();
 
-                    $(element).html(data);
-
-                }
-                else if (action.includes("DeleteKennelDog")) {
-                    CloseModal();
-
-                    $("#kennelDogs").html(data);
-                }
-                else if (action.includes("DeleteCustomerDog")) {
-                    CloseModal();
-                    $("#customerDogs").html(data);
-                }
-                else if (action.includes("DeleteHallBooking")) {
-                    CloseModal();
                     $("#customerHallBookings").html(data);
                     $("#AdminHallBookings").html(data);
-
                 }
                 else if (action.includes("DeleteHotelBooking")) {
                     CloseModal();
+
                     $("#customerHotelBookings").html(data);
                     $("#AdminHotelBookings").html(data);
                 }
-                else if (action.includes("DeleteCustomer")) {
+                else {
                     CloseModal();
-                    $("#AllCustomers").html(data);
+                    $(update).html(data);
                 }
-
             },
             error: function (data) {
                 console.log('An error occurred.');

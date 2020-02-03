@@ -1,0 +1,57 @@
+﻿@model XArbete.Web.Features.Course.ViewModels.CourseListViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<br />
+<div class="container project-tab">
+
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>@Model.Title</h2>
+                </div>
+                <div class="col-sm-6">
+                    <a href="#addCourseModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Ny kurs</span></a>
+
+                </div>
+            </div>
+        </div>
+        <div class="nav nav-tabs nav-fill" id="nav-tabHotel" role="tablist">
+            <a class="nav-item nav-link active" id="nav-activecourse-tab" data-toggle="tab" href="#activeCourse" role="tab" aria-controls="activeCourse" aria-selected="true">Aktuella</a>
+            <a class="nav-item nav-link" id="nav-oldcourse-tab" data-toggle="tab" href="#oldCourse" role="tab" aria-controls="oldCourse" aria-selected="false">Arkiverade</a>
+        </div>
+        <div class="tab-content" id="nav-tabContentCourse">
+            <div class="tab-pane fade show active" id="activeCourse" role="tabpanel" aria-labelledby="activeCourse">
+                <div id="AdminCourses">
+                    @await Html.PartialAsync("_Courses", Model.ActiveCourses)
+                </div>
+            </div>
+            <div class="tab-pane fade" id="oldCourse" role="tabpanel" aria-labelledby="oldCourse" style="opacity:0,5">
+                @await Html.PartialAsync("_Courses", Model.PreviousCourses)
+                @* @await Html.PartialAsync("/Views/Shared/PartialViews/Customer/CustomerHallBookings.cshtml", Model.TrainingHallBookings.Where(a => DateTime.Parse(a.EndTime) < DateTime.Now).ToList())*@
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!--MODALS-->
+<!-- Delete training hall booking -->
+<div id="deleteCourseModal" class="modal fade">
+    @await Html.PartialAsync("Shared/DeleteModal", "/AdminCourse/DeleteCourse")
+</div>
+<div id="addCourseModal" class="modal fade">
+    @await Html.PartialAsync("_NewCourse", Model.Course)
+</div>
+
+<link href="~/css/tableStyles.css" rel="stylesheet" />
+<script>
+
+        $("#newCourseDate").datetimepicker({
+            numberOfMonths: 1,
+            format: "Y-m-d H:i",
+            timepicker: true
+        });
+</script>

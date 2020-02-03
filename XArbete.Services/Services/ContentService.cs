@@ -23,7 +23,7 @@ namespace XArbete.Services.Services
 
         public List<ContentSection> GetSections(int kennelContentId)
         {
-            return _contentSections.GetMany(a => a.KennelContentId == kennelContentId).ToList();
+            return _contentSections.GetMany(a => a.ContentId == kennelContentId).ToList();
 
         }
     }
