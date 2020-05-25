@@ -492,7 +492,7 @@ $(document).on("keyup", "#AdminSearchCustomer", function (event) {
 
     // add section submit
     $(document).on("submit", ".newKennelContentSectionForm", function (event) {
-
+        debugger;
         event.preventDefault();
         var thisform = $(this);
         var breedId = $(this).children(".newSectionBreedId").val();
@@ -519,8 +519,34 @@ $(document).on("keyup", "#AdminSearchCustomer", function (event) {
 
 
     });
-    $(document).on("keyup", ".breedEditing", function (event) {
 
+$(document).on("keyup", ".textAreaEditing", function (event) {
+    if (event.keyCode == 13 || event.currentTarget.id == "formfile") {
+        event.preventDefault();
+        var event = event.currentTarget;
+        var ChangedText = event.value;
+
+        var updatedCellName = "description";
+
+        var id = event.id;
+
+        debugger;
+        $.ajax({
+            type: 'GET',
+            url: '/AdminContent/EditContent?id=' + id + '&' + updatedCellName + '=' + ChangedText,
+            cache: false,
+            success: function (result) {
+                $(event).text(ChangedText);
+                //$(event).blur();
+                //$(event).addClass("fas fa-spinner fa-spin");
+                $(event).fadeOut().fadeIn().blur();
+
+            }
+        });
+    }
+
+});
+    $(document).on("keyup", ".breedEditing", function (event) {
         if (event.keyCode == 13 || event.currentTarget.id == "formfile") {
             event.preventDefault();
             var event = event.currentTarget;
@@ -581,3 +607,36 @@ $(document).on("keyup", "#AdminSearchCustomer", function (event) {
 
 
     });
+
+$(document).on("mouseenter", ".puppygroupParentDiv", function (e) {
+    debugger;
+    var itemid = e.currentTarget.id;
+
+    var id = "#puppyGroup" + itemid;
+    $(id).addClass("rgba-black-strong");
+});
+$(document).on("mouseleave", ".puppygroupParentDiv", function (e) {
+
+    var itemid = e.currentTarget.id;
+
+    var id = "#puppyGroup" + itemid;
+    $(id).removeClass("rgba-black-strong");
+
+});
+
+
+$(document).on("mouseenter", ".puppygroupPuppyDiv", function (e) {
+    debugger;
+    var itemid = e.currentTarget.id;
+
+    var id = "#puppy" + itemid;
+    $(id).addClass("rgba-black-strong");
+});
+$(document).on("mouseleave", ".puppygroupPuppyDiv", function (e) {
+
+    var itemid = e.currentTarget.id;
+
+    var id = "#puppy" + itemid;
+    $(id).removeClass("rgba-black-strong");
+
+});

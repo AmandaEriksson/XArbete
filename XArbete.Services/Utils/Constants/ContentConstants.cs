@@ -11,11 +11,16 @@ namespace XArbete.Services.Utils.Constants
         public const string PuppyRecommendations = "PuppyRecommendations";
         public const string PuppyDemands = "PuppyDemands";
         public const string BreedContent = "Breed";
-        public const string KennelContents = "Breed PuppyRecommendations PuppyDemands";
-        public const string BuyPuppy = "PuppyRecommendations PuppyDemands";
-        public const string HallContents = "HallPrice HallRules HallAbout";
-        public const string NoContentImg = "PuppyRecommendations PuppyDemands HallAbout";
-        public const string OnlyContentSections = "HallPrice HallRules HallAbout";
         public const string HallAbout = "HallAbout";
+        public const string HotelAbout = "HotelAbout";
+        public const string HotelPrice = "HotelPrice";
+        public const string HotelRules = "HotelRules";
+
+        public const string HotelContents = HotelAbout + HotelPrice + HotelRules;
+        public const string KennelContents = BreedContent + PuppyRecommendations + PuppyDemands;
+        public const string BuyPuppyContents = PuppyRecommendations + PuppyDemands;
+        public const string HallContents = HallPriceContent + HallRulesContent + HallAbout;
+        public const string NoContentImgContents = HotelContents + HallContents;
+        public const string NoLinkOrImgContents = HotelContents + HallContents;
     }
 }

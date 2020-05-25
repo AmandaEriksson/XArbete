@@ -7,7 +7,7 @@ namespace XArbete.Domain.Models
 {
     public class KennelDog
     {
-        public int ID { get; set; }
+        public int KennelDogId { get; set; }
 
         public string Name { get; set; }
 

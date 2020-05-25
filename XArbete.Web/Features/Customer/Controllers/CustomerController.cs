@@ -46,9 +46,9 @@ namespace XArbete.Web.Features.Customer.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await _customerService.GetSingleAsync(a => a.Email == User.Identity.Name);
-            var hotelbookings = _hotelService.GetMany(a => a.CustomerID == user.ID);
-            var trainingHallBookings = _trainingHallService.GetMany(a => a.CustomerID == user.ID);
-            var dogs = _dogService.GetMany(a => a.CustomerID == user.ID);
+            var hotelbookings = _hotelService.GetMany(a => a.CustomerID == user.CustomerId);
+            var trainingHallBookings = _trainingHallService.GetMany(a => a.CustomerID == user.CustomerId);
+            var dogs = _dogService.GetMany(a => a.CustomerID == user.CustomerId);
 
             var vm = new CustomersAdminViewModel();
             vm.HotelBookings = hotelbookings.Select(a => _mapper.Map<HotelBookingViewModel>(a));
@@ -63,7 +63,7 @@ namespace XArbete.Web.Features.Customer.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> NewCustomerDog(CustomerDogViewModel model)
         {
-            model.CustomerID = _customerService.GetSingleAsync(a => a.Email == User.Identity.Name).Result.ID;
+            model.CustomerID = _customerService.GetSingleAsync(a => a.Email == User.Identity.Name).Result.CustomerId;
             var dog = _mapper.Map<CustomerDog>(model);
             dog.DateOfBirth = model.DateOfBirthOffset.DateTime;
              _dogService.Create(dog);
@@ -80,7 +80,7 @@ namespace XArbete.Web.Features.Customer.Controllers
             {
                 return PartialView(model);
             }
-                var cust = await _customerService.GetSingleAsync(a => a.ID == model.Customer.ID);
+                var cust = await _customerService.GetSingleAsync(a => a.CustomerId == model.Customer.ID);
 
                 cust.Name = model.Customer.Name;
                 cust.Number = model.Customer.Number;

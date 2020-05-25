@@ -7,7 +7,7 @@ namespace XArbete.Domain.Models
 {
     public class Content
     {
-        public int ID { get; set; }
+        public int ContentId { get; set; }
 
         public string Type { get; set; }
 

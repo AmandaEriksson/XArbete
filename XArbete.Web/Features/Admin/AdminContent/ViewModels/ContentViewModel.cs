@@ -10,7 +10,7 @@ namespace XArbete.Web.Features.Admin.AdminContent.ViewModels
 {
     public class ContentViewModel : BaseViewModel
     {
-        public int Id { get; set; }
+        public int ContentId { get; set; }
 
         [Display(Name = "Namn")]
         public string Name { get; set; }

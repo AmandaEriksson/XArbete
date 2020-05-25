@@ -8,8 +8,8 @@ namespace XArbete.Web.Features.Admin.AdminContent.ViewModels
 {
     public class ContentSectionViewModel
     {
-        public int Id { get; set; }
-        public int KennelContentId { get; set; }
+        public int ContentSectionId { get; set; }
+        public int ContentId { get; set; }
 
         [Display(Name= "Titel" )]
         public string Title { get; set; }

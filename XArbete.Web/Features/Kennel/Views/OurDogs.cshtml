@@ -2,34 +2,93 @@
 <br />
 <br />
 <!-- Page Content -->
-<div class="container" style="margin-top:100px;">
+<div class="container">
 
     <div class="row">
-        <div class="col-md-12 mb-5">
-            <h2>@Model.Title</h2>
-            <hr>
-            <div class="card-columns ourDogs">
-                @foreach (var dog in Model.Dogs)
-                {
-                    <div class="card">
-                        <img class="card-img-top ourDogs" src="~/img/kenneldogs/@dog.Img" alt="Bild på @dog.Name">
-                        <div class="card-body ourDogs">
-                            <h5 class="card-title">@dog.Name</h5>
-                            <p class="card-text">@dog.Sex</p>
-                            <p class="card-text">Född @DateTime.Parse(dog.DateOfBirth).ToShortDateString()</p>
-                            <p class="card-text">@dog.About</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">@dog.Breed</small>
+        @*<div class="col-md-12 mb-5">  *@
+        <h2>@Model.Title</h2>
+        </div>
+    <div class="row">
+     @{
+            int counter = 1;
+        }
+        @foreach (var dog in Model.Dogs)
+        {
+            <div class="col col-example mb-2">
+
+                @{var id = "ourDogsContentDiv" + dog.KennelDogId;
+
+
+                }
+                <div class="card card-image ourDogsDiv"
+                     style="background-image: url(/img/kenneldogs/@dog.Img);background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;width:250px; height:260px;" id="@dog.KennelDogId">
+
+                    <!-- Content -->
+                    <div class="text-white text-center d-flex align-items-center py-5 px-4" id="@id">
+                        <div class="text-center">
+                            <h3 class="card-title pt-2 ourDogsHover "><strong>@dog.Name</strong></h3><br />
+                            <p class="ourDogsHover f-s10">@dog.Breed</p>
+                            <p class="ourDogsHover f-s10">
+                                @dog.Sex - @DateTime.Parse(dog.DateOfBirth).ToShortDateString()
+                            </p>
+                            <p class="ourDogsHover f-s10">@dog.About</p>
                         </div>
                     </div>
-                }
 
+                </div>
             </div>
-        </div>
+            if (counter == 3)
+            {
+                <div class="w-100"></div>
+                counter = 1;
+            }
+            else
+            {
+                counter++;
+            }
 
+        }
+
+        @*</div>*@
     </div>
     <!-- /.row -->
 
 </div>
 <!-- /.container -->
+<style>
+    img:hover {
+        opacity: 1.5;
+    }
+
+    .ourDogsHover {
+        display: none;
+    }
+
+    .ourDogsDiv:hover .ourDogsHover {
+        display: flex;
+        height: 21px !important;
+    }
+    .f-s10{
+        font-size:14px;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+
+        $(".ourDogsDiv").hover(function (e) {
+            var itemid = e.currentTarget.id;
+
+            var id = "#ourDogsContentDiv" + itemid;
+            $(id).addClass("rgba-black-strong");
+        });
+        $(".ourDogsDiv").mouseleave(function (e) {
+            var itemid = e.currentTarget.id;
+
+            var id = "#ourDogsContentDiv" + itemid;
+            $(id).removeClass("rgba-black-strong");
+
+        });
+    });
+</script>

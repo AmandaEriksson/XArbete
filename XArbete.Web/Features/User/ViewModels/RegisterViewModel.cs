@@ -11,7 +11,7 @@ namespace XArbete.Web.Features.User.ViewModels
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Epost")]
         public string Email { get; set; }
 
         [Required]
@@ -19,14 +19,14 @@ namespace XArbete.Web.Features.User.ViewModels
         public string Name { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "Lösenordet måste vara minst 6 tecken långt och innehålla minst 1 siffra.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Lösenord")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Verifiera lösenord")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "Lösenorden matchar inte.")]
         public string ConfirmPassword { get; set; }
 
         public bool IsAdmin { get; set; }

@@ -5,7 +5,7 @@ namespace XArbete.Web.Features.Kennel.ViewModels
 {
     public class PuppyViewModel
     {
-        public int ID { get; set; }
+        public int PuppyId { get; set; }
 
         [Display( Name = "Namn")]
         public string Name { get; set; }

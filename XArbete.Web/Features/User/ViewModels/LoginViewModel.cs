@@ -9,7 +9,7 @@ namespace XArbete.Web.Features.User.ViewModels
     public class LoginViewModel
     {
         [DataType(DataType.EmailAddress)]
-        [Display(Name = "Användarnamn (email)")]
+        [Display(Name = "Användarnamn (epost)")]
         public string Email { get; set; }
 
         [DataType(DataType.Password)]

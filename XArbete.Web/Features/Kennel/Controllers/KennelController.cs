@@ -39,18 +39,27 @@ namespace XArbete.Web.Features.Kennel.Controllers
             vm.KennelContents = _mapper.Map<List<ContentViewModel>>(_contentService.GetMany(a => a.Type == ContentConstants.BreedContent));
             foreach (var tab in vm.KennelContents)
             {
-                tab.Section = _contentService.GetSections(tab.Id).Select(a => _mapper.Map<ContentSectionViewModel>(a)).ToList();
+                tab.Section = _contentService.GetSections(tab.ContentId).Select(a => _mapper.Map<ContentSectionViewModel>(a)).ToList();
             }
 
             return View(vm);
         }
+        public IActionResult PuppyGroups()
+        {
+            var model = new PuppyGroupsViewModel();
+            model.PlannedPuppyGroups = GetPuppyGroups(PuppyGroupStatusConstants.Planned);
+            model.ActivePuppyGroups = GetPuppyGroups(PuppyGroupStatusConstants.Active);
+            model.PassedPuppyGroups = GetPuppyGroups(PuppyGroupStatusConstants.Passed);
+
+            return View(model);
+        }
         public IActionResult BuyPuppy()
         {
             var vm = new ContentListViewModel();
-            vm.KennelContents = _mapper.Map<List<ContentViewModel>>(_contentService.GetMany(a => ContentConstants.BuyPuppy.Contains(a.Type)));
+            vm.KennelContents = _mapper.Map<List<ContentViewModel>>(_contentService.GetMany(a => ContentConstants.BuyPuppyContents.Contains(a.Type)));
             foreach (var tab in vm.KennelContents)
             {
-                tab.Section = _contentService.GetSections(tab.Id).Select(a => _mapper.Map<ContentSectionViewModel>(a)).ToList();
+                tab.Section = _contentService.GetSections(tab.ContentId).Select(a => _mapper.Map<ContentSectionViewModel>(a)).ToList();
             }
             return View(vm);
         }
@@ -80,20 +89,22 @@ namespace XArbete.Web.Features.Kennel.Controllers
             return View(model);
         }
 
-        PuppyGroupsViewModel GetPuppyGroups(int statusCode)
+        List<PuppyGroupViewModel> GetPuppyGroups(int statusCode)
         {
             var puppygroups = _puppyGroupService.GetMany(a => a.Status == statusCode);
 
             var model = new PuppyGroupsViewModel();
-            model.PuppyGroups = puppygroups.Select(a => _mapper.Map<PuppyGroupViewModel>(a)).ToList();
-            foreach (var group in model.PuppyGroups)
+            var vm = puppygroups.Select(a => _mapper.Map<PuppyGroupViewModel>(a)).ToList();
+            foreach (var group in vm)
             {
-                group.Puppies = _puppyService.GetMany(a => a.PuppyGroupId == group.ID).Select(a => _mapper.Map<PuppyViewModel>(a)).ToList();
-                group.Mother = _kennelDogService.GetSingle(a => a.ID == group.MotherID);
-                group.Father = _kennelDogService.GetSingle(a => a.ID == group.FatherID);
-                group.Breed = _kennelDogService.GetSingle(a => a.ID == group.FatherID).Breed;
+                group.Puppies = _puppyService.GetMany(a => a.PuppyGroupId == group.PuppyGroupId).Select(a => _mapper.Map<PuppyViewModel>(a)).ToList();
+                group.Mother = _kennelDogService.GetSingle(a => a.KennelDogId == group.MotherKennelDogId);
+                group.Father = _kennelDogService.GetSingle(a => a.KennelDogId == group.FatherKennelDogId);
+                group.Breed = _kennelDogService.GetSingle(a => a.KennelDogId == group.FatherKennelDogId).Breed;
             }
-            return model;
+            return vm;
         }
+
+
     }
 }

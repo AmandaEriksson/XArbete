@@ -38,7 +38,8 @@ namespace XArbete.Web.Features.Admin.AdminContent.Controllers
             {
                 Title = title,
                 Section = text,
-                KennelContentId = id
+                ContentId = id,
+                
 
             };
             _contentSectionService.Create(_mapper.Map<ContentSection>(vm));
@@ -49,7 +50,7 @@ namespace XArbete.Web.Features.Admin.AdminContent.Controllers
         }
         public async Task<IActionResult> DeleteContentSection(int id)
         {
-            var section = await _contentSectionService.GetSingleAsync(a => a.Id == id);
+            var section = await _contentSectionService.GetSingleAsync(a => a.ContentSectionId == id);
             var model = _contentSectionService.GetMany(a => a.ContentId == section.ContentId).Select(bs => _mapper.Map<ContentSectionViewModel>(bs));
 
             _contentSectionService.DeleteById(id);
@@ -97,7 +98,7 @@ namespace XArbete.Web.Features.Admin.AdminContent.Controllers
             vm.KennelContents = _mapper.Map<List<ContentViewModel>>(_contentService.GetAll());
             foreach (var content in vm.KennelContents)
             {
-                content.Section = _mapper.Map<List<ContentSectionViewModel>>(_contentService.GetSections(content.Id));
+                content.Section = _mapper.Map<List<ContentSectionViewModel>>(_contentService.GetSections(content.ContentId));
             }
             vm.KennelContentSection = new ContentSectionViewModel();
             return View(vm);

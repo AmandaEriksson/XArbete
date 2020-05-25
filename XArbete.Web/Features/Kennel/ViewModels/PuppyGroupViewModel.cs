@@ -7,7 +7,7 @@ namespace XArbete.Web.Features.Kennel.ViewModels
 {
     public class PuppyGroupViewModel
     {
-        public int ID { get; set; }
+        public int PuppyGroupId { get; set; }
 
         [Display(Name = "Kullens namn")]
         public string GroupName { get; set; }
@@ -18,10 +18,10 @@ namespace XArbete.Web.Features.Kennel.ViewModels
         public DateTimeOffset DateOfBirthPicker { get; set; }
 
         [Display(Name = "Välj pappa till kullen")]
-        public int FatherID { get; set; }
+        public int FatherKennelDogId { get; set; }
 
         [Display(Name = "Välj mamma till kullen")]
-        public int MotherID { get; set; }
+        public int MotherKennelDogId { get; set; }
 
         public int Status { get; set; }
 

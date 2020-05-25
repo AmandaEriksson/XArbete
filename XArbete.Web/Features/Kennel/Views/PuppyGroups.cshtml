@@ -1,0 +1,369 @@
+﻿@model XArbete.Web.Features.Kennel.ViewModels.PuppyGroupsViewModel
+
+@{
+    ViewData["Title"] = "Valpkullar";
+
+}
+
+<div class="container" style="margin-top:10%; height:auto;">
+    <h2>@ViewData["Title"]</h2>
+
+    <div class="row" style="width:800px;">
+        <div class="col-md-12 mb-5" style="background-color:hsla(120,100%,15%,0.3) ">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="active"
+                       aria-selected="true">Aktiva</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="planned-tab" data-toggle="tab" href="#planned" role="tab" aria-controls="planned"
+                       aria-selected="false">Planerade</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="passed-tab" data-toggle="tab" href="#passed" role="tab" aria-controls="passed"
+                       aria-selected="false">Tidigare</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent" style="margin-bottom: 10%;">
+                <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="active-tab">
+
+                    @if (Model.ActivePuppyGroups.Count != 0)
+                    {
+
+                        @foreach (var group in Model.ActivePuppyGroups)
+                        {
+                            var motherid = "puppyGroup" + group.MotherKennelDogId;
+                            var fatherid = "puppyGroup" + group.FatherKennelDogId;
+
+
+
+                            <div class="card" style="background-color:hsla(120,100%,15%,0.3) ">
+
+                                <div class=" card-header white-text align-middle text-center">
+                                    <h5>@group.GroupName </h5>
+                                    <small> @group.Puppies.Count() st valpar </small> <br />
+                                    <small>Födda: @DateTime.Parse(group.DateOfBirth).ToShortDateString() </small> <br />
+                                    <small> Leveransklara: @DateTime.Parse(group.DateOfBirth).AddMonths(2).ToShortDateString() </small>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 align-text-bottom">
+                                        <div class="card card-image puppygroupParentDiv"
+                                             style="background-image: url(/img/kenneldogs/@group.Mother.Img); background-repeat: no-repeat;
+                                 background-size: cover;
+                                 background-position: center center;width:200px; height:210px; margin-left:25px;" id="@group.MotherKennelDogId">
+                                            <div class="text-white text-center d-flex align-items-center py-5 px-4" id="@motherid">
+                                                <div class="text-center">
+                                                    <h3 class="card-title pt-2 puppyGroupParentHover"><strong>@group.Mother.Name</strong></h3><br />
+                                                    <p class="puppyGroupParentHover">Mamma till @group.GroupName</p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <!--Carousel Wrapper-->
+                                        <div id="carousel-example-2" class="carousel slide " data-ride="carousel" style="height:100%;">
+                                            <!--Indicators-->
+                                            <ol class="carousel-indicators">
+                                                @for (int i = 0; i < group.Puppies.Count(); i++)
+                                                {
+                                                    if (i == 0)
+                                                    {
+                                                        <li data-target="#carousel-example-2" data-slide-to="@i" class="active"></li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li data-target="#carousel-example-2" data-slide-to="@i"></li>
+                                                    }
+                                                }
+                                            </ol>
+                                            <!--/.Indicators-->
+                                            <!--Slides-->
+                                            <div class="carousel-inner" role="listbox">
+                                                @for (int i = 0; i < group.Puppies.Count(); i++)
+                                                {
+                                                    var puppy = group.Puppies[i];
+                                                    var className = "carousel-item";
+                                                    if (i == 0)
+                                                    {
+                                                        className = "carousel-item active";
+                                                    }
+
+                                                    <div class="@className">
+                                                        <div class="view">
+                                                            <img class="d-block w-100 img-fluid rounded" src="~/img/kennelpuppies/@puppy.Img"
+                                                                 alt="bild på @puppy.Name" style="min-height:200px;">
+                                                            <div class="mask rgba-black-light"></div>
+                                                        </div>
+                                                        <div class="carousel-caption">
+                                                            <br /><br />
+                                                            <h3 class="h3-responsive">@puppy.Name</h3>
+                                                            <p>@puppy.Sex</p>
+                                                            <p>@(puppy.Sold ? "Såld" : "Tillgänglig") </p>
+                                                        </div>
+                                                    </div>
+
+                                                }
+
+                                            </div>
+                                            <!--/.Slides-->
+                                            <!--Controls-->
+                                            <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Föregående</span>
+                                            </a>
+                                            <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Nästa</span>
+                                            </a>
+                                            <!--/.Controls-->
+                                        </div>
+
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="card card-image puppygroupParentDiv"
+                                             style="background-image: url(/img/kenneldogs/@group.Father.Img);background-repeat: no-repeat;
+                                background-size: cover;
+                                background-position: center center;width:200px; height:210px;" id="@group.FatherKennelDogId">
+
+                                            <!-- Content -->
+                                            <div class="text-white text-center d-flex align-items-center py-5 px-4" id="@fatherid">
+                                                <div class="text-center">
+                                                    <h3 class="card-title pt-2 puppyGroupParentHover"><strong>@group.Father.Name</strong></h3><br />
+                                                    <p class="puppyGroupParentHover">Pappa till @group.GroupName</p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                        }
+                    }
+                    else
+                    {
+                        <h6>Inga aktiva valpkullar, kolla in våra <a asp-controller="Kennel" asp-action="PlannedPuppies">planerade</a> kullar.</h6>
+                    }
+                </div>
+                <div class="tab-pane fade" id="planned" role="tabpanel" aria-labelledby="planned-tab">
+                    @foreach (var group in Model.PlannedPuppyGroups)
+                    {
+                        var motherid = "puppyGroup" + group.MotherKennelDogId;
+                        var fatherid = "puppyGroup" + group.FatherKennelDogId;
+
+
+
+                        <div class="card" style="background-color:hsla(120,100%,15%,0.3) ">
+
+                            <div class=" card-header white-text align-middle text-center">
+                                @*@group.GroupName <br />
+                                    <small>Beräknad födsel: @DateTime.Parse(group.DateOfBirth).ToShortDateString() </small> <br />
+                                    <small>Beräknad leverans: @DateTime.Parse(group.DateOfBirth).AddMonths(2).ToShortDateString() </small>*@
+                            </div>
+                            <div class="row">
+                                <div class="col-4 align-text-bottom">
+                                    <div class="card card-image puppygroupParentDiv"
+                                         style="background-image: url(/img/kenneldogs/@group.Mother.Img); background-repeat: no-repeat;
+                                 background-size: cover;
+                                 background-position: center center;width:200px; height:210px; margin-left:25px;" id="@group.MotherKennelDogId">
+                                        <div class="text-white text-center d-flex align-items-center py-5 px-4" id="@motherid">
+                                            <div class="text-center">
+                                                <h3 class="card-title pt-2 puppyGroupParentHover"><strong>@group.Mother.Name</strong></h3><br />
+                                                <p class="puppyGroupParentHover">Mamma till @group.GroupName</p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4 text-center" style="color:white;">
+                                    <h5>@group.GroupName </h5>
+                                    <small>Beräknad födsel: @DateTime.Parse(group.DateOfBirth).ToShortDateString() </small> <br />
+                                    <small>Beräknad leverans: @DateTime.Parse(group.DateOfBirth).AddMonths(2).ToShortDateString() </small>
+
+                                </div>
+                                <div class="col-4">
+                                    <div class="card card-image puppygroupParentDiv"
+                                         style="background-image: url(/img/kenneldogs/@group.Father.Img);background-repeat: no-repeat;
+                                background-size: cover;
+                                background-position: center center;width:200px; height:210px;" id="@group.FatherKennelDogId">
+
+                                        <!-- Content -->
+                                        <div class="text-white text-center d-flex align-items-center py-5 px-4" id="@fatherid">
+                                            <div class="text-center">
+                                                <h3 class="card-title pt-2 puppyGroupParentHover"><strong>@group.Father.Name</strong></h3><br />
+                                                <p class="puppyGroupParentHover">Pappa till @group.GroupName</p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    }
+                </div>
+                <div class="tab-pane fade" id="passed" role="tabpanel" aria-labelledby="passed-tab">
+                    @foreach (var group in Model.PassedPuppyGroups)
+                    {
+                        var motherid = "puppyGroup" + group.MotherKennelDogId;
+                        var fatherid = "puppyGroup" + group.FatherKennelDogId;
+
+
+
+                        <div class="card" style="background-color:hsla(120,100%,15%,0.3) ">
+
+                            <div class="card-header white-text align-middle text-center">
+                                <h5>@group.GroupName </h5>
+                                <small> @group.Puppies.Count() st valpar </small> <br />
+                                <small>Födda: @DateTime.Parse(group.DateOfBirth).ToShortDateString() </small> <br/>
+                                <small> Levererade: @DateTime.Parse(group.DateOfBirth).AddMonths(2).ToShortDateString() </small>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 align-text-bottom">
+                                    <div class="card card-image puppygroupParentDiv"
+                                         style="background-image: url(/img/kenneldogs/@group.Mother.Img); background-repeat: no-repeat;
+                                 background-size: cover;
+                                 background-position: center center;width:200px; height:210px; margin-left:25px;" id="@group.MotherKennelDogId">
+                                        <div class="text-white text-center d-flex align-items-center py-5 px-4" id="@motherid">
+                                            <div class="text-center">
+                                                <h3 class="card-title pt-2 puppyGroupParentHover"><strong>@group.Mother.Name</strong></h3><br />
+                                                <p class="puppyGroupParentHover">Mamma till @group.GroupName</p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <!--Carousel Wrapper-->
+                                    <div id="carousel-example-2" class="carousel slide " data-ride="carousel" style="height:100%;">
+                                        <!--Indicators-->
+                                        <ol class="carousel-indicators">
+                                            @for (int i = 0; i < group.Puppies.Count(); i++)
+                                            {
+                                                if (i == 0)
+                                                {
+                                                    <li data-target="#carousel-example-2" data-slide-to="@i" class="active"></li>
+                                                }
+                                                else
+                                                {
+                                                    <li data-target="#carousel-example-2" data-slide-to="@i"></li>
+                                                }
+                                            }
+                                        </ol>
+                                        <!--/.Indicators-->
+                                        <!--Slides-->
+                                        <div class="carousel-inner" role="listbox">
+                                            @for (int i = 0; i < group.Puppies.Count(); i++)
+                                            {
+                                                var puppy = group.Puppies[i];
+                                                var className = "carousel-item";
+                                                if (i == 0)
+                                                {
+                                                    className = "carousel-item active";
+                                                }
+
+                                                <div class="@className">
+                                                    <div class="view">
+                                                        <img class="d-block w-100 img-fluid rounded" src="~/img/kennelpuppies/@puppy.Img"
+                                                             alt="bild på @puppy.Name" style="min-height:200px;">
+                                                        <div class="mask rgba-black-light"></div>
+                                                    </div>
+                                                    <div class="carousel-caption">
+                                                        <br /><br />
+                                                        <h3 class="h3-responsive">@puppy.Name</h3>
+                                                        <p>@puppy.Sex</p>
+                                                        <p>@(puppy.Sold ? "Såld" : "Tillgänglig") </p>
+                                                    </div>
+                                                </div>
+
+                                            }
+
+                                        </div>
+                                        <!--/.Slides-->
+                                        <!--Controls-->
+                                        <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Föregående</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Nästa</span>
+                                        </a>
+                                        <!--/.Controls-->
+                                    </div>
+
+                                </div>
+                                <div class="col-4">
+                                    <div class="card card-image puppygroupParentDiv"
+                                         style="background-image: url(/img/kenneldogs/@group.Father.Img);background-repeat: no-repeat;
+                                background-size: cover;
+                                background-position: center center;width:200px; height:210px;" id="@group.FatherKennelDogId">
+
+                                        <!-- Content -->
+                                        <div class="text-white text-center d-flex align-items-center py-5 px-4" id="@fatherid">
+                                            <div class="text-center">
+                                                <h3 class="card-title pt-2 puppyGroupParentHover"><strong>@group.Father.Name</strong></h3><br />
+                                                <p class="puppyGroupParentHover">Pappa till @group.GroupName</p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.tabs').tabs();
+    });
+
+</script>
+
+<style>
+
+    a {
+        color: darkgrey;
+    }
+
+        a:hover {
+            color: darkgrey;
+        }
+
+    .puppygroupParentDiv {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+    }
+
+    .puppyGroupParentHover {
+        display: none;
+    }
+
+    .puppygroupParentDiv:hover .puppyGroupParentHover {
+        display: flex;
+    }
+
+    .puppyGroupPuppyHover {
+        display: none;
+    }
+
+    .puppygroupPuppyDiv:hover .puppyGroupPuppyHover {
+        display: flex;
+    }
+</style>

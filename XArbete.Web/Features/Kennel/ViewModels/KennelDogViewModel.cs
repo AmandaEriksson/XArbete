@@ -9,7 +9,7 @@ namespace XArbete.Web.Features.Kennel.ViewModels
 {
     public class KennelDogViewModel
     {
-        public int ID { get; set; }
+        public int KennelDogId { get; set; }
         [Display(Name = "Namn")]
         public string Name { get; set; }
         [Display(Name = "Ras")]

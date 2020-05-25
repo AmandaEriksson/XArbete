@@ -186,7 +186,7 @@ namespace XArbete.Web.Features.Admin.AdminKennel.Controllers
         // default fix, if value isn't in the request it's because status is changed to Active (value 1) 
         public async Task<IActionResult> ChangePuppyGroupStatus(int id, int status = 1, string newBornDate = null)
         {
-            var puppyGroup = _puppyGroupService.GetSingle(a => a.ID == id);
+            var puppyGroup = _puppyGroupService.GetSingle(a => a.PuppyGroupId == id);
             if (newBornDate != null)
             {
                 puppyGroup.DateOfBirth = DateTimeOffset.Parse(newBornDate);

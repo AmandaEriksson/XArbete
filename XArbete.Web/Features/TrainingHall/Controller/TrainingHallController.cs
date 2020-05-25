@@ -52,7 +52,7 @@ namespace XArbete.Web.Features.TrainingHall.Controllers
         public IActionResult Index()
         {
             var model = _mapper.Map<ContentViewModel>(_contentService.GetSingle(a => a.Type == ContentConstants.HallAbout));
-            model.Section = _mapper.Map<List<ContentSectionViewModel>>(_contentService.GetSections(model.Id));
+            model.Section = _mapper.Map<List<ContentSectionViewModel>>(_contentService.GetSections(model.ContentId));
             return View(model);
         }
 
@@ -60,9 +60,9 @@ namespace XArbete.Web.Features.TrainingHall.Controllers
         {
             var model = new TrainingHallContentViewModel();
             model.PriceInfo = _mapper.Map<ContentViewModel>(_contentService.GetSingle(a => a.Type == ContentConstants.HallPriceContent));
-            model.PriceInfo.Section = _mapper.Map<List<ContentSectionViewModel>>(_contentService.GetSections(model.PriceInfo.Id));
+            model.PriceInfo.Section = _mapper.Map<List<ContentSectionViewModel>>(_contentService.GetSections(model.PriceInfo.ContentId));
             model.ComfortRules = _mapper.Map<ContentViewModel>(_contentService.GetSingle(a => a.Type == ContentConstants.HallRulesContent));
-            model.ComfortRules.Section = _mapper.Map<List<ContentSectionViewModel>>(_contentService.GetSections(model.ComfortRules.Id));
+            model.ComfortRules.Section = _mapper.Map<List<ContentSectionViewModel>>(_contentService.GetSections(model.ComfortRules.ContentId));
 
             return View(model);
         }
@@ -82,7 +82,7 @@ namespace XArbete.Web.Features.TrainingHall.Controllers
             {
                 var calEvent = new Event
                 {
-                    ID = booking.ID.ToString(),
+                    ID = booking.TrainingHallBookingId.ToString(),
                     Title = _customerService.GetById(booking.CustomerID).Name,
                     Start = booking.StartTime.ToString(),
                     End = booking.EndTime.ToString()
@@ -97,7 +97,7 @@ namespace XArbete.Web.Features.TrainingHall.Controllers
                 {
                     var calEvent = new Event
                     {
-                        ID = course.Id.ToString(),
+                        ID = course.CourseId.ToString(),
                         Title = course.Name,
                         Start = course.Date.AddDays(i * 7).ToString(),
                         End = course.Date.AddDays(i * 7).AddHours(course.DurationPerTime).ToString()
@@ -141,7 +141,7 @@ namespace XArbete.Web.Features.TrainingHall.Controllers
 
             var booking = new TrainingHallBooking()
             {
-                CustomerID = Customer.ID,
+                CustomerID = Customer.CustomerId,
                 StartTime = startTime,
                 EndTime = endTime,
                 Payed = false,

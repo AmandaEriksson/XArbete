@@ -1,10 +1,7 @@
 ﻿@{
-    ViewData["Title"] = "Träningsplan";
+    ViewData["Title"] = "Träningshall";
 }
 @model XArbete.Web.Features.Admin.AdminContent.ViewModels.ContentViewModel
-
-<br />
-<br />
 
 <!-- Page Content -->
 <div class="container" style="margin-top:100px">
@@ -14,33 +11,20 @@
             <h2>@ViewData["Title"]</h2>
 
             <hr>
-            
-            <ul>
-                @foreach (var sec in Model.Section)
-                {
-                    if (sec.Title != null)
-                    {
-                        <li>@sec.Title</li>
-                    }
-                    <li>@sec.Section</li>
+            <p>@Model.Description</p>
 
-                }
-              </ul>
-             <a class="btn btn-primary btn-lg" asp-controller="TrainingHall" asp-action="Book">Boka hallen &raquo;</a>
+            <a class="btn btn-light btn-lg" asp-controller="TrainingHall" asp-action="Book">Boka hallen &raquo;</a>
         </div>
 
     </div>
     <hr />
     <div class="row">
-        <div class="col-md-4">
-            <img src="~/img/hallen.jpg" class="img-fluid" />
-        </div>
-        <div class="col-md-4">
-            <img src="~/img/hallen2.jpg" class="img-fluid" />
+        <div class="col-md-6">
+            <img src="~/img/hallen2.jpg" class="img-fluid rounded" />
 
         </div>
-        <div class="col-md-4">
-            <img src="~/img/hallen3.jpg" class="img-fluid" />
+        <div class="col-md-6">
+            <img src="~/img/hallen3.jpg" class="img-fluid rounded" />
         </div>
 
     </div>

@@ -8,7 +8,7 @@ namespace XArbete.Domain.Models
 {
     public class HotelBooking
     {
-        public int ID { get; set; }
+        public int HotelBookingId { get; set; }
  
         public DateTimeOffset From { get; set; }
 

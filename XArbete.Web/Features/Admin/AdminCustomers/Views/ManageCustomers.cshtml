@@ -5,12 +5,12 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="container">
-    <div class="table-wrapper">
+<div class="container"> 
+    <div class="table-wrapper" style="width:80%">
         <div class="table-title">
             <div class="row">
                 <div class="col-sm-4">
-                    <h2>@Model.Title</h2>
+                    <h4>@Model.Title</h4>
                 </div>
                 <div class="col-sm-4">
                     <form class="form-inline md-form form-sm mt-0">
@@ -26,7 +26,7 @@
             </div>
             </div>
         </div>
-        <div id="AllCustomers">
+        <div id="AllCustomers" style="width:80%">
             @await Html.PartialAsync("Customers", Model)
         </div>
     </div>
@@ -35,7 +35,7 @@
 
 <!-- Add customer Modal  -->
 <div id="addEmployeeModal" class="modal fade">
-    @await Html.PartialAsync("AddAdminModal", Model.RegisterViewModel)
+    @await Html.PartialAsync("AddNewCustomerModal", Model.RegisterViewModel)
 </div>
 
 <!-- Delete custmoer Modal  -->

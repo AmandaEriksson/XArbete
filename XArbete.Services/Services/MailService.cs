@@ -65,7 +65,7 @@ namespace XArbete.Services.Services
             body.AppendLine($"<h1><strong> Välkommen! </strong></h1>");
             body.AppendLine($"<small>({customer.Email})</small>");
 
-            await Execute(customer.Email, subject, body, $"{booking.ID}.pdf");
+            await Execute(customer.Email, subject, body, $"{booking.HotelBookingId}.pdf");
         }
 
         public async Task CreatePdfContent(HotelBooking booking)
@@ -121,7 +121,7 @@ namespace XArbete.Services.Services
                     pdfDoc.Close();
 
                     byte[] bytes = memoryStream.ToArray();
-                    File.WriteAllBytes($@"Content/Invoices/{booking.ID}.pdf", bytes);
+                    File.WriteAllBytes($@"Content/Invoices/{booking.HotelBookingId}.pdf", bytes);
 
                     memoryStream.Close();
                 }

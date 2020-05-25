@@ -15,22 +15,22 @@
         @foreach (var dog in Model)
         {
             <tr>
-                <td class="thedogid" hidden>@dog.ID</td>
+                <td class="thedogid" hidden>@dog.PuppyId</td>
                 <td contenteditable="true" class="puppy editor" spellcheck="false">@dog.Name</td>
                 <td>@dog.Sex</td>
                 <td>@dog.Img</td>
                 <td>
                     @if (dog.Sold)
                     {
-                        <input type="checkbox" class="form-control puppySold" checked data-id="@dog.ID" />
+                        <input type="checkbox" class="form-control puppySold" checked data-id="@dog.PuppyId" />
                     }
                     else
                     {
-                        <input type="checkbox" class="form-control puppySold" data-id="@dog.ID" />
+                        <input type="checkbox" class="form-control puppySold" data-id="@dog.PuppyId" />
                     }
                 </td>
                 <td>
-                    <a href="#deletePuppy" class="delete deletepuppyaction" data-toggle="modal" data-id="@dog.ID" data-groupid="@dog.PuppyGroupId">
+                    <a href="#deletePuppy" class="delete deletepuppyaction" data-toggle="modal" data-id="@dog.PuppyId" data-groupid="@dog.PuppyGroupId">
                         <i class="material-icons" data-toggle="tooltip" title="Radera">
                             clear
                         </i>

@@ -38,7 +38,7 @@ namespace XArbete.Web.Features.Admin.AdminBookings.Controllers
             vm.HotelBookings = _mapper.Map<List<HotelBookingViewModel>>(_dogHotelService.GetAll());
             foreach (var booking in vm.HotelBookings)
             {
-                booking.Dog = _mapper.Map<CustomerDogViewModel>(_customerDogService.GetSingle(a => a.ID == booking.DogID));
+                booking.Dog = _mapper.Map<CustomerDogViewModel>(_customerDogService.GetSingle(a => a.CustomerDogId == booking.DogID));
             }
             //var prev = vm.HotelBookings.Where(a => DateTime.Parse(a.To) < DateTime.Now).ToList();
             return View("ManageBookings", vm);

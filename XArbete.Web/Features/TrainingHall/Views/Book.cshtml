@@ -1,7 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Boka våran träningshall";
 }
+
 @model string
+  
 <div class="container" style="margin-top:100px">
 
     <div class="row">
@@ -9,36 +11,46 @@
             <h2>@ViewData["Title"]</h2>
             <hr>
             <p>Här kan du boka träningshallen! Glöm inte att läsa våra <a asp-controller='TrainingHall' asp-action='PriceInfo'>trivselregler</a> innan du använder hallen</p>
+            <!-- Button trigger modal -->
+            <div id='calendar' class="example z-depth-5" style="background-color:whitesmoke"></div>
 
+        
         </div>
 
     </div>
     <!-- /.row -->
-    <div id='calendar'></div>
+    @*<div id='calendar' style="background-color:whitesmoke"></div>*@
     <br /><br />
 </div>
-
+<style>
+    #calendar h2{
+        color:black;
+    }
+</style>
 <!-- /.container -->
-<link href='~/fullcalendar-4.3.1/packages/core/main.css' rel='stylesheet' />
-<link href='~/fullcalendar-4.3.1/packages/daygrid/main.css' rel='stylesheet' />
-<link href="~/fullcalendar-4.3.1/packages/timegrid/main.css" rel="stylesheet" />
-<link href="~/fullcalendar-4.3.1/packages/bootstrap/main.css" rel="stylesheet" />
+<link href='~/fullcalendar-4.4.0/packages/core/main.css' rel='stylesheet' />
+<link href='~/fullcalendar-4.4.0/packages/daygrid/main.css' rel='stylesheet' />
+<link href="~/fullcalendar-4.4.0/packages/timegrid/main.css" rel="stylesheet" />
+<link href="~/fullcalendar-4.4.0/packages/bootstrap/main.css" rel="stylesheet" />
 
-<script src='~/fullcalendar-4.3.1/packages/core/main.js'></script>
-<script src='~/fullcalendar-4.3.1/packages/daygrid/main.js'></script>
-<script src="~/fullcalendar-4.3.1/packages/bootstrap/main.js"></script>
+<script src='~/fullcalendar-4.4.0/packages/core/main.js'></script>
+<script src='~/fullcalendar-4.4.0/packages/daygrid/main.js'></script>
+<script src="~/fullcalendar-4.4.0/packages/bootstrap/main.js"></script>
 
-<script src='~/fullcalendar-4.3.1/packages/interaction/main.js'></script>
-<script src="~/fullcalendar-4.3.1/packages/timegrid/main.js"></script>
-<script src="~/fullcalendar-4.3.1/packages/list/main.js"></script>
-<link href="~/fullcalendar-4.3.1/packages/list/main.css" rel="stylesheet" />
-<script src="~/fullcalendar-4.3.1/packages/core/locales/sv.js"></script>
+<script src='~/fullcalendar-4.4.0/packages/interaction/main.js'></script>
+<script src="~/fullcalendar-4.4.0/packages/timegrid/main.js"></script>
+<script src="~/fullcalendar-4.4.0/packages/list/main.js"></script>
+<link href="~/fullcalendar-4.4.0/packages/list/main.css" rel="stylesheet" />
+<script src="~/fullcalendar-4.4.0/packages/core/locales/sv.js"></script>
+
 
 <script>
+
+
     document.addEventListener('DOMContentLoaded', function () {
 
         var calendarEl = document.getElementById('calendar');
-
+        debugger;
         var calendar = new FullCalendar.Calendar(calendarEl, {
             plugins: ['timeGrid', 'interaction', 'bootstrap'],
             themeSystem: 'bootstrap',
@@ -56,12 +68,12 @@
             },
             slotLabelFormat: { hour: 'numeric', minute: '2-digit', hour12: false },
             slotMinutes: 60,
-            slotDuration: '01:00:00',
+            slotDuration: '00:30:00',
             firstDay: 1,
             locale: 'sv',
             selectOverlap: false,
             height: 'auto',
-            contentHeight: 1000,
+            contentHeight: 1500,
             weekNumbers: true,
             select: function (selectionInfo) {
                 if (!confirm("Vill du spara denna bokning?")) {

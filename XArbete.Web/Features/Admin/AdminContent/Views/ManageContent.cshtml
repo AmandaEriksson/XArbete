@@ -8,11 +8,11 @@
 <div class="container">
     <!-- DOGS -->
 
-    <div class="table-wrapper">
+    <div class="table-wrapper" style="width:80%">
         <div class="table-title">
             <div class="row">
                 <div class="col-sm-6">
-                    <h2>@Model.Title</h2>
+                    <h4>@Model.Title</h4>
                 </div>
                 <div class="col-sm-6">
 
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="hotelTab" role="tabpanel" aria-labelledby="hotelTab" style="opacity:0,5">
-                @await Html.PartialAsync("_ContentsTab", Model.KennelContents.Where(a => XArbete.Services.Utils.Constants.ContentConstants.HallPriceContent.Contains(a.Type)))
+                @await Html.PartialAsync("_ContentsTab", Model.KennelContents.Where(a => XArbete.Services.Utils.Constants.ContentConstants.HotelContents.Contains(a.Type)))
             </div>
         </div>
 

@@ -1,85 +1,89 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-
-
-}
-<br />
+﻿
 
 <br />
-
+<br />
 <!-- Page Content -->
-<div class="container" style="margin-top:100px">
+<div class="container">
+    <hr />
 
     <div class="row">
-        <div class="col-md-8 mb-5">
+        <div class="col-md-12 mb-5">
             <h2>My Funny Friends</h2>
             <hr>
+
             <p>Vi är ett företag som bedriver kennel och uppfödning av Bichon Havanais och norsk gråhund. </p>
             <p>Vi har även ett hundpensionat i hemmamiljö samt en stor träningshall att boka för eget bruk eller gruppträning.</p>
+            <br />
+            @*<a class="btn btn-light btn-lg" asp-controller="DogHotel" asp-action="Book">Boka pensionat &raquo;</a>
+            <a class="btn btn-light btn-lg" asp-controller="TrainingHall" asp-action="Book">Boka hallen &raquo;</a>*@
 
-            <a class="btn btn-primary btn-sm" asp-controller="DogHotel" asp-action="Book">Boka pensionat &raquo;</a>
-            <a class="btn btn-primary btn-sm" asp-controller="TrainingHall" asp-action="Book">Boka hallen &raquo;</a>
 
+            <div class="row">
+                <div class="col">
+                    <div class="view overlay">
+                        <img src="~/img/hundpensionat.jpg" class="img-fluid rounded hoverable sideContentImg  z-depth-4  " alt="Hundpensionat">
+                        <div class="mask flex-center">
+                            <a asp-controller="DogHotel" asp-action="Index" style="bottom:1px; "><h5>Till hundpensionat  <i class="fas fa-arrow-right"></i></h5></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="view overlay">
+                        <img src="~/img/hundhall.jpg" class="img-fluid rounded hoverable sideContentImg  z-depth-4  " alt="Hundhall">
+                        <div class="mask flex-center">
+                            <a asp-controller="TrainingHall" asp-action="Index" style="bottom:1px;"><h5>Till hundhall  <i class="fas fa-arrow-right"></i></h5></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="view overlay">
+                        <img src="~/img/vaplar.jpg" class="img-fluid rounded hoverable sideContentImg  z-depth-4 " alt="Valpar">
+                        <div class="mask flex-center ">
+                            <a asp-controller="Kennel" asp-action="Index" style="bottom:1px ;"><h5>Till kennel <i class="fas fa-arrow-right"></i></h5></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4 mb-5">
-            <h2>Kontakta oss</h2>
-            <hr>
-            <address>
-                <strong>My Funny Friends</strong>
-                <br>Haga 2
-                <br>Söderbärke, 777 93
-                <br>
-            </address>
-            <address>
-                <abbr title="Phone">P:</abbr>
-                076 322 26 01
-                <br>
-                <abbr title="Email">E:</abbr>
-                <a href="mailto:#">myfunnyfriends@info.com</a>
-            </address>
-        </div>
+
     </div>
-    <!-- /.row -->
-
-    <div class="row">
-        <div class="col-md-4 mb-5">
-            <div class="card h-100">
-                <img class="card-img-top" src="~/img/vaplar.jpg" alt="bild på valpar" style="max-height:232px;">
-                <div class="card-body">
-                    <h4 class="card-title">Kenneln</h4>
-                    <p class="card-text">Vi föder upp Bichon Havanais och gråhund. Vi har en kull om året för respektive. Hör av dig för information om kölista.</p>
-                </div>
-                <div class="card-footer">
-                    <a asp-controller="Kennel" asp-action="Index" class="btn btn-primary">Till kenneln</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-5">
-            <div class="card h-100">
-                <img class="card-img-top" src="~/img/hundpensionat.jpg" alt="bild på gården">
-                <div class="card-body">
-                    <h4 class="card-title">Hundpensionat</h4>
-                    <p class="card-text">Vi bedriver ett hundpensionat i hemmamiljö. Här bor hundarna tillsammans eller enskilda i en inomhusbyggnad i olika rum med uteplatser. </p>
-                </div>
-                <div class="card-footer">
-                    <a asp-controller="DogHotel" asp-action="Index" class="btn btn-primary">Till hundpensionatet</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-5">
-            <div class="card h-100">
-                <img class="card-img-top" src="~/img/hundhall.jpg" alt="bild på träningshallen">
-                <div class="card-body">
-                    <h4 class="card-title">Träningshall</h4>
-                    <p class="card-text">Vi har en stor träningshall på gården att boka för enskilda eller gruppträningar. Kolla under Boka fliken för att se kalendern</p>
-                </div>
-                <div class="card-footer">
-                    <a asp-controller="TrainingHall" asp-action="Index" class="btn btn-primary">Till träningshallen</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /.row -->
 
 </div>
 <!-- /.container -->
+<style>
+    #sideContent {
+        float: left;
+        width: 200px;
+        height: 300px;
+        margin-top: 5%;
+        margin-left: 5%;
+        z-index: 1;
+        position: fixed;
+    }
+
+    .img-fluid {
+        cursor: pointer;
+    }
+
+    .sideContentImg {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        height: 180px;
+        opacity: .9;
+        cursor: pointer;
+        margin-bottom: 5px;
+    }
+
+        .sideContentImg:hover {
+            opacity: 1.5;
+        }
+
+    .view {
+        cursor: pointer;
+    }
+
+        .view:hover .img-fluid {
+            opacity: .7
+        }
+</style>

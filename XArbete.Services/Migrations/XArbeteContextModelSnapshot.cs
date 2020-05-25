@@ -217,7 +217,7 @@ namespace XArbete.Services.Migrations
 
             modelBuilder.Entity("XArbete.Domain.Models.Content", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("ContentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -240,14 +240,14 @@ namespace XArbete.Services.Migrations
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("ContentId");
 
                     b.ToTable("Contents");
                 });
 
             modelBuilder.Entity("XArbete.Domain.Models.ContentSection", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ContentSectionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -261,14 +261,14 @@ namespace XArbete.Services.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("ContentSectionId");
 
                     b.ToTable("ContentSections");
                 });
 
             modelBuilder.Entity("XArbete.Domain.Models.Course", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CourseId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -297,14 +297,14 @@ namespace XArbete.Services.Migrations
                     b.Property<int>("RepeatingForWeeks")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("CourseId");
 
                     b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("XArbete.Domain.Models.Customer", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("CustomerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -324,14 +324,14 @@ namespace XArbete.Services.Migrations
                     b.Property<string>("Number")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("CustomerId");
 
                     b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("XArbete.Domain.Models.CustomerCourse", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CustomerCourseId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -345,14 +345,14 @@ namespace XArbete.Services.Migrations
                     b.Property<int>("DogId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("CustomerCourseId");
 
                     b.ToTable("CustomerCourses");
                 });
 
             modelBuilder.Entity("XArbete.Domain.Models.CustomerDog", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("CustomerDogId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -375,14 +375,14 @@ namespace XArbete.Services.Migrations
                     b.Property<string>("Sex")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("CustomerDogId");
 
                     b.ToTable("CustomerDogs");
                 });
 
             modelBuilder.Entity("XArbete.Domain.Models.GuestBookComment", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("GuestBookCommentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -396,14 +396,14 @@ namespace XArbete.Services.Migrations
                     b.Property<string>("WrittenBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("GuestBookCommentId");
 
                     b.ToTable("GuestbookComments");
                 });
 
             modelBuilder.Entity("XArbete.Domain.Models.HotelBooking", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("HotelBookingId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -438,14 +438,14 @@ namespace XArbete.Services.Migrations
                     b.Property<bool>("Training")
                         .HasColumnType("bit");
 
-                    b.HasKey("ID");
+                    b.HasKey("HotelBookingId");
 
                     b.ToTable("HotelBookings");
                 });
 
             modelBuilder.Entity("XArbete.Domain.Models.KennelDog", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("KennelDogId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -468,14 +468,14 @@ namespace XArbete.Services.Migrations
                     b.Property<string>("Sex")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("KennelDogId");
 
                     b.ToTable("KennelDogs");
                 });
 
             modelBuilder.Entity("XArbete.Domain.Models.Puppy", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("PuppyId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -495,14 +495,14 @@ namespace XArbete.Services.Migrations
                     b.Property<bool>("Sold")
                         .HasColumnType("bit");
 
-                    b.HasKey("ID");
+                    b.HasKey("PuppyId");
 
                     b.ToTable("Puppies");
                 });
 
             modelBuilder.Entity("XArbete.Domain.Models.PuppyGroup", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("PuppyGroupId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -513,26 +513,26 @@ namespace XArbete.Services.Migrations
                     b.Property<DateTimeOffset>("DateOfBirth")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("FatherID")
+                    b.Property<int>("FatherKennelDogID")
                         .HasColumnType("int");
 
                     b.Property<string>("GroupName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MotherID")
+                    b.Property<int>("MotherKennelDogId")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.HasKey("ID");
+                    b.HasKey("PuppyGroupId");
 
                     b.ToTable("PuppyGroups");
                 });
 
             modelBuilder.Entity("XArbete.Domain.Models.TrainingHallBooking", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("TrainingHallBookingId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -552,7 +552,7 @@ namespace XArbete.Services.Migrations
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("ID");
+                    b.HasKey("TrainingHallBookingId");
 
                     b.ToTable("TrainingHallBookings");
                 });

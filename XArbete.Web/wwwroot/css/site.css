@@ -147,6 +147,8 @@ body {
 }
 
 .card-body.ourDogs{
-    min-height: 250px;
+    height:150px !important;
 }
+
+
 

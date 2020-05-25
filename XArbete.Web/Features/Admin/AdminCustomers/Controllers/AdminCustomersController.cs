@@ -64,7 +64,7 @@ namespace XArbete.Web.Features.Admin.AdminCustomers.Controllers
         }
         public async Task<IActionResult> DeleteCustomer(int id)
         {
-            var user = await _customerService.GetSingleAsync(a => a.ID == id);
+            var user = await _customerService.GetSingleAsync(a => a.CustomerId == id);
 
             var bookingsCount = await _traininghallService.DeleteCustomerBookings(id);
             await _traininghallService.CommitAsync();

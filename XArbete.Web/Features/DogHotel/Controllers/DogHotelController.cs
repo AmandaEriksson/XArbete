@@ -2,10 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using XArbete.Domain.Models;
+using XArbete.Services.Utils.Constants;
 using XArbete.Services.Utils.Services;
+using XArbete.Web.Features.Admin.AdminContent.ViewModels;
 using XArbete.Web.Features.Customer.ViewModels;
 using XArbete.Web.Features.DogHotel.ViewModels;
 using XArbete.Web.Services.Interfaces;
@@ -23,6 +26,8 @@ namespace XArbete.Web.Features.DogHotel.Controllers
         private readonly ICustomerService _customerService;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        readonly IContentService _contentService;
+
 
 
         public DogHotelController(IToastNotification toastNotification,
@@ -31,6 +36,8 @@ namespace XArbete.Web.Features.DogHotel.Controllers
             ICustomerDogService dogService,
             ICustomerService customerService,
             IUserService userservice,
+                        IContentService contentservice,
+
             IMapper mapper)
         {
             _toastNotification = toastNotification;
@@ -40,10 +47,14 @@ namespace XArbete.Web.Features.DogHotel.Controllers
             _customerService = customerService;
             _userService = userservice;
             _mapper = mapper;
+            _contentService = contentservice;
+
         }
         public IActionResult Index()
         {
-            return View();
+            var model = _mapper.Map<ContentViewModel>(_contentService.GetSingle(a => a.Type == ContentConstants.HotelAbout));
+            model.Section = _mapper.Map<List<ContentSectionViewModel>>(_contentService.GetSections(model.ContentId));
+            return View(model);
         }
         public async Task<IActionResult> Book()
         {
@@ -52,14 +63,16 @@ namespace XArbete.Web.Features.DogHotel.Controllers
             if (await _userService.IsSignedIn(User))
             {
                 var cust = await _customerService.GetSingleAsync(a => a.Email == User.Identity.Name);
-                model.Dogs = _dogService.GetMany(a => a.CustomerID == cust.ID).Select(a => _mapper.Map<CustomerDogViewModel>(a));
+                model.Dogs = _dogService.GetMany(a => a.CustomerID == cust.CustomerId).Select(a => _mapper.Map<CustomerDogViewModel>(a));
             }
 
             return View(model);
         }
         public IActionResult PriceInfo()
         {
-            return View();
+            var model = _mapper.Map<ContentViewModel>(_contentService.GetSingle(a => a.Type == ContentConstants.HotelPrice));
+            model.Section = _mapper.Map<List<ContentSectionViewModel>>(_contentService.GetSections(model.ContentId));
+            return View(model);
         }
 
         [HttpPost]
@@ -69,7 +82,7 @@ namespace XArbete.Web.Features.DogHotel.Controllers
             var dog = _dogService.GetById(booking.DogID);
             var customer = _customerService.GetSingleAsync(a => a.Email == User.Identity.Name).Result;
             var book = _mapper.Map<HotelBooking>(booking);
-            book.CustomerID = customer.ID;
+            book.CustomerID = customer.CustomerId;
             book.Price = PriceCalculationService.HotelPriceCalculation(book);
             _bookingService.Create(book);
             await _bookingService.CommitAsync();

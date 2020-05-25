@@ -6,7 +6,7 @@ namespace XArbete.Domain.Models
 {
     public class GuestBookComment
     {
-        public int ID { get; set; }
+        public int GuestBookCommentId { get; set; }
 
         public string WrittenBy { get; set; }
 

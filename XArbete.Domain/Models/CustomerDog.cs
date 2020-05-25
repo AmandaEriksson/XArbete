@@ -7,7 +7,7 @@ namespace XArbete.Domain.Models
 {
     public class CustomerDog
     {
-        public int ID { get; set; }
+        public int CustomerDogId { get; set; }
 
         [ForeignKey("Customer")]
         public int CustomerID { get; set; }

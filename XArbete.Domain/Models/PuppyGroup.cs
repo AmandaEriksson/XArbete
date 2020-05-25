@@ -7,11 +7,11 @@ namespace XArbete.Domain.Models
 {
     public class PuppyGroup
     {
-        public int ID { get; set; }
+        public int PuppyGroupId { get; set; }
 
-        public int FatherID { get; set; }
+        public int FatherKennelDogID { get; set; }
 
-        public int MotherID { get; set; }
+        public int MotherKennelDogId { get; set; }
 
         public string GroupName { get; set; }
 

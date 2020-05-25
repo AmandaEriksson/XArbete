@@ -17,21 +17,21 @@
                 <label asp-for="@Model.PuppyGroup.DateOfBirth">Födelsedatum</label>
                 <input class="form-control" id="puppy-group-born" asp-for="@Model.PuppyGroup.DateOfBirth" autocomplete="off" required />
                 <br />
-                <label asp-for="@Model.PuppyGroup.FatherID">Far</label>
-                <select class="form-control breed-dropdown" asp-for="@Model.PuppyGroup.FatherID" id="puppy-group-father" required>
+                <label asp-for="@Model.PuppyGroup.FatherKennelDogId">Far</label>
+                <select class="form-control breed-dropdown" asp-for="@Model.PuppyGroup.FatherKennelDogId" id="puppy-group-father" required>
                     <option selected disabled label="Välj" value=""> </option>
                     @foreach (var dog in Model.Dogs.Where(a => a.Sex == "Hane"))
                     {
-                        <option value="@dog.ID">@dog.Name (@dog.Breed)</option>
+                        <option value="@dog.KennelDogId">@dog.Name (@dog.Breed)</option>
                     }
                 </select>
                 <br />
-                <label asp-for="@Model.PuppyGroup.MotherID">Mor</label>
-                <select class="form-control breed-dropdown" asp-for="@Model.PuppyGroup.MotherID" id="puppy-group-mother" required>
+                <label asp-for="@Model.PuppyGroup.MotherKennelDogId">Mor</label>
+                <select class="form-control breed-dropdown" asp-for="@Model.PuppyGroup.MotherKennelDogId" id="puppy-group-mother" required>
                     <option selected disabled label="Välj" value=""> </option>
                     @foreach (var dog in Model.Dogs.Where(a => a.Sex == "Tik"))
                     {
-                        <option value="@dog.ID">@dog.Name (@dog.Breed)</option>
+                        <option value="@dog.KennelDogId">@dog.Name (@dog.Breed)</option>
                     }
                 </select><br />
             </div>

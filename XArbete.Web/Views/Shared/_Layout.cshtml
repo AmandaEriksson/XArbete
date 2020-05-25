@@ -7,7 +7,6 @@
 <html lang="sv-se">
 
 <head>
-    @await Component.InvokeAsync("NToastNotify")
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,20 +17,19 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="~/datetimepicker/jquery.datetimepicker.full.js"></script>
-    <script src="~/js/site.js"></script>
+
 
     <link rel="stylesheet" type="text/css" href="~/datetimepicker/jquery.datetimepicker.min.css" />
 
-    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    @*@<link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />*@
     <link href="~/css/site.css" rel="stylesheet" />
     <link href="~/css/modal-styles.css" rel="stylesheet" />
-    @*//toggle checkboxes*@
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+    <link href="~/css/styles.css" rel="stylesheet" />
+
+    @*//toggle checkboxes
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>*@
 
 
     @* footer *@
@@ -40,21 +38,34 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/css/mdb.min.css" rel="stylesheet">
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">*@
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+
+    <script src="~/datetimepicker/jquery.datetimepicker.full.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 </head>
+<body id="body">
 
-<body>
+
+    @*<div id="content">
+            @RenderBody()
+
+        </div>*@
     <div id="belowbody">
-        <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="background-image:url(/img/footer.jpg); background-size:contain; background-repeat:repeat">
-
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar" style="background-color:hsla(120,100%,15%,0.3)">
             <div class="container">
-                <img src="~/img/love-the-dog-paw-print-window-decoration.jpg" style="width:80px;height:80px;" alt="paw-print" />
-                <a class="navbar-brand" href="#">My Funny Friends</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto" style="color:white;">
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Index">
                                 Hem
@@ -65,9 +76,7 @@
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" asp-controller="Kennel" asp-action="AboutDogs">Om raserna</a>
                                 <a class="dropdown-item" asp-controller="Kennel" asp-action="OurDogs">Våra hundar</a>
-                                <a class="dropdown-item" asp-controller="Kennel" asp-action="ActivePuppies">Aktiva valpkullar</a>
-                                <a class="dropdown-item" asp-controller="Kennel" asp-action="EarlierPuppies">Tidigare valpkullar</a>
-                                <a class="dropdown-item" asp-controller="Kennel" asp-action="PlannedPuppies">Planerade valpkullar</a>
+                                <a class="dropdown-item" asp-controller="Kennel" asp-action="PuppyGroups">Valpkullar</a>
                                 <a class="dropdown-item" asp-controller="Kennel" asp-action="BuyPuppy">Att köpa valp</a>
                             </div>
                         </li>
@@ -95,16 +104,13 @@
                                 <a class="dropdown-item" asp-controller="About" asp-action="Contact">Kontakt</a>
                             </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="GuestBook" asp-action="Index">Gästbok</a>
-                        </li>
-                        @if (User.IsInRole("Customer"))
+                        @if (User.IsInRole("CUSTOMER"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Customer" asp-action="Index">Mina sidor</a>
                             </li>
                         }
-                        @if (User.IsInRole("Administrator"))
+                        @if (User.IsInRole("ADMINISTRATOR"))
                         {
                             <li class="nav-item">
                                 <a style="color:lightblue" class="nav-link" asp-controller="AdminCustomers" asp-action="ManageCustomers"><b>Admin</b></a>
@@ -121,108 +127,100 @@
                         else
                         {
                             <li class="nav-item" style="float:right">
-                                <a href="#" data-toggle="modal" data-target="#login" class="nav-link">Logga in</a>
+                                <a href="#" data-toggle="modal" data-target="#basicExampleModal" class="nav-link">Logga in</a>
+                            </li>
+                            <li class="nav-item" style="float:right">
                                 <a href="#" data-toggle="modal" data-target="#register" class="nav-link">Registrera</a>
                             </li>
+
                         }
                     </ul>
                 </div>
+
+
+
             </div>
         </nav>
+        <div id="content">
+            @RenderBody()
 
-        @RenderBody()
+        </div>
 
+        @*@RenderBody()*@
 
-        <!-- Footer -->
-        <footer class="page-footer font-small mdb-color lighten-3 pt-4">
-            <div class="container text-center text-md-left">
-                <div class="row">
-                    <div class="col-md-4 col-lg-3 mr-auto my-md-4 my-0 mt-4 mb-1">
-                        <h5 class="font-weight-bold text-uppercase mb-4">My Funny Friends</h5>
-                        <ul class="list-unstyled">
-                            <li>
-                                <p>
-                                    <a href="#!">Kenneln</a>
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    <a href="#!">Hundpensionat</a>
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    <a href="#!">Träningshall</a>
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    <a href="#!">Hitta hit</a>
-                                </p>
-                            </li>
-                        </ul>
-
-                    </div>
-                    <hr class="clearfix w-100 d-md-none">
-                    <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
-                    </div>
-                    <hr class="clearfix w-100 d-md-none">
-                    <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
-                        <h5 class="font-weight-bold text-uppercase mb-4">Kontakt</h5>
-
-                        <ul class="list-unstyled">
-                            <li>
-                                <p>
-                                    <i class="fas fa-home mr-3"></i> Haga 2, 72465 Söderbärke
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    <i class="fas fa-envelope mr-3"></i> myfunnyfriends@info.com
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    <i class="fas fa-phone mr-3"></i> 076-322 26 01
-                                </p>
-                            </li>
-                        </ul>
-
-                    </div>
-                    <hr class="clearfix w-100 d-md-none">
-                    <div class="col-md-2 col-lg-2 text-center mx-auto my-4">
-
-                        <!-- Social buttons -->
-                        <h5 class="font-weight-bold text-uppercase mb-4">Följ oss</h5>
-
-                        <!-- Facebook -->
-                        <a href="#" class="btn-floating btn-fb">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <!-- Twitter -->
-                        <a href="#" class="btn-floating btn-tw">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <!-- Google +-->
-                        <a href="#" class="btn-floating btn-gplus">
-                            <i class="fab fa-google-plus-g"></i>
-                        </a>
-                        <!-- Dribbble -->
-                        <a href="#" class="btn-floating btn-dribbble">
-                            <i class="fab fa-dribbble"></i>
-                        </a>
-
-                    </div>
-                </div>
-            </div>
-        </footer>
     </div>
 
+
+    <!-- Footer -->
+    <footer class="page-footer small font-small fixed-bottom" style="background-color:hsla(120,100%,15%,0.3); background-position:bottom; height: 150px;">
+        <div class="container text-center text-md-left">
+            <div class="row">
+                <div class="col-md-4 col-lg-3 mr-auto my-md-4 my-0 mt-4 mb-1 small">
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <p>
+                                <i class="fas fa-home mr-3"></i> Haga 2, 72465 Söderbärke
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="fas fa-envelope mr-3"></i> myfunnyfriends@info.com
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="fas fa-phone mr-3"></i> 076-322 26 01
+                            </p>
+                        </li>
+                    </ul>
+
+
+                </div>
+                <hr class="clearfix w-100 d-md-none">
+                <div class="col-md-2 col-lg-2 mx-auto my-md-4 my-0 mt-4 mb-1">
+                </div>
+                <hr class="clearfix w-100 d-md-none">
+                <div class="col-md-4 col-lg-3 mx-auto my-md-4 my-0 mt-4 mb-1">
+                    
+                </div>
+                <hr class="clearfix w-100 d-md-none">
+                <div class="col-md-2 col-lg-2 text-center mx-auto my-4">
+
+                    <!-- Social buttons -->
+                    <h6 class="font-weight-bold text-uppercase mb-3">Följ oss</h6>
+
+                    <!-- Facebook -->
+                    <a href="#" class="btn-floating btn-fb">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <!-- Twitter -->
+                    <a href="#" class="btn-floating btn-tw">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <!-- Google +-->
+                    <a href="#" class="btn-floating btn-gplus">
+                        <i class="fab fa-google-plus-g"></i>
+                    </a>
+                    <!-- Dribbble -->
+                    <a href="#" class="btn-floating btn-dribbble">
+                        <i class="fab fa-dribbble"></i>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </footer>
 
 
 
     <!-- LOGIN MODAL-->
+    <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        @await Html.PartialAsync("LoginModal", Model)
 
+
+    </div>
     <div id="login" class="modal fade" role="dialog">
         @await Html.PartialAsync("LoginModal", Model)
     </div>
@@ -240,3 +238,60 @@
 
 </body>
 </html>
+<style>
+    p, h1, h2, h3, h4, h5, h6, small, b, strong, address {
+        color: white;
+    }
+    .sideContentImg {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        height: 150px;
+        opacity: .8;
+        cursor: pointer;
+        margin-bottom: 5px;
+    }
+    .sideContentImg:hover{
+          opacity: 1.5;
+    }
+    .view{
+        cursor:pointer;
+    }
+
+    .view:hover .img-fluid {
+        opacity: .7
+    }
+    #body {
+        background-image: url("https://mdbootstrap.com/img/Photos/Others/img%20%2848%29.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        z-index: 1000;
+        background-attachment: fixed;
+    }
+    .img-fluid{
+        cursor:pointer;
+    }
+    #content {
+        margin-left: 20%;
+        margin-top: 2%;
+        position: absolute;
+        margin-bottom: 150px;
+    }
+  
+ 
+    footer a:hover{
+    font-size:17px;
+
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $(".dropdown-trigger").dropdown();
+
+    });
+
+    $(document).ready(function () {
+        $('.sidenav').sidenav();
+    });
+</script>

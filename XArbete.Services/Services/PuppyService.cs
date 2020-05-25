@@ -14,7 +14,7 @@ namespace XArbete.Services.Services
 
         public void ChangeStatus(int id, bool status)
         {
-            var pup = GetSingle(a => a.ID == id);
+            var pup = GetSingle(a => a.PuppyId == id);
 
             pup.Sold = status;
         }

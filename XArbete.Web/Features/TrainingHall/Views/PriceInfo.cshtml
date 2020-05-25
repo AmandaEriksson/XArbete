@@ -7,46 +7,14 @@
 <div class="container" style="margin-top:100px">
 
     <div class="row">
-        <div class="col-md-6 mb-5">
+        <div class="col-md-12 mb-5">
             <h2>@Model.PriceInfo.Name</h2>
             <p>@Model.PriceInfo.Description</p>
             <hr>
-            @foreach (var sec in Model.PriceInfo.Section)
-            {
-                if (sec.Title != null)
-                {
-                    <br />
-                    <h5>
-                        @sec.Title
-                    </h5>
-
-                }
-
-                <p>
-                    @sec.Section
-                </p>
-            }
+            <img src="~/img/hallen.jpg" class="img-fluid rounded" />
 
 
-        </div>
-        <div class="col-md-6 mb-5">
-            <br /><br /> <br />
-            <img src="~/img/@Model.PriceInfo.Img" class="img-fluid" />
 
-        </div>
-        <div class="col-md-6 mb-5">
-            <h2>@Model.ComfortRules.Name</h2><hr /><br />
-            <ul>
-                @foreach (var sec in Model.ComfortRules.Section)
-                {
-                    <li>@sec.Section</li>
-                }
-            </ul>
-            <hr />
-        </div>
-        <div class="col-md-6 mb-5">
-            <br /><br /><br />
-            <img src="~/img/@Model.ComfortRules.Img" class="img-fluid" />
         </div>
 
     </div>

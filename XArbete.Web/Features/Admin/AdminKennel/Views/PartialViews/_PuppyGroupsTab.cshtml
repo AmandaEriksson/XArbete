@@ -21,28 +21,28 @@
             <tbody>
                 @foreach (var puppygroup in Model.PuppyGroups)
                 {
-                    var target = "#target" + @puppygroup.ID;
+                    var target = "#target" + @puppygroup.PuppyGroupId;
                 <tr style="cursor:pointer">
                     <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@puppygroup.GroupName</td>
                     <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@puppygroup.Breed</td>
-                    <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@puppygroup.FatherID</td>
-                    <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@puppygroup.MotherID</td>
+                    <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@puppygroup.FatherKennelDogId</td>
+                    <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@puppygroup.MotherKennelDogId</td>
                     <td data-toggle="collapse" data-target="@target" class="accordion-toggle">@DateTime.Parse(puppygroup.DateOfBirth).ToShortDateString()</td>
                     <td>
-                        <select class="form-control puppygroupstatus" id="@puppygroup.ID">
+                        <select class="form-control puppygroupstatus" id="@puppygroup.PuppyGroupId">
                             <option value="0" selected>Planerad</option>
                             <option value="1">Aktiv</option>
                             <option value="2">Tidigare</option>
                         </select>
 
                         <script>
-                                   $('#@puppygroup.ID').val('@puppygroup.Status');
+                                   $('#@puppygroup.PuppyGroupId').val('@puppygroup.Status');
                         </script>
 
                     </td>
 
                     <td>
-                        <a href="#deletePuppyGroup" class="delete" data-toggle="modal" data-id="@puppygroup.ID">
+                        <a href="#deletePuppyGroup" class="delete" data-toggle="modal" data-id="@puppygroup.PuppyGroupId">
                             <i class="material-icons" data-toggle="tooltip" title="Radera">
                                 clear
                             </i>
@@ -51,18 +51,18 @@
                 </tr>
                     <tr>
                         <td colspan="7" class="hiddenRow">
-                            @{ var targetid = "target" + @puppygroup.ID;
+                            @{ var targetid = "target" + @puppygroup.PuppyGroupId;
                             }
                             <div class="accordian-body collapse" id="@targetid">
                                 @{
-                                    var id = "puppies" + puppygroup.ID;
+                                    var id = "puppies" + puppygroup.PuppyGroupId;
                                 }
                                 <div id="@id">
 
-                                    @await Html.PartialAsync("_PuppuGroupPuppies.cshtml", Model.Puppies.Where(a => a.PuppyGroupId == puppygroup.ID))
+                                    @await Html.PartialAsync("_PuppuGroupPuppies.cshtml", Model.Puppies.Where(a => a.PuppyGroupId == puppygroup.PuppyGroupId))
 
                                 </div>
-                                <a href="addPuppy" data-toggle="modal" data-groupid="@puppygroup.ID" class="addPuppyEvent">Lägg till valp</a>
+                                <a href="addPuppy" data-toggle="modal" data-groupid="@puppygroup.PuppyGroupId" class="addPuppyEvent">Lägg till valp</a>
 
                             </div>
                         </td>
